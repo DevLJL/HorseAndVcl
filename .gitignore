@@ -27,6 +27,9 @@
 #
 
 # Delphi compiler-generated binaries (safe to delete)
+Vendor/
+output/
+env.ini
 *.exe
 *.dll
 *.bpl

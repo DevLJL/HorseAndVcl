@@ -1,0 +1,1493 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{9864AE94-6B74-48EF-8B08-69CA90204EC9}</ProjectGuid>
+        <ProjectVersion>19.5</ProjectVersion>
+        <FrameworkType>VCL</FrameworkType>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Console</AppType>
+        <MainSource>AREppRESTTest.dpr</MainSource>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Android' and '$(Base)'=='true') or '$(Base_Android)'!=''">
+        <Base_Android>true</Base_Android>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Android64' and '$(Base)'=='true') or '$(Base_Android64)'!=''">
+        <Base_Android64>true</Base_Android64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Base)'=='true') or '$(Base_iOSDevice64)'!=''">
+        <Base_iOSDevice64>true</Base_iOSDevice64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSSimARM64' and '$(Base)'=='true') or '$(Base_iOSSimARM64)'!=''">
+        <Base_iOSSimARM64>true</Base_iOSSimARM64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Linux64' and '$(Base)'=='true') or '$(Base_Linux64)'!=''">
+        <Base_Linux64>true</Base_Linux64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='OSX64' and '$(Base)'=='true') or '$(Base_OSX64)'!=''">
+        <Base_OSX64>true</Base_OSX64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='OSXARM64' and '$(Base)'=='true') or '$(Base_OSXARM64)'!=''">
+        <Base_OSXARM64>true</Base_OSXARM64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_E>false</DCC_E>
+        <DCC_N>false</DCC_N>
+        <DCC_S>false</DCC_S>
+        <DCC_F>false</DCC_F>
+        <DCC_K>false</DCC_K>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <UsingDelphiRTL>true</UsingDelphiRTL>
+        <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
+        <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
+        <DCC_UnitSearchPath>$(DUnitX);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <SanitizedProjectName>AREppRESTTest</SanitizedProjectName>
+        <DCC_Define>DUNITX;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Android)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;fmx;DbxCommonDriver;bindengine;IndyIPCommon;emsclient;IndyProtocols;Skia.Package.RTL;dbxcds;FmxTeeUI;FireDACSqliteDriver;DbxClientDriver;soapmidas;dbexpress;inet;FireDACDBXDriver;CustomIPTransport;IndySystem;ibxbindings;FireDACCommon;bindcompdbx;rtl;DBXSqliteDriver;DataSnapFireDAC;FireDAC;xmlrtl;ibxpress;dsnap;DataSnapNativeClient;FireDACCommonDriver;IndyIPClient;bindcompfmx;ibmonitor;fmxFireDAC;DataSnapCommon;fmxase;dbrtl;Skia.Package.FMX;DBXInterBaseDriver;bindcomp;IndyCore;RESTBackendComponents;RESTComponents;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;emsclientfiredac;FireDACDSDriver;tethering;CloudService;FMXTee;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+        <EnabledSysJars>activity-1.1.0.dex.jar;annotation-1.2.0.dex.jar;appcompat-1.2.0.dex.jar;appcompat-resources-1.2.0.dex.jar;asynclayoutinflater-1.0.0.dex.jar;billing-4.0.0.dex.jar;biometric-1.1.0.dex.jar;browser-1.0.0.dex.jar;cloud-messaging.dex.jar;collection-1.1.0.dex.jar;coordinatorlayout-1.0.0.dex.jar;core-1.5.0-rc02.dex.jar;core-common-2.1.0.dex.jar;core-runtime-2.1.0.dex.jar;cursoradapter-1.0.0.dex.jar;customview-1.0.0.dex.jar;documentfile-1.0.0.dex.jar;drawerlayout-1.0.0.dex.jar;firebase-annotations-16.0.0.dex.jar;firebase-common-20.0.0.dex.jar;firebase-components-17.0.0.dex.jar;firebase-datatransport-18.0.0.dex.jar;firebase-encoders-17.0.0.dex.jar;firebase-encoders-json-18.0.0.dex.jar;firebase-iid-interop-17.1.0.dex.jar;firebase-installations-17.0.0.dex.jar;firebase-installations-interop-17.0.0.dex.jar;firebase-measurement-connector-19.0.0.dex.jar;firebase-messaging-22.0.0.dex.jar;fmx.dex.jar;fragment-1.2.5.dex.jar;google-play-licensing.dex.jar;interpolator-1.0.0.dex.jar;javax.inject-1.dex.jar;legacy-support-core-ui-1.0.0.dex.jar;legacy-support-core-utils-1.0.0.dex.jar;lifecycle-common-2.2.0.dex.jar;lifecycle-livedata-2.0.0.dex.jar;lifecycle-livedata-core-2.2.0.dex.jar;lifecycle-runtime-2.2.0.dex.jar;lifecycle-service-2.0.0.dex.jar;lifecycle-viewmodel-2.2.0.dex.jar;lifecycle-viewmodel-savedstate-2.2.0.dex.jar;listenablefuture-1.0.dex.jar;loader-1.0.0.dex.jar;localbroadcastmanager-1.0.0.dex.jar;play-services-ads-20.1.0.dex.jar;play-services-ads-base-20.1.0.dex.jar;play-services-ads-identifier-17.0.0.dex.jar;play-services-ads-lite-20.1.0.dex.jar;play-services-base-17.5.0.dex.jar;play-services-basement-17.6.0.dex.jar;play-services-cloud-messaging-16.0.0.dex.jar;play-services-drive-17.0.0.dex.jar;play-services-games-21.0.0.dex.jar;play-services-location-18.0.0.dex.jar;play-services-maps-17.0.1.dex.jar;play-services-measurement-base-18.0.0.dex.jar;play-services-measurement-sdk-api-18.0.0.dex.jar;play-services-places-placereport-17.0.0.dex.jar;play-services-stats-17.0.0.dex.jar;play-services-tasks-17.2.0.dex.jar;print-1.0.0.dex.jar;room-common-2.1.0.dex.jar;room-runtime-2.1.0.dex.jar;savedstate-1.0.0.dex.jar;slidingpanelayout-1.0.0.dex.jar;sqlite-2.0.1.dex.jar;sqlite-framework-2.0.1.dex.jar;swiperefreshlayout-1.0.0.dex.jar;transport-api-3.0.0.dex.jar;transport-backend-cct-3.0.0.dex.jar;transport-runtime-3.0.0.dex.jar;user-messaging-platform-1.0.0.dex.jar;vectordrawable-1.1.0.dex.jar;vectordrawable-animated-1.1.0.dex.jar;versionedparcelable-1.1.1.dex.jar;viewpager-1.0.0.dex.jar;work-runtime-2.1.0.dex.jar</EnabledSysJars>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Android64)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;fmx;DbxCommonDriver;bindengine;IndyIPCommon;emsclient;IndyProtocols;Skia.Package.RTL;dbxcds;FmxTeeUI;FireDACSqliteDriver;DbxClientDriver;soapmidas;ACBr_PagFor;dbexpress;inet;FireDACDBXDriver;CustomIPTransport;ACBr_NFSeX;IndySystem;ACBr_NFSeXDanfseRL;ibxbindings;FireDACCommon;bindcompdbx;rtl;frce;DBXSqliteDriver;DataSnapFireDAC;FireDAC;xmlrtl;ibxpress;dsnap;DataSnapNativeClient;FireDACCommonDriver;IndyIPClient;bindcompfmx;ibmonitor;fmxFireDAC;DataSnapCommon;dbrtl;Skia.Package.FMX;DBXInterBaseDriver;bindcomp;IndyCore;RESTBackendComponents;RESTComponents;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;ACBr_Boleto;emsclientfiredac;FireDACDSDriver;tethering;ACBr_GTIN;CloudService;ACBr_OFX;FMXTee;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+        <EnabledSysJars>activity-1.1.0.dex.jar;annotation-1.2.0.dex.jar;appcompat-1.2.0.dex.jar;appcompat-resources-1.2.0.dex.jar;asynclayoutinflater-1.0.0.dex.jar;billing-4.0.0.dex.jar;biometric-1.1.0.dex.jar;browser-1.0.0.dex.jar;cloud-messaging.dex.jar;collection-1.1.0.dex.jar;coordinatorlayout-1.0.0.dex.jar;core-1.5.0-rc02.dex.jar;core-common-2.1.0.dex.jar;core-runtime-2.1.0.dex.jar;cursoradapter-1.0.0.dex.jar;customview-1.0.0.dex.jar;documentfile-1.0.0.dex.jar;drawerlayout-1.0.0.dex.jar;firebase-annotations-16.0.0.dex.jar;firebase-common-20.0.0.dex.jar;firebase-components-17.0.0.dex.jar;firebase-datatransport-18.0.0.dex.jar;firebase-encoders-17.0.0.dex.jar;firebase-encoders-json-18.0.0.dex.jar;firebase-iid-interop-17.1.0.dex.jar;firebase-installations-17.0.0.dex.jar;firebase-installations-interop-17.0.0.dex.jar;firebase-measurement-connector-19.0.0.dex.jar;firebase-messaging-22.0.0.dex.jar;fmx.dex.jar;fragment-1.2.5.dex.jar;google-play-licensing.dex.jar;interpolator-1.0.0.dex.jar;javax.inject-1.dex.jar;legacy-support-core-ui-1.0.0.dex.jar;legacy-support-core-utils-1.0.0.dex.jar;lifecycle-common-2.2.0.dex.jar;lifecycle-livedata-2.0.0.dex.jar;lifecycle-livedata-core-2.2.0.dex.jar;lifecycle-runtime-2.2.0.dex.jar;lifecycle-service-2.0.0.dex.jar;lifecycle-viewmodel-2.2.0.dex.jar;lifecycle-viewmodel-savedstate-2.2.0.dex.jar;listenablefuture-1.0.dex.jar;loader-1.0.0.dex.jar;localbroadcastmanager-1.0.0.dex.jar;play-services-ads-20.1.0.dex.jar;play-services-ads-base-20.1.0.dex.jar;play-services-ads-identifier-17.0.0.dex.jar;play-services-ads-lite-20.1.0.dex.jar;play-services-base-17.5.0.dex.jar;play-services-basement-17.6.0.dex.jar;play-services-cloud-messaging-16.0.0.dex.jar;play-services-drive-17.0.0.dex.jar;play-services-games-21.0.0.dex.jar;play-services-location-18.0.0.dex.jar;play-services-maps-17.0.1.dex.jar;play-services-measurement-base-18.0.0.dex.jar;play-services-measurement-sdk-api-18.0.0.dex.jar;play-services-places-placereport-17.0.0.dex.jar;play-services-stats-17.0.0.dex.jar;play-services-tasks-17.2.0.dex.jar;print-1.0.0.dex.jar;room-common-2.1.0.dex.jar;room-runtime-2.1.0.dex.jar;savedstate-1.0.0.dex.jar;slidingpanelayout-1.0.0.dex.jar;sqlite-2.0.1.dex.jar;sqlite-framework-2.0.1.dex.jar;swiperefreshlayout-1.0.0.dex.jar;transport-api-3.0.0.dex.jar;transport-backend-cct-3.0.0.dex.jar;transport-runtime-3.0.0.dex.jar;user-messaging-platform-1.0.0.dex.jar;vectordrawable-1.1.0.dex.jar;vectordrawable-animated-1.1.0.dex.jar;versionedparcelable-1.1.1.dex.jar;viewpager-1.0.0.dex.jar;work-runtime-2.1.0.dex.jar</EnabledSysJars>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_iOSDevice64)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;fmx;DbxCommonDriver;bindengine;IndyIPCommon;emsclient;IndyProtocols;Skia.Package.RTL;dbxcds;FmxTeeUI;FireDACSqliteDriver;DbxClientDriver;soapmidas;dbexpress;inet;FireDACDBXDriver;CustomIPTransport;ACBr_NFe;IndySystem;ACBr_Diversos;ibxbindings;ACBr_TEFD;ACBr_SPED;ACBr_CTe;ACBr_SATWS;FireDACCommon;ACBr_LCDPR;bindcompdbx;rtl;frce;DBXSqliteDriver;ACBr_Sintegra;ACBr_Serial;ACBr_MDFe;DataSnapFireDAC;FireDAC;xmlrtl;ibxpress;dsnap;DataSnapNativeClient;ACBr_PAF;FireDACCommonDriver;IndyIPClient;ACBr_Convenio115;bindcompfmx;ibmonitor;fmxFireDAC;ACBr_Ponto;DataSnapCommon;fmxase;dbrtl;Skia.Package.FMX;ACBr_NFSeDanfseRL;ACBr_NFSe;ACBre_Social;ACBr_ANe;ACBr_SATExtratoRL;DBXInterBaseDriver;ACBR_DeSTDA;bindcomp;IndyCore;RESTBackendComponents;RESTComponents;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;ACBr_Boleto;emsclientfiredac;FireDACDSDriver;ACBr_BlocoX;ACBr_SATExtratoESCPOS;tethering;CloudService;ACBr_OFX;ACBr_PAFNFCe;FMXTee;ACBr_NFeDanfeRL;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_iOSSimARM64)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;fmx;DbxCommonDriver;bindengine;IndyIPCommon;emsclient;IndyProtocols;dbxcds;FmxTeeUI;FireDACSqliteDriver;DbxClientDriver;soapmidas;dbexpress;inet;FireDACDBXDriver;CustomIPTransport;IndySystem;ibxbindings;FireDACCommon;bindcompdbx;rtl;DBXSqliteDriver;DataSnapFireDAC;FireDAC;xmlrtl;ibxpress;dsnap;DataSnapNativeClient;FireDACCommonDriver;IndyIPClient;bindcompfmx;ibmonitor;fmxFireDAC;DataSnapCommon;fmxase;dbrtl;DBXInterBaseDriver;bindcomp;IndyCore;RESTBackendComponents;RESTComponents;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;emsclientfiredac;FireDACDSDriver;tethering;CloudService;FMXTee;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Linux64)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;DataSnapServer;fmx;DbxCommonDriver;bindengine;FireDACCommonODBC;emsclient;IndyProtocols;Skia.Package.RTL;dbxcds;FireDACSqliteDriver;DbxClientDriver;soapmidas;ACBr_PagFor;dbexpress;inet;CustomIPTransport;FireDACMSSQLDriver;ACBr_NFSeX;IndySystem;ACBr_NFSeXDanfseRL;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;rtl;FireDACMySQLDriver;frce;DataSnapFireDAC;FireDAC;xmlrtl;dsnap;FireDACDb2Driver;DataSnapNativeClient;DatasnapConnectorsFreePascal;emshosting;FireDACCommonDriver;emsedge;inetdb;FireDACASADriver;FireDACInfxDriver;DataSnapCommon;dbrtl;FireDACOracleDriver;Skia.Package.FMX;DataSnapIndy10ServerTransport;DataSnapConnectors;FireDACMongoDBDriver;FireDACTDataDriver;bindcomp;IndyCore;RESTBackendComponents;FireDACADSDriver;RESTComponents;dsnapxml;DataSnapClient;ACBr_Boleto;emsclientfiredac;FireDACPgDriver;ACBr_GTIN;CloudService;ACBr_OFX;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_OSX64)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;DataSnapServer;fmx;DbxCommonDriver;bindengine;FireDACCommonODBC;IndyIPCommon;emsclient;IndyProtocols;Skia.Package.RTL;dbxcds;FmxTeeUI;DBXFirebirdDriver;FireDACSqliteDriver;DbxClientDriver;soapmidas;dbexpress;inet;FireDACDBXDriver;fmxdae;CustomIPTransport;FireDACMSSQLDriver;IndySystem;ibxbindings;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;bindcompdbx;rtl;FireDACMySQLDriver;frce;DBXSqliteDriver;DataSnapFireDAC;inetdbxpress;FireDAC;xmlrtl;ibxpress;dsnap;DBXOracleDriver;DBXInformixDriver;DataSnapNativeClient;fmxobj;FireDACCommonDriver;IndyIPClient;bindcompfmx;inetdb;ibmonitor;FireDACASADriver;fmxFireDAC;DBXMySQLDriver;DataSnapCommon;fmxase;dbrtl;FireDACOracleDriver;Skia.Package.FMX;DataSnapIndy10ServerTransport;DBXInterBaseDriver;FireDACMongoDBDriver;FireDACTDataDriver;bindcomp;IndyCore;RESTBackendComponents;RESTComponents;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;emsclientfiredac;FireDACPgDriver;FireDACDSDriver;tethering;DBXSybaseASADriver;CloudService;ACBr_OFX;FMXTee;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_OSXARM64)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;DataSnapServer;fmx;DbxCommonDriver;bindengine;FireDACCommonODBC;IndyIPCommon;emsclient;IndyProtocols;dbxcds;FmxTeeUI;DBXFirebirdDriver;FireDACSqliteDriver;DbxClientDriver;soapmidas;dbexpress;inet;FireDACDBXDriver;fmxdae;CustomIPTransport;FireDACMSSQLDriver;IndySystem;ibxbindings;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;bindcompdbx;rtl;FireDACMySQLDriver;DBXSqliteDriver;DataSnapFireDAC;inetdbxpress;FireDAC;xmlrtl;ibxpress;dsnap;DBXOracleDriver;DBXInformixDriver;DataSnapNativeClient;fmxobj;FireDACCommonDriver;IndyIPClient;bindcompfmx;inetdb;ibmonitor;FireDACASADriver;fmxFireDAC;DBXMySQLDriver;DataSnapCommon;fmxase;dbrtl;FireDACOracleDriver;DataSnapIndy10ServerTransport;DBXInterBaseDriver;FireDACMongoDBDriver;FireDACTDataDriver;bindcomp;IndyCore;RESTBackendComponents;RESTComponents;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;emsclientfiredac;FireDACPgDriver;FireDACDSDriver;tethering;DBXSybaseASADriver;CloudService;FMXTee;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;DataSnapServer;vclwinx;ACBr_BPeDabpeESCPOS;ACBr_TCP;ACBr_ONE;fmx;DbxCommonDriver;vclie;bindengine;VCLRESTComponents;FireDACCommonODBC;DBXMSSQLDriver;IndyIPCommon;emsclient;ACBr_OpenSSL;appanalytics;IndyProtocols;vclx;Skia.Package.RTL;dbxcds;vcledge;FmxTeeUI;ACBr_BoletoRL;DBXFirebirdDriver;ACBr_NFCeECFVirtual;JvAppFrm;FireDACSqliteDriver;DbxClientDriver;JclVcl;soapmidas;ACBr_NF3eDANF3eESCPOS;TeeUI;ACBr_PagFor;Jcl;dbexpress;JvManagedThreads;ACBr_Reinf;inet;vcltouch;JvDB;FireDACDBXDriver;fmxdae;JvCustom;CustomIPTransport;FireDACMSSQLDriver;JvSystem;ACBr_NFSeX;JvControls;ACBr_NFe;ACBr_CTeDacteRL;JvCrypt;JvJans;JvMM;IndySystem;ACBr_Diversos;ACBr_GNREGuiaRL;ACBr_NFSeXDanfseRL;ACBr_SAT;JvGlobus;ibxbindings;ACBr_CIOT;ACBr_TEFD;JclContainers;JvPageComps;vclFireDAC;ACBr_SPED;ACBr_CTe;ACBr_SATWS;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;ACBr_SEF2;ACBr_LCDPR;bindcompdbx;rtl;FireDACMySQLDriver;frce;ACBr_BPe;DBXSqliteDriver;ACBr_Sintegra;DBXSybaseASEDriver;JvRuntimeDesign;ACBr_Serial;ACBr_Comum;ACBr_MDFe;JvXPCtrls;ACBr_NFeDanfeESCPOS;vclimg;DataSnapFireDAC;inetdbxpress;FireDAC;JvDocking;JvDlgs;xmlrtl;ibxpress;dsnap;JvCmp;FireDACDb2Driver;DBXOracleDriver;DBXInformixDriver;vclib;ACBr_SATECFVirtual;DataSnapNativeClient;bindcompvclsmp;fmxobj;DatasnapConnectorsFreePascal;ACBr_NF3e;ACBr_PAF;ACBr_OpenDelivery;ACBr_SPEDImportar;emshosting;FireDACCommonDriver;ACBr_ADRCST;ACBr_MTER;IndyIPClient;bindcompvclwinx;ACBr_Convenio115;emsedge;bindcompfmx;JvBands;inetdb;ibmonitor;FireDACASADriver;ACBr_LFD;Tee;vclactnband;fmxFireDAC;FireDACInfxDriver;DBXMySQLDriver;VclSmp;ACBr_Ponto;DataSnapCommon;JvPascalInterpreter;fmxase;JvPluginSystem;DBXOdbcDriver;JvTimeFramework;dbrtl;FireDACOracleDriver;Skia.Package.FMX;ACBr_NFSeDanfseRL;ACBr_NFSe;TeeDB;ACBre_Social;FireDACMSAccDriver;DataSnapIndy10ServerTransport;JclDeveloperTools;DataSnapConnectors;ACBr_ANe;ACBr_SATExtratoRL;vcldsnap;DBXInterBaseDriver;FireDACMongoDBDriver;JvWizards;ACBR_DeSTDA;ACBr_GNRE;ACBr_EDI;FireDACTDataDriver;Skia.Package.VCL;vcldb;ACBr_Integrador;ACBr_PIXCD;JvCore;bindcomp;IndyCore;RESTBackendComponents;FireDACADSDriver;RESTComponents;IndyIPServer;vcl;adortl;dsnapxml;dsnapcon;DataSnapClient;DataSnapProviderClient;JvDotNetCtrls;JvHMI;ACBr_MDFeDamdfeRL;DBXDb2Driver;ACBr_Boleto;emsclientfiredac;FireDACPgDriver;FireDACDSDriver;JvPrintPreview;ACBr_BlocoX;ACBr_SATExtratoESCPOS;tethering;JvStdCtrls;bindcompvcl;ACBr_GTIN;DBXSybaseASADriver;CloudService;ACBr_OFX;ACBr_PAFNFCe;FMXTee;ACBr_NFeDanfeRL;soaprtl;soapserver;JvNet;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>(None)</Manifest_File>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+        <DCC_UnitSearchPath>..\Vendor\ZLConnection;..\Vendor\DataSetSerialize\src;..\Vendor\XSuperObject;..\Vendor\Horse\src;..\Vendor\GbSwagger\Source\Core;..\Vendor\GbSwagger\Source\Datasnap;..\Vendor\GbSwagger\Source\Horse;..\Vendor\GbSwagger\Source\Resources;..\Vendor\GbSwagger\Source\Validator;..\Vendor\SmartPointer\src;..\Vendor\HorseJwt\src;..\Vendor\DelphiJoseJwt\Source\Common;..\Vendor\DelphiJoseJwt\Source\JOSE;..\Vendor\Either\src;..\Vendor\QuotedStr\src;..\Vendor\Faker\src;..\Vendor\RESTRequest4D\src;..\Vendor\HorseCompression\src;..\Vendor\HorseCors\src;..\Vendor\HorseETag\src;..\Vendor\HorseLogger\src;..\Vendor\HorseLoggerProviderConsole\src;..\Vendor\HorseOctetStream\src;..\Vendor\HorseRateLimit\src;..\Vendor\HorseUtilsClientIp\src;..\Vendor\Store\src;..\Vendor\Jhonson\src;..\Vendor\SendEmail\src;..\Vendor\QuickLib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_ExeOutput>.\Output\TestDist</DCC_ExeOutput>
+        <DCC_DcpOutput>.\Output\TestDcu</DCC_DcpOutput>
+        <DCC_DcuOutput>.\Output\TestDcu</DCC_DcuOutput>
+        <DCC_Define>APPREST;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <DCC_UsePackage>FireDACIBDriver;DataSnapServer;vclwinx;fmx;DbxCommonDriver;vclie;bindengine;VCLRESTComponents;FireDACCommonODBC;DBXMSSQLDriver;IndyIPCommon;emsclient;appanalytics;IndyProtocols;vclx;Skia.Package.RTL;dbxcds;vcledge;FmxTeeUI;DBXFirebirdDriver;FireDACSqliteDriver;DbxClientDriver;soapmidas;TeeUI;dbexpress;inet;vcltouch;FireDACDBXDriver;fmxdae;CustomIPTransport;FireDACMSSQLDriver;IndySystem;ibxbindings;vclFireDAC;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;bindcompdbx;rtl;FireDACMySQLDriver;DBXSqliteDriver;DBXSybaseASEDriver;vclimg;DataSnapFireDAC;inetdbxpress;FireDAC;xmlrtl;ibxpress;dsnap;FireDACDb2Driver;DBXOracleDriver;DBXInformixDriver;vclib;DataSnapNativeClient;bindcompvclsmp;fmxobj;DatasnapConnectorsFreePascal;emshosting;FireDACCommonDriver;IndyIPClient;bindcompvclwinx;emsedge;bindcompfmx;inetdb;ibmonitor;FireDACASADriver;Tee;vclactnband;fmxFireDAC;FireDACInfxDriver;DBXMySQLDriver;VclSmp;DataSnapCommon;fmxase;DBXOdbcDriver;dbrtl;FireDACOracleDriver;Skia.Package.FMX;TeeDB;FireDACMSAccDriver;DataSnapIndy10ServerTransport;DataSnapConnectors;vcldsnap;DBXInterBaseDriver;FireDACMongoDBDriver;FireDACTDataDriver;Skia.Package.VCL;vcldb;bindcomp;IndyCore;RESTBackendComponents;FireDACADSDriver;RESTComponents;IndyIPServer;vcl;adortl;dsnapxml;dsnapcon;DataSnapClient;DataSnapProviderClient;DBXDb2Driver;emsclientfiredac;FireDACPgDriver;FireDACDSDriver;tethering;bindcompvcl;DBXSybaseASADriver;CloudService;FMXTee;soaprtl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+        <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+        <DCC_RangeChecking>true</DCC_RangeChecking>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_RemoteDebug>false</DCC_RemoteDebug>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="Config\uEnv.Rest.pas"/>
+        <DCCReference Include="Config\uConnection.Factory.pas"/>
+        <DCCReference Include="Config\uConnMigration.pas"/>
+        <DCCReference Include="Shared\Repository\uBase.Repository.Interfaces.pas"/>
+        <DCCReference Include="Shared\Repository\uBase.Repository.pas"/>
+        <DCCReference Include="Shared\Repository\uRepository.Factory.pas"/>
+        <DCCReference Include="Shared\Entity\uBase.Entity.pas"/>
+        <DCCReference Include="Shared\Entity\uFilter.pas"/>
+        <DCCReference Include="Shared\Entity\uFilter.Types.pas"/>
+        <DCCReference Include="Shared\Entity\uIndexResult.pas"/>
+        <DCCReference Include="Shared\Entity\uSelectWithFilter.pas"/>
+        <DCCReference Include="Shared\Entity\uValidation.Interfaces.pas"/>
+        <DCCReference Include="Shared\Util\uHlp.pas"/>
+        <DCCReference Include="Config\uMemTable.Factory.pas"/>
+        <DCCReference Include="Config\uAppRest.Types.pas"/>
+        <DCCReference Include="Shared\Resources\uTrans.pas"/>
+        <DCCReference Include="Shared\Exception\uEntityValidation.Exception.pas"/>
+        <DCCReference Include="Config\uApplication.Exception.pas"/>
+        <DCCReference Include="Shared\DTO\uBase.DTO.pas"/>
+        <DCCReference Include="Shared\DTO\uBase.Filter.DTO.pas"/>
+        <DCCReference Include="Config\uMyClaims.pas"/>
+        <DCCReference Include="Shared\DTO\uResponse.DTO.pas"/>
+        <DCCReference Include="Shared\Mapper\uMapper.Interfaces.pas"/>
+        <DCCReference Include="Shared\SQLBuilder\uBase.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Shared\SQLBuilder\uSQLBuilder.Factory.pas"/>
+        <DCCReference Include="Shared\DataFactory\uBase.DataFactory.pas"/>
+        <DCCReference Include="Config\uBase.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_08_09_20_CreateAclRoleTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_08_09_55_CreateAclUserTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_10_11_14_CreateBrandTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_08_09_21_AclRole.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_08_09_56_AclUser.seeder.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\Mapper\uAclRole.Mapper.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\DTO\uAclRole.Show.DTO.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\DTO\uAclRole.Input.DTO.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\Filter\uAclRole.Filter.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\Filter\uAclRole.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\UseCase\uAclRole.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\SQLBuilder\uAclRole.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\SQLBuilder\uAclRole.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\Repository\uAclRole.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\Repository\uAclRole.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\Domain\Entity\uAclRole.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\Mapper\uAclUser.Mapper.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\DTO\uAclUser.Show.DTO.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\SQLBuilder\uAclUser.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\UseCase\uAclUser.Auth.UseCase.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\DTO\uAclUser.Input.DTO.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\Domain\Entity\uAclUser.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\DTO\uAclUser.Login.DTO.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\Filter\uAclUser.Filter.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\DTO\uAclUser.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\UseCase\uAclUser.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\UseCase\uAclUser.Login.UseCase.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\SQLBuilder\uAclUser.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\Repository\uAclUser.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\Repository\uAclUser.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Brand\Test\uBrand.Test.pas"/>
+        <DCCReference Include="Module\Stock\Brand\Mapper\uBrand.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\Brand\Domain\Entity\uBrand.pas"/>
+        <DCCReference Include="Module\Stock\Brand\Repository\uBrand.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Brand\DTO\uBrand.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Brand\DTO\uBrand.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Brand\SQLBuilder\uBrand.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\Brand\Filter\uBrand.Filter.pas"/>
+        <DCCReference Include="Module\Stock\Brand\DTO\uBrand.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Brand\UseCase\uBrand.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\Brand\SQLBuilder\uBrand.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Brand\Repository\uBrand.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Brand\DataFactory\uBrand.DataFactory.pas"/>
+        <DCCReference Include="Module\Stock\Category\Mapper\uCategory.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\Category\SQLBuilder\uCategory.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\Category\UseCase\uCategory.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\Category\Test\uCategory.Test.pas"/>
+        <DCCReference Include="Module\Stock\Category\Repository\uCategory.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Category\Repository\uCategory.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Category\SQLBuilder\uCategory.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Category\Filter\uCategory.Filter.pas"/>
+        <DCCReference Include="Module\Stock\Category\Domain\Entity\uCategory.pas"/>
+        <DCCReference Include="Module\Stock\Category\DTO\uCategory.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Category\DTO\uCategory.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Category\DataFactory\uCategory.DataFactory.pas"/>
+        <DCCReference Include="Module\Stock\Category\DTO\uCategory.Filter.DTO.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_07_10_00_CreateStationTable.Migration.pas"/>
+        <DCCReference Include="Module\General\Station\SQLBuilder\uStation.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\Station\DataFactory\uStation.DataFactory.pas"/>
+        <DCCReference Include="Module\General\Station\DTO\uStation.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\Station\Mapper\uStation.Mapper.pas"/>
+        <DCCReference Include="Module\General\Station\Domain\Entity\uStation.pas"/>
+        <DCCReference Include="Module\General\Station\Test\uStation.Test.pas"/>
+        <DCCReference Include="Module\General\Station\Repository\uStation.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\Station\DTO\uStation.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\Station\UseCase\uStation.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\Station\SQLBuilder\uStation.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Station\Filter\uStation.Filter.pas"/>
+        <DCCReference Include="Module\General\Station\Repository\uStation.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Station\DTO\uStation.Filter.DTO.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_11_23_13_CreateCityTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_07_10_01_Station.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_11_23_14_City.seeder.pas"/>
+        <DCCReference Include="Module\General\City\SQLBuilder\uCity.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\City\Mapper\uCity.Mapper.pas"/>
+        <DCCReference Include="Module\General\City\UseCase\uCity.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\City\Test\uCity.Test.pas"/>
+        <DCCReference Include="Module\General\City\Repository\uCity.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\City\Repository\uCity.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\City\SQLBuilder\uCity.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\City\Filter\uCity.Filter.pas"/>
+        <DCCReference Include="Module\General\City\Domain\Entity\uCity.pas"/>
+        <DCCReference Include="Module\General\City\DTO\uCity.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\City\DTO\uCity.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\City\DTO\uCity.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\City\DataFactory\uCity.DataFactory.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_11_23_35_CreateCompanyTable.Migration.pas"/>
+        <DCCReference Include="Module\General\Company\SQLBuilder\uCompany.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\Company\Mapper\uCompany.Mapper.pas"/>
+        <DCCReference Include="Module\General\Company\UseCase\uCompany.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\Company\Test\uCompany.Test.pas"/>
+        <DCCReference Include="Module\General\Company\Repository\uCompany.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Company\SQLBuilder\uCompany.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Company\Repository\uCompany.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\Company\Filter\uCompany.Filter.pas"/>
+        <DCCReference Include="Module\General\Company\Domain\Entity\uCompany.pas"/>
+        <DCCReference Include="Module\General\Company\DTO\uCompany.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\Company\DTO\uCompany.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\Company\DataFactory\uCompany.DataFactory.pas"/>
+        <DCCReference Include="Module\General\Company\DTO\uCompany.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\Company\Domain\DomainService\uCompany.BeforeSave.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_12_00_00_CreatePersonTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_12_00_01_CreatePersonContactTable.Migration.pas"/>
+        <DCCReference Include="Module\General\Person\Mapper\uPerson.Mapper.pas"/>
+        <DCCReference Include="Module\General\Person\SQLBuilder\uPerson.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\Person\UseCase\uPerson.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\Person\Test\uPerson.Test.pas"/>
+        <DCCReference Include="Module\General\Person\SQLBuilder\uPerson.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Person\Repository\uPerson.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Person\Repository\uPerson.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\Person\Filter\uPerson.Filter.pas"/>
+        <DCCReference Include="Module\General\Person\Domain\Entity\uPerson.pas"/>
+        <DCCReference Include="Module\General\Person\DTO\uPerson.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\Person\DTO\uPerson.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\Person\DataFactory\uPerson.DataFactory.pas"/>
+        <DCCReference Include="Module\General\Person\DTO\uPerson.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\Person\DTO\uPersonContact.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\Person\Domain\Entity\uPersonContact.pas"/>
+        <DCCReference Include="Module\General\Person\Domain\Types\uPerson.Types.pas"/>
+        <DCCReference Include="Module\General\Person\Domain\DomainService\uPerson.BeforeSave.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_12_32_CreateUnitTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\Unit\SQLBuilder\uUnit.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\Unit\Mapper\uUnit.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\Unit\UseCase\uUnit.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\Unit\Test\uUnit.Test.pas"/>
+        <DCCReference Include="Module\Stock\Unit\SQLBuilder\uUnit.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Unit\Repository\uUnit.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Unit\Repository\uUnit.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Unit\Filter\uUnit.Filter.pas"/>
+        <DCCReference Include="Module\Stock\Unit\Domain\Entity\uUnit.pas"/>
+        <DCCReference Include="Module\Stock\Unit\DTO\uUnit.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Unit\DTO\uUnit.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Unit\DTO\uUnit.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Unit\DataFactory\uUnit.DataFactory.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_13_46_CreateNcmTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\Mapper\uNcm.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\SQLBuilder\uNcm.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\UseCase\uNcm.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\Test\uNcm.Test.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\SQLBuilder\uNcm.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\Repository\uNcm.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\Repository\uNcm.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\Filter\uNcm.Filter.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\Domain\Entity\uNcm.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\DTO\uNcm.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\DTO\uNcm.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\DTO\uNcm.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\DataFactory\uNcm.DataFactory.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_17_56_CreateCategoryTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_18_00_CreateSizeTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\Size\SQLBuilder\uSize.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\Size\Mapper\uSize.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\Size\UseCase\uSize.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\Size\Test\uSize.Test.pas"/>
+        <DCCReference Include="Module\Stock\Size\Repository\uSize.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Size\SQLBuilder\uSize.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Size\Repository\uSize.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Size\Filter\uSize.Filter.pas"/>
+        <DCCReference Include="Module\Stock\Size\Domain\Entity\uSize.pas"/>
+        <DCCReference Include="Module\Stock\Size\DTO\uSize.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Size\DTO\uSize.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Size\DTO\uSize.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Size\DataFactory\uSize.DataFactory.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_18_19_CreateStorageLocationTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\SQLBuilder\uStorageLocation.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\Mapper\uStorageLocation.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\UseCase\uStorageLocation.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\Test\uStorageLocation.Test.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\Repository\uStorageLocation.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\SQLBuilder\uStorageLocation.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\Filter\uStorageLocation.Filter.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\Repository\uStorageLocation.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\DTO\uStorageLocation.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\DTO\uStorageLocation.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\Domain\Entity\uStorageLocation.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\DTO\uStorageLocation.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\DataFactory\uStorageLocation.DataFactory.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_18_26_CreateProductTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\Product\DataFactory\uProduct.DataFactory.pas"/>
+        <DCCReference Include="Module\Stock\Product\Test\uProduct.Test.pas"/>
+        <DCCReference Include="Module\Stock\Product\UseCase\uProduct.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\Product\Mapper\uProduct.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\Product\Domain\Entity\uProduct.pas"/>
+        <DCCReference Include="Module\Stock\Product\Repository\uProduct.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Product\DTO\uProduct.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Product\DTO\uProduct.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Product\SQLBuilder\uProduct.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\Product\Filter\uProduct.Filter.pas"/>
+        <DCCReference Include="Module\Stock\Product\DTO\uProduct.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Product\SQLBuilder\uProduct.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Product\Repository\uProduct.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Product\Domain\Types\uProduct.Types.pas"/>
+        <DCCReference Include="Module\Stock\Product\Domain\DomainService\uProduct.BeforeSave.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_21_41_CreateBankTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_12_33_Unit.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_13_47_Ncm.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_18_01_Size.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_21_42_Bank.seeder.pas"/>
+        <DCCReference Include="Module\Financial\Bank\UseCase\uBank.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Financial\Bank\Test\uBank.Test.pas"/>
+        <DCCReference Include="Module\Financial\Bank\Repository\uBank.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Financial\Bank\SQLBuilder\uBank.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\Bank\SQLBuilder\uBank.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Financial\Bank\Filter\uBank.Filter.pas"/>
+        <DCCReference Include="Module\Financial\Bank\Mapper\uBank.Mapper.pas"/>
+        <DCCReference Include="Module\Financial\Bank\Repository\uBank.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\Bank\DTO\uBank.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Bank\DTO\uBank.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Bank\Domain\Entity\uBank.pas"/>
+        <DCCReference Include="Module\Financial\Bank\DTO\uBank.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Bank\DataFactory\uBank.DataFactory.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_21_57_CreateCostCenterTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_22_03_CreateBankAccountTable.Migration.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\DTO\uCostCenter.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\Test\uCostCenter.Test.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\SQLBuilder\uCostCenter.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\DataFactory\uCostCenter.DataFactory.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\Domain\Entity\uCostCenter.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\Mapper\uCostCenter.Mapper.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\UseCase\uCostCenter.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\Repository\uCostCenter.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\SQLBuilder\uCostCenter.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\Filter\uCostCenter.Filter.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\Repository\uCostCenter.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\DTO\uCostCenter.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\DTO\uCostCenter.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\SQLBuilder\uBankAccount.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\Mapper\uBankAccount.Mapper.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\UseCase\uBankAccount.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\Test\uBankAccount.Test.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\SQLBuilder\uBankAccount.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\Repository\uBankAccount.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\Repository\uBankAccount.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\Filter\uBankAccount.Filter.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\Domain\Entity\uBankAccount.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\DTO\uBankAccount.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\DataFactory\uBankAccount.DataFactory.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\DTO\uBankAccount.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\DTO\uBankAccount.Input.DTO.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_22_04_BankAccount.seeder.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\UseCase\uChartOfAccount.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\Test\uChartOfAccount.Test.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\SQLBuilder\uChartOfAccount.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\SQLBuilder\uChartOfAccount.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\Mapper\uChartOfAccount.Mapper.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\Repository\uChartOfAccount.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\Repository\uChartOfAccount.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\Filter\uChartOfAccount.Filter.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\DTO\uChartOfAccount.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\Domain\Entity\uChartOfAccount.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\DTO\uChartOfAccount.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\DataFactory\uChartOfAccount.DataFactory.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\DTO\uChartOfAccount.Filter.DTO.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_22_30_CreateChartOfAccountTable.Migration.pas">
+            <Form>/ As vezes o uTestLoad.View da declaração das units acima é removido automaticamente</Form>
+        </DCCReference>
+        <DCCReference Include="Module\General\Person\DTO\uPersonContact.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Payment\SQLBuilder\uPayment.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Financial\Payment\Mapper\uPayment.Mapper.pas"/>
+        <DCCReference Include="Module\Financial\Payment\Repository\uPayment.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Financial\Payment\Domain\Entity\uPaymentTerm.pas"/>
+        <DCCReference Include="Module\Financial\Payment\UseCase\uPayment.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Financial\Payment\Test\uPayment.Test.pas"/>
+        <DCCReference Include="Module\Financial\Payment\SQLBuilder\uPayment.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\Payment\Filter\uPayment.Filter.pas"/>
+        <DCCReference Include="Module\Financial\Payment\Repository\uPayment.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\Payment\Domain\Entity\uPayment.pas"/>
+        <DCCReference Include="Module\Financial\Payment\DataFactory\uPayment.DataFactory.pas"/>
+        <DCCReference Include="Module\Financial\Payment\DTO\uPayment.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Payment\DTO\uPayment.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Payment\DTO\uPayment.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Payment\DTO\uPaymentTerm.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\Payment\DTO\uPaymentTerm.Show.DTO.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_15_19_20_CreatePaymentTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_15_19_20_CreatePaymentTermTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_15_19_21_Payment.seeder.pas">
+            <Form>/ As vezes o uTestLoad.View da declaração das units acima é removido automaticamente</Form>
+        </DCCReference>
+        <DCCReference Include="Config\Migrations\u2023_02_16_14_31_CreateSaleTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_16_14_32_CreateSaleItemTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_16_14_33_CreateSalePaymentTable.Migration.pas"/>
+        <DCCReference Include="Module\Business\Sale\SQLBuilder\uSale.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Business\Sale\Mapper\uSale.Mapper.pas"/>
+        <DCCReference Include="Module\Business\Sale\Repository\uSale.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Business\Sale\Domain\Entity\uSaleItem.pas"/>
+        <DCCReference Include="Module\Business\Sale\DTO\uSaleItem.Show.DTO.pas"/>
+        <DCCReference Include="Module\Business\Sale\UseCase\uSale.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Business\Sale\Test\uSale.Test.pas"/>
+        <DCCReference Include="Module\Business\Sale\SQLBuilder\uSale.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Business\Sale\Repository\uSale.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Business\Sale\Filter\uSale.Filter.pas"/>
+        <DCCReference Include="Module\Business\Sale\DTO\uSale.Input.DTO.pas"/>
+        <DCCReference Include="Module\Business\Sale\Domain\Entity\uSale.pas"/>
+        <DCCReference Include="Module\Business\Sale\DataFactory\uSale.DataFactory.pas"/>
+        <DCCReference Include="Module\Business\Sale\DTO\uSale.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Business\Sale\DTO\uSale.Show.DTO.pas"/>
+        <DCCReference Include="Module\Business\Sale\DTO\uSaleItem.Input.DTO.pas"/>
+        <DCCReference Include="Module\Business\Sale\Domain\Types\uSale.Types.pas"/>
+        <DCCReference Include="Module\Business\Sale\Domain\Entity\uSalePayment.pas"/>
+        <DCCReference Include="Module\Business\Sale\Domain\DomainService\uSale.BeforeSave.pas"/>
+        <DCCReference Include="Module\Business\Sale\DTO\uSalePayment.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\SQLBuilder\uBillPayReceive.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\Mapper\uBillPayReceive.Mapper.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\UseCase\uBillPayReceive.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\Test\uBillPayReceive.Test.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\Repository\uBillPayReceive.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\SQLBuilder\uBillPayReceive.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\Repository\uBillPayReceive.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\Filter\uBillPayReceive.Filter.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\Domain\Entity\uBillPayReceive.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\DTO\uBillPayReceive.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\DTO\uBillPayReceive.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\DTO\uBillPayReceive.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\DataFactory\uBillPayReceive.DataFactory.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\Domain\Types\uBillPayReceive.Types.pas"/>
+        <DCCReference Include="Module\Business\Sale\DTO\uSalePayment.Show.DTO.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_21_07_48_CreateBillPayReceiveTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_26_12_47_CreateConsumptionTable.Migration.pas"/>
+        <DCCReference Include="Module\General\Consumption\UseCase\uConsumption.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\Consumption\Test\uConsumption.Test.pas"/>
+        <DCCReference Include="Module\General\Consumption\Repository\uConsumption.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\Consumption\SQLBuilder\uConsumption.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Consumption\SQLBuilder\uConsumption.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\Consumption\Filter\uConsumption.Filter.pas"/>
+        <DCCReference Include="Module\General\Consumption\Mapper\uConsumption.Mapper.pas"/>
+        <DCCReference Include="Module\General\Consumption\Repository\uConsumption.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Consumption\DataFactory\uConsumption.DataFactory.pas"/>
+        <DCCReference Include="Module\General\Consumption\DTO\uConsumption.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\Consumption\DTO\uConsumption.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\Consumption\Domain\Entity\uConsumption.pas"/>
+        <DCCReference Include="Module\General\Consumption\DTO\uConsumption.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\Consumption\Filter\uConsumptionSale.Filter.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_03_06_13_01_CreateCashFlowTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_03_06_13_02_CreateCashFlowTransactionTable.Migration.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\SQLBuilder\uCashFlow.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Mapper\uCashFlow.Mapper.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Repository\uCashFlow.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Domain\Entity\uCashFlowTransaction.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\DTO\uCashFlowTransaction.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\UseCase\uCashFlow.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Test\uCashFlow.Test.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\SQLBuilder\uCashFlow.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Repository\uCashFlow.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Filter\uCashFlow.Filter.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Domain\Entity\uCashFlow.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\DTO\uCashFlow.Show.DTO.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\DataFactory\uCashFlow.DataFactory.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\DTO\uCashFlow.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\DTO\uCashFlow.Input.DTO.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\DTO\uCashFlowTransaction.Input.DTO.pas">
+            <Form>/ As vezes o uTestLoad.View da declaração das units acima é removido automaticamente</Form>
+        </DCCReference>
+        <DCCReference Include="Module\Business\Sale\UseCase\uSale.GenerateBilling.UseCase.pas"/>
+        <DCCReference Include="Config\uTestConnection.pas"/>
+        <DCCReference Include="Module\Business\Sale\Domain\DomainService\uSale.GenerateBillReceivesBySale.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\Domain\Types\uCashFlowTransaction.Types.pas"/>
+        <DCCReference Include="Module\Business\Sale\Domain\DomainService\uSale.GenerateCashFlowTransactionsBySale.pas"/>
+        <DCCReference Include="Module\Business\Sale\Facade\uSaleGenerateBillingRepositories.pas">
+            <Form>/ As vezes o uTestLoad.View da declaração das units acima é removido automaticamente</Form>
+        </DCCReference>
+        <DCCReference Include="Shared\Resources\uTrans.Sale.pas"/>
+        <DCCReference Include="Shared\Resources\uTrans.Types.pas">
+            <Form>/ As vezes o uTestLoad.View da declaração das units acima é removido automaticamente</Form>
+        </DCCReference>
+        <DCCReference Include="Module\Business\Sale\UseCase\uSale.PdfReport.UseCase.pas"/>
+        <DCCReference Include="Shared\Util\uOutPutFileStream.pas"/>
+        <DCCReference Include="Shared\Report\uBase.Report.pas">
+            <Form>BaseReport</Form>
+        </DCCReference>
+        <DCCReference Include="Module\Business\Sale\Report\uSale.Report.pas">
+            <Form>SaleReport</Form>
+        </DCCReference>
+        <DCCReference Include="Module\Auth\AclRole\Domain\Types\uAclRole.Types.pas"/>
+        <DCCReference Include="Module\Auth\AclRole\UseCase\uAclRole.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Auth\AclUser\UseCase\uAclUser.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\Bank\UseCase\uBank.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\BankAccount\UseCase\uBankAccount.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\BillPayReceive\UseCase\uBillPayReceive.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\CashFlow\UseCase\uCashFlow.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Category\UseCase\uCategory.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\ChartOfAccount\UseCase\uChartOfAccount.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\City\UseCase\uCity.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Company\UseCase\uCompany.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Consumption\UseCase\uConsumption.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\CostCenter\UseCase\uCostCenter.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Ncm\UseCase\uNcm.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Financial\Payment\UseCase\uPayment.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Person\UseCase\uPerson.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Product\UseCase\uProduct.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Business\Sale\UseCase\uSale.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Size\UseCase\uSize.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Station\UseCase\uStation.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\StorageLocation\UseCase\uStorageLocation.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Unit\UseCase\uUnit.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Brand\UseCase\uBrand.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\UseCase\uQueueEmail.SendPending.UseCase.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Domain\Entity\uQueueEmailAttachment.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Domain\Types\uQueueEmail.Types.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Repository\uQueueEmail.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\SQLBuilder\uQueueEmail.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Mapper\uQueueEmail.Mapper.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmailAttachment.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmailContact.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Domain\Entity\uQueueEmailContact.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\UseCase\uQueueEmail.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\UseCase\uQueueEmail.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Test\uQueueEmail.Test.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Repository\uQueueEmail.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\SQLBuilder\uQueueEmail.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Filter\uQueueEmail.Filter.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmailContact.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmail.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmail.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmail.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DataFactory\uQueueEmail.DataFactory.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\Domain\Entity\uQueueEmail.pas"/>
+        <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmailAttachment.Input.DTO.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_05_12_00_25_CreateQueueEmailTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_05_12_00_26_CreateQueueEmailAttachmentTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_05_12_00_27_CreateQueueEmailContactTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_11_23_35_Company.seeder.pas"/>
+        <DCCReference Include="Config\uCache.pas"/>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>Application</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">AREppRESTTest.dpr</Source>
+                </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k280.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp280.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Deployment Version="4">
+                <DeployFile LocalName="$(BDS)\Redist\iossimulator\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="iOSSimulator">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\iossimulator\libpcre.dylib" Class="DependencyModule">
+                    <Platform Name="iOSSimulator">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Output\TestDist\AREppRESTTest.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>AREppRESTTest.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployClass Name="AdditionalDebugSymbols">
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidClasses">
+                    <Platform Name="Android">
+                        <RemoteDir>classes</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>classes</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidFileProvider">
+                    <Platform Name="Android">
+                        <RemoteDir>res\xml</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\xml</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidGDBServer">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeArmeabiFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeArmeabiv7aFile">
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeMipsFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\mips</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\mips</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidServiceOutput">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\arm64-v8a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidServiceOutput_Android32">
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashImageDef">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStyles">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStylesV21">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_Colors">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_DefaultAppIcon">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon144">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon192">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon36">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-ldpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-ldpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon48">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon72">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon96">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon24">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon36">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon48">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon72">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_NotificationIcon96">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage426">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-small</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-small</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage470">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-normal</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-normal</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage640">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-large</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-large</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage960">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xlarge</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xlarge</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_Strings">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DebugSymbols">
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyFramework">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="DependencyPackage">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.bpl</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="File">
+                    <Platform Name="Android">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources\StartUp\</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\Resources\StartUp\</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\Resources\StartUp\</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectAndroidManifest">
+                    <Platform Name="Android">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXDebug">
+                    <Platform Name="OSX64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXEntitlements">
+                    <Platform Name="OSX32">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXInfoPList">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXResource">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="ProjectOutput">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\arm64-v8a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOutput_Android32">
+                    <Platform Name="Android64">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectUWPManifest">
+                    <Platform Name="Win32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice32">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice32">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSInfoPList">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSLaunchScreen">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSResource">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_DelphiLogo150">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_DelphiLogo44">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iOS_AppStore1024">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon152">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon167">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_SpotLight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon180">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification60">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting87">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimARM64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+            </Deployment>
+            <Platforms>
+                <Platform value="Android">False</Platform>
+                <Platform value="Android64">False</Platform>
+                <Platform value="iOSDevice64">False</Platform>
+                <Platform value="iOSSimARM64">False</Platform>
+                <Platform value="Linux64">False</Platform>
+                <Platform value="OSX64">False</Platform>
+                <Platform value="OSXARM64">False</Platform>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

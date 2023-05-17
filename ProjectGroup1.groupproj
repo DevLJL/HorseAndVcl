@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{273EBC8D-FB4D-41BD-8DA9-2FDB1FAB55DA}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="VCL\AREppVcl.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="REST\AREppREST.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="REST\AREppRESTTest.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="AREppVcl">
+        <MSBuild Projects="VCL\AREppVcl.dproj"/>
+    </Target>
+    <Target Name="AREppVcl:Clean">
+        <MSBuild Projects="VCL\AREppVcl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AREppVcl:Make">
+        <MSBuild Projects="VCL\AREppVcl.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AREppREST">
+        <MSBuild Projects="REST\AREppREST.dproj"/>
+    </Target>
+    <Target Name="AREppREST:Clean">
+        <MSBuild Projects="REST\AREppREST.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AREppREST:Make">
+        <MSBuild Projects="REST\AREppREST.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AREppRESTTest">
+        <MSBuild Projects="REST\AREppRESTTest.dproj"/>
+    </Target>
+    <Target Name="AREppRESTTest:Clean">
+        <MSBuild Projects="REST\AREppRESTTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AREppRESTTest:Make">
+        <MSBuild Projects="REST\AREppRESTTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="AREppVcl;AREppREST;AREppRESTTest"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="AREppVcl:Clean;AREppREST:Clean;AREppRESTTest:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="AREppVcl:Make;AREppREST:Make;AREppRESTTest:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
