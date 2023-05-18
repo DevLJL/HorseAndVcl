@@ -82,7 +82,7 @@ end;
 
 function TQueueEmailSendPendingUseCase.Execute: Integer;
 begin
-  FCompany := FCompanyRepository.Show(1); {Configura��o de envio do e-mail}
+  FCompany := FCompanyRepository.Show(1); {Configuração de envio do e-mail}
   ListEmailsPendingDelivery;              {Listar E-mails Pendentes}
   QueueEmailsPendingDelivery;             {Enviar E-mails Pendentes}
 
@@ -115,15 +115,15 @@ begin
     FCurrentQueueEmail := FQueueEmailRepository.Show(FQueueEmails.FieldByName('id').AsLargeInt);
 
     SetUpEmailDelivery;
-    LoadRecipients;        {Destinat�rios}
-    LoadReceiptRecipients; {Confirma��o de resposta dos destinat�rios}
+    LoadRecipients;        {Destinatários}
+    LoadReceiptRecipients; {Confirmação de resposta dos destinatários}
     LoadReplyTo;           {Responder para ...}
-    LoadCarbonCopies;      {C�pias}
-    LoadBlindCarbonCopies; {C�pias ocultas}
+    LoadCarbonCopies;      {Cópias}
+    LoadBlindCarbonCopies; {Cópias ocultas}
     LoadAttachments;       {Anexos}
     DeliverEmail;          {Enviar E-mail}
 
-    // Pr�ximo E-mail
+    // Próximo E-mail
     FQueueEmails.Next;
   end;
 end;
@@ -208,6 +208,7 @@ end;
 
 function TQueueEmailSendPendingUseCase.DeliverEmail: IQueueEmailSendPendingUseCase;
 const
+  {TODO -oOwner -cGeneral : Precisa refatorar, levar esse sql para o SQLBuilder e chamar no repósitorio}
   LSQL = ' UPDATE queue_email SET '+
          '   sent = %s, '+
          '   sent_error = %s, '+
@@ -225,7 +226,7 @@ begin
   except on E: Exception do
     Begin
       // Atualizar status do e-mail
-      {TODO -oOwner -cGeneral : Precisa refatorar}
+      {TODO -oOwner -cGeneral : Precisa refatorar, levar esse sql para o SQLBuilder e chamar no repósitorio}
       FQueueEmailRepository.Conn.MakeQry.ExecSQL(Format(LSQL, [
         Q(Ord(TQueueEmailSent.Error)),
         Q(E.Message),
@@ -237,7 +238,7 @@ begin
   end;
 
   // Atualizar status do e-mail
-  {TODO -oOwner -cGeneral : Precisa refatorar}
+  {TODO -oOwner -cGeneral : Precisa refatorar, levar esse sql para o SQLBuilder e chamar no repósitorio}
   FQueueEmailRepository.Conn.MakeQry.ExecSQL(Format(LSQL, [
     Q(Ord(TQueueEmailSent.Yes)),
     Q(''),
