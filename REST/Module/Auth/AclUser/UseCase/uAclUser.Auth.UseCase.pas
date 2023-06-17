@@ -9,7 +9,7 @@ uses
 
 type
   IAclUserAuthUseCase = Interface
-    ['{0F05AFCC-2EB6-4BEE-AF42-BBE7D9A61739}']
+    ['{8764DC67-0365-4E00-95C3-E88542399BA1}']
     function Login(AInput: TAclUserLoginDTO): TAclUserShowDTO;
   end;
 
@@ -39,7 +39,8 @@ uses
   System.SysUtils,
   uTrans,
   System.DateUtils,
-  uAclUser.Mapper;
+  uAclUser.Mapper,
+  XSuperObject;
 
 constructor TAclUserAuthUseCase.Create(ARepository: IAclUserRepository);
 begin
@@ -74,19 +75,19 @@ begin
   end;
 
   // Gerar novo token
-  const lJWT: SH<TJWT> = TJWT.Create(TMyClaims);
-  const lClaims = TMyClaims(lJWT.Value.Claims);
-  lClaims.Id          := AclUser.Value.id.ToString;
-  lClaims.Name        := AclUser.Value.name;
-  lClaims.Login       := AclUser.Value.login;
-  lClaims.AclRoleId   := AclUser.Value.acl_role_id.ToString;
-  lClaims.IsSuperuser := AclUser.Value.flg_superuser.ToString;
-  lClaims.Expiration  := IncHour(Now, 2);
-  const lToken = TJOSE.SHA256CompactToken(JWT_KEY, lJWT);
+  const LJWT: SH<TJWT> = TJWT.Create(TMyClaims);
+  const LClaims = TMyClaims(LJWT.Value.Claims);
+  LClaims.Id          := AclUser.Value.id.ToString;
+  LClaims.Name        := AclUser.Value.name;
+  LClaims.Login       := AclUser.Value.login;
+  LClaims.AclRoleId   := AclUser.Value.acl_role_id.ToString;
+  LClaims.IsSuperuser := AclUser.Value.flg_superuser.ToString;
+  LClaims.Expiration  := IncHour(Now, 2);
+  const lToken = TJOSE.SHA256CompactToken(JWT_KEY, LJWT);
 
   // Atualizar usuário com os dados do token
   AclUser.Value.last_token      := lToken;
-  AclUser.Value.last_expiration := lClaims.Expiration;
+  AclUser.Value.last_expiration := LClaims.Expiration;
   FRepository.Update(AclUser.Value.id, AclUser);
 
   // Retornar Usuário com Token

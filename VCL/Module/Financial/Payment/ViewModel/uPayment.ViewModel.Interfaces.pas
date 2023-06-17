@@ -10,7 +10,7 @@ uses
 
 type
   IPaymentViewModel = Interface(IBaseViewModel)
-    ['{DFFE2945-2496-4373-B50B-4ED3D293B2A0}']
+    ['{254E038B-E4C8-40C9-9045-1BE64FEDD7CE}']
     function  FromShowDTO(AInput: TPaymentShowDTO): IPaymentViewModel;
     function  ToInputDTO: TPaymentInputDTO;
     function  EmptyDataSets: IPaymentViewModel;
@@ -21,7 +21,7 @@ type
   end;
 
   IPaymentTermsViewModel = Interface
-    ['{A22A23BD-BBAD-461F-9BDB-E46E3CE68CF3}']
+    ['{433E05AA-2DF1-4450-A1CA-0BFDC46DA0E8}']
     function  PaymentTerms: IZLMemTable;
     function  SetEvents: IPaymentTermsViewModel;
   End;

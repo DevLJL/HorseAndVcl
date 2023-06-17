@@ -11,7 +11,7 @@ uses
 
 type
   IUnitDataFactory = Interface
-    ['{E4C5E02D-D8BF-47ED-B744-FCF54F4B5684}']
+    ['{B6ACB4F5-D995-406C-B5EC-70A56CB380D8}']
     function GenerateInsert: TUnitShowDTO;
     function GenerateInput: TUnitInputDTO;
   End;

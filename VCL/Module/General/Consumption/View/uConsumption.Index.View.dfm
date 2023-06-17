@@ -116,9 +116,6 @@ inherited ConsumptionIndexView: TConsumptionIndexView
               end
               inherited pnlSearch2: TPanel
                 ExplicitWidth = 646
-                inherited lblSearch: TLabel
-                  Height = 15
-                end
               end
             end
           end
@@ -126,9 +123,6 @@ inherited ConsumptionIndexView: TConsumptionIndexView
         inherited pnlNavigator: TPanel
           Top = 507
           ExplicitTop = 507
-          inherited lblNavShowingRecords: TLabel
-            Height = 18
-          end
           inherited pnlNavFirst3: TPanel
             inherited pnlNavFirst2: TPanel
               inherited btnNavFirst: TSpeedButton
@@ -165,20 +159,6 @@ inherited ConsumptionIndexView: TConsumptionIndexView
               end
             end
           end
-          inherited pnlNavLimitPerPage: TPanel
-            inherited pnlNavLimitPerPage2: TPanel
-              inherited lblNavLimitPerPage: TLabel
-                Height = 16
-              end
-            end
-          end
-          inherited Panel1: TPanel
-            inherited Panel2: TPanel
-              inherited Label1: TLabel
-                Height = 16
-              end
-            end
-          end
         end
         inherited pnlButtonsTop: TPanel
           inherited pnlOptions: TPanel
@@ -210,9 +190,6 @@ inherited ConsumptionIndexView: TConsumptionIndexView
                 OnClick = imgSearchClearClick
               end
               inherited pnlSearch5: TPanel
-                inherited lblSearchTitle: TLabel
-                  Width = 334
-                end
                 inherited edtSearchValue: TEdit
                   OnChange = edtSearchValueChange
                   OnDblClick = imgSearchClearClick

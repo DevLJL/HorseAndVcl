@@ -10,21 +10,22 @@ type
     class procedure HangOn(const AScheduledTasks: TScheduledTasks);
   end;
 
+const
+  TASK_NAME                    = 'AutomaticPingInConsole';
+  MAX_RETRY                    = 3;    // "X" Tentativas
+  WAIT_MS_TIME_BETWEEN_RETRIES = 5000; // Esperar "X" segundos entre tentativas
+  REPEAT_MIN_INTERVAL          = 30;   // Repetir a cada "X" minutos
+
 implementation
 
 uses
   System.SysUtils,
   System.DateUtils,
   Quick.Commons,
-  Quick.Console;
+  Quick.Console,
+  System.Classes;
 
-const
-  TASK_NAME                    = 'Automatic ping in console';
-  MAX_RETRY                    = 3;    // "X" Tentativas
-  WAIT_MS_TIME_BETWEEN_RETRIES = 5000; // Esperar "X" segundos entre tentativas
-  REPEAT_MIN_INTERVAL          = 30;   // Repetir a cada "X" minutos
-
-procedure AddTask(task : ITask);
+procedure Execute(task : ITask);
 begin
   cout('Task: "%s" started', [TASK_NAME], etDebug);
 end;
@@ -56,7 +57,7 @@ end;
 class procedure TAutomaticPingInConsoleTask.HangOn(const AScheduledTasks: TScheduledTasks);
 begin
   AScheduledTasks
-    .AddTask      (TASK_NAME, [], True, AddTask)
+    .AddTask      (TASK_NAME, [], True, Execute)
     .WaitAndRetry (MAX_RETRY, WAIT_MS_TIME_BETWEEN_RETRIES)
     .OnException  (OnException)
     .OnRetry      (OnRetry)

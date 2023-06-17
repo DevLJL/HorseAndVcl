@@ -23,11 +23,12 @@ type
     function GenerateBilling(AId: Int64; AOperation: TSaleGenerateBillingOperation): Either<String, TSaleShowDTO>;
     function Index(AFilter: TSaleFilterDTO = nil): Either<String, IIndexResult>;
     function PdfReport(AId: Int64): ISaleService;
+    function PosTicket(AId, ACopies: Int64): ISaleService;
     function SendPdfReport(AId: Int64): Boolean;
     function Show(AId: Int64): TSaleShowDTO;
     function StoreAndGenerateBilling(AInput: TSaleInputDTO): Either<String, TSaleShowDTO>;
     function StoreAndShow(AInput: TSaleInputDTO): Either<String, TSaleShowDTO>;
-    function UpdateAndShow(AId: Int64; AInput: TSaleInputDTO): Either<String, TSaleShowDTO>;
+    function UpdateAndShow(AId: Int64; AInput: TSaleInputDTO; AReturnShowDTO: Boolean = True): Either<String, TSaleShowDTO>;
     function Validate(AInput: TSaleInputDTO; AState: TEntityState): String;
   end;
 
@@ -150,6 +151,29 @@ begin
   LResponse.OpenStreamFile;
 end;
 
+function TSaleService.PosTicket(AId, ACopies: Int64): ISaleService;
+begin
+  Result := Self;
+  if (ENV_VCL.PosPrinterIdDefault <= 0) then
+    raise Exception.Create('Nenhuma impressora POS setada como padrão em .ENV');
+
+  // Efetuar Requisição
+  const LEndPoint = Format('%s/%d/Ticket/PosPrinter/%d/Copies/%d/SendToQueue', [
+    RESOURCE,
+    AId,
+    ENV_VCL.PosPrinterIdDefault,
+    ACopies
+  ]);
+  const LResponse = Req(LEndPoint, EmptyStr, ENV_VCL.PosPrinterURI).Execute(TReqType.Post);
+  if not (LResponse.StatusCode = 204) then
+  begin
+    case (Pos('"message":', LResponse.Content) > 0) of
+      True:  raise Exception.Create(SO(LResponse.Content).S['message']);
+      False: raise Exception.Create(LResponse.Content);
+    end;
+  end;
+end;
+
 function TSaleService.SendPdfReport(AId: Int64): Boolean;
 begin
   // Efetuar Requisição /Sales/13/PdfReport/SendByEmail
@@ -233,7 +257,7 @@ begin
   Result := TSaleShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
 end;
 
-function TSaleService.UpdateAndShow(AId: Int64; AInput: TSaleInputDTO): Either<String, TSaleShowDTO>;
+function TSaleService.UpdateAndShow(AId: Int64; AInput: TSaleInputDTO; AReturnShowDTO: Boolean): Either<String, TSaleShowDTO>;
 begin
   // Validar
   const LError = Validate(AInput, TEntityState.Update);
@@ -256,12 +280,16 @@ begin
   end;
 
   // Retornar registro atualizado
-  Result := TSaleShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
+  case AReturnShowDTO of
+    True:  Result := TSaleShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
+    False: Result := Nil;
+  end;
 end;
 
 function TSaleService.Validate(AInput: TSaleInputDTO; AState: TEntityState): String;
 begin
-//
+  if (AInput.seller_id <= 0) then
+    Result := Result + Trans.FieldWasNotInformed('Atendente') + #13;
 end;
 
 end.

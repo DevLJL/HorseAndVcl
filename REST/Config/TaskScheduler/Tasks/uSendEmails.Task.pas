@@ -10,6 +10,12 @@ type
     class procedure HangOn(const AScheduledTasks: TScheduledTasks);
   end;
 
+const
+  TASK_NAME                    = 'SendEmails';
+  MAX_RETRY                    = 3;    // "X" Tentativas
+  WAIT_MS_TIME_BETWEEN_RETRIES = 5000; // Esperar "X" segundos entre tentativas
+  REPEAT_MIN_INTERVAL          = 3;    // Repetir a cada "X" minutos
+
 implementation
 
 uses
@@ -20,15 +26,8 @@ uses
   uQueueEmail.SendPending.UseCase,
   uRepository.Factory;
 
-const
-  TASK_NAME                    = 'SendEmails';
-  MAX_RETRY                    = 3;    // "X" Tentativas
-  WAIT_MS_TIME_BETWEEN_RETRIES = 5000; // Esperar "X" segundos entre tentativas
-  REPEAT_MIN_INTERVAL          = 3;    // Repetir a cada "X" minutos
-
-procedure AddTask(task : ITask);
+procedure Execute(task : ITask);
 begin
-  cout('Task: "%s" started', [TASK_NAME], etDebug);
   const LSuccessfulSendCount = TQueueEmailSendPendingUseCase.Make(TRepositoryFactory.Make).Execute;
   if (LSuccessfulSendCount > 0) then
     cout('Task: "%s" successful send count (%s)',[TASK_NAME, LSuccessfulSendCount.ToString], etInfo);
@@ -46,7 +45,7 @@ end;
 
 procedure OnTerminated(task: ITask);
 begin
-  cout('Task: "%s" at %s finished', [TASK_NAME, DateTimeToStr(Now)], etDebug);
+//
 end;
 
 procedure OnExpired(task: ITask);
@@ -58,13 +57,13 @@ end;
 class procedure TSendEmailsTask.HangOn(const AScheduledTasks: TScheduledTasks);
 begin
    AScheduledTasks
-    .AddTask      (TASK_NAME, [], True, AddTask)
+    .AddTask      (TASK_NAME, [], True, Execute)
     .WaitAndRetry (MAX_RETRY, WAIT_MS_TIME_BETWEEN_RETRIES)
     .OnException  (OnException)
     .OnRetry      (OnRetry)
     .OnTerminated (OnTerminated)
     .OnExpired    (OnExpired)
-    .StartAt      (IncSecond(Now, REPEAT_MIN_INTERVAL))
+    .StartAt      (IncMinute(Now, REPEAT_MIN_INTERVAL))
     .RepeatEvery  (REPEAT_MIN_INTERVAL, TTimeMeasure.tmMinutes);
 end;
 

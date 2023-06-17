@@ -7,7 +7,7 @@ uses
 
 type
   ISizeFilter = Interface(IFilter)
-    ['{F27F05B9-11E9-47AA-923D-3D494D14E070}']
+    ['{9340AACC-5894-4E0D-A656-3B62B0C01BF1}']
   End;
 
   TSizeFilter = class(TFilter, ISizeFilter)

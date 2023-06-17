@@ -249,7 +249,7 @@ object MainVclView: TMainVclView
         ParentFont = False
         Transparent = True
       end
-      object lblCompanyAliasName: TLabel
+      object lblTenantAliasName: TLabel
         Left = 372
         Top = 5
         Width = 522
@@ -301,7 +301,7 @@ object MainVclView: TMainVclView
           EDC77F6080A70D104C7F01F7111E10C2F2F74F0000000049454E44AE426082}
         OnClick = imgDadosEmpLogoClick
       end
-      object lblCompanyEin: TLabel
+      object lblTenantEin: TLabel
         Left = 372
         Top = 24
         Width = 133
@@ -639,7 +639,13 @@ object MainVclView: TMainVclView
               Caption = '* Produto / Servi'#231'o *'
             end
             item
+              Action = actAdditional
+            end
+            item
               Action = actCategory
+            end
+            item
+              Action = actPriceList
             end
             item
               Action = actStorageLocation
@@ -1231,16 +1237,19 @@ object MainVclView: TMainVclView
           Colors.SeparatorColor = 9996890
           Items = <
             item
-              Action = actMyCompany
+              Action = actGlobalAndLocalConfig
             end
             item
-              Action = actAppParamConfig
+              Action = actLocalConfig
             end
             item
               Action = actPosPrinter
             end
             item
-              Action = actAppParamConfigSat
+              Action = actMyTenant
+            end
+            item
+              Caption = 'SAT Fiscal'
             end>
           Font.Charset = DEFAULT_CHARSET
           Font.Color = 5787700
@@ -14334,22 +14343,16 @@ object MainVclView: TMainVclView
       Caption = 'Vendas'
       OnExecute = actSaleExecute
     end
-    object actMyCompany: TAction
+    object actMyTenant: TAction
       Category = 'Configuration'
       Caption = 'Minha Empresa'
-      OnExecute = actMyCompanyExecute
+      ImageName = 'actMyCompany'
+      OnExecute = actMyTenantExecute
     end
     object actPosPrinter: TAction
       Category = 'Configuration'
-      Caption = 'POS Printer'
-    end
-    object actAppParamConfig: TAction
-      Category = 'Configuration'
-      Caption = 'Par'#226'metros'
-    end
-    object actAppParamConfigSat: TAction
-      Category = 'Configuration'
-      Caption = 'SAT Fiscal'
+      Caption = 'Impressora (POS)'
+      OnExecute = actPosPrinterExecute
     end
     object actOperationType: TAction
       Category = 'Fiscal'
@@ -14366,6 +14369,7 @@ object MainVclView: TMainVclView
     object actPdv: TAction
       Category = 'Business'
       Caption = 'Frente de Caixa (PDV)'
+      OnExecute = actPdvExecute
     end
     object actConsumption: TAction
       Category = 'General'
@@ -14381,6 +14385,25 @@ object MainVclView: TMainVclView
       Category = 'General'
       Caption = 'Esta'#231#227'o'
       OnExecute = actStationExecute
+    end
+    object actGlobalAndLocalConfig: TAction
+      Category = 'Configuration'
+      Caption = 'Par'#226'metros'
+      OnExecute = actGlobalAndLocalConfigExecute
+    end
+    object actLocalConfig: TAction
+      Category = 'Configuration'
+      Caption = 'Configura'#231#227'o Local'
+    end
+    object actPriceList: TAction
+      Category = 'Stock'
+      Caption = 'Listas de Pre'#231'os'
+      OnExecute = actPriceListExecute
+    end
+    object actAdditional: TAction
+      Category = 'Stock'
+      Caption = 'Adicional'
+      OnExecute = actAdditionalExecute
     end
   end
   object PopupMenu1: TPopupMenu

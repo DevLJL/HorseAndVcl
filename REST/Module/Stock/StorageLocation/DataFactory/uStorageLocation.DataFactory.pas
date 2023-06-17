@@ -11,7 +11,7 @@ uses
 
 type
   IStorageLocationDataFactory = Interface
-    ['{85E071FD-C6C9-4153-9460-253452856974}']
+    ['{87A62759-9B7B-400D-B671-4E6E137C9AD2}']
     function GenerateInsert: TStorageLocationShowDTO;
     function GenerateInput: TStorageLocationInputDTO;
   End;

@@ -12,7 +12,7 @@ uses
 
 type
   IPersonService = Interface(IBaseService)
-    ['{9C50D5DC-B425-4D70-9B5D-7D9758436A8B}']
+    ['{B3B61644-0766-4A60-AF4F-60C5F6C53001}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TPersonFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TPersonShowDTO;

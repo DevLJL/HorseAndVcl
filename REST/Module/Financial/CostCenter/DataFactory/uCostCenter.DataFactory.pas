@@ -11,7 +11,7 @@ uses
 
 type
   ICostCenterDataFactory = Interface
-    ['{13A7A326-5ABF-477E-B0D8-A28AC7E3DA11}']
+    ['{F0B7BAAA-5561-401E-A2B5-87379B69112A}']
     function GenerateInsert: TCostCenterShowDTO;
     function GenerateInput: TCostCenterInputDTO;
   End;

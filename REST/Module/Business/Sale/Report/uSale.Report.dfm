@@ -4,7 +4,7 @@ inherited SaleReport: TSaleReport
   inherited RLReport1: TRLReport
     DataSource = dtsSaleItems
     inherited bndHeader: TRLBand
-      inherited memCompanyAliasName: TRLMemo
+      inherited memTenantAliasName: TRLMemo
         Width = 459
         WordWrap = False
         ExplicitWidth = 459

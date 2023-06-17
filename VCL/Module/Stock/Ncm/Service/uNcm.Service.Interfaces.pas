@@ -12,7 +12,7 @@ uses
 
 type
   INcmService = Interface(IBaseService)
-    ['{A18ABA04-5EF0-4824-AE32-BA284E75D22A}']
+    ['{F79C4032-8FB6-45A9-871A-E0BFF84C0D13}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TNcmFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TNcmShowDTO;

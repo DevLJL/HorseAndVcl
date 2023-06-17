@@ -68,7 +68,7 @@ implementation
 uses
   uHlp,
   Vcl.DBCtrls,
-  uNotificationView,
+  uToast.View,
   uAppVcl.Types,
   uYesOrNo.View,
   uTrans,
@@ -171,7 +171,7 @@ begin
   pgc.ActivePageIndex             := 0;
   IndicatorLoadButtonSave.Animate := False;
   IndicatorLoadButtonSave.Visible := False;
-  createTransparentBackground(Self);
+  CreateDarkBackground(Self);
 end;
 
 procedure TBaseInputView.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -192,7 +192,7 @@ end;
 procedure TBaseInputView.imgMinimizeTitleClick(Sender: TObject);
 begin
   Application.Minimize;
-  NotificationView.Execute(Trans.YourAppHasBeenMinimized, tneInfo);
+  ToastView.Execute(Trans.YourAppHasBeenMinimized, tneInfo);
 end;
 
 procedure TBaseInputView.pnlTitleMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);

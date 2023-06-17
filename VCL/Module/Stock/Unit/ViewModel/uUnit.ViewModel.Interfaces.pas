@@ -10,7 +10,7 @@ uses
 
 type
   IUnitViewModel = Interface(IBaseViewModel)
-    ['{F6D65DBE-5FAD-4C52-8503-60A22EBDD938}']
+    ['{2C812640-819E-4D40-89EA-D15301D4AA35}']
     function  FromShowDTO(AInput: TUnitShowDTO): IUnitViewModel;
     function  ToInputDTO: TUnitInputDTO;
     function  EmptyDataSets: IUnitViewModel;

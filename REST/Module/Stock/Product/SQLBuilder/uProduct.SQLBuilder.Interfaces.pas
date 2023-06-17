@@ -5,17 +5,22 @@ interface
 uses
   uBase.SQLBuilder.Interfaces,
   uSelectWithFilter,
-  uFilter;
+  uFilter,
+  uProductPriceList;
 
 type
   IProductSQLBuilder = interface(IBaseSQLBuilder)
-    ['{F1E4C28B-C447-428A-8F90-5F71F5084AC9}']
+    ['{B8D9F427-000B-4697-9F74-3115CFB3CA21}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function RegisteredFields(AColumName, AColumnValue: String; AId: Int64): String;
     function SelectByEanOrSkuCode(AValue: String): String;
+
+    // ProductPriceList
+    function SelectProductPriceListsByProductId(AProductId: Int64): String;
+    function DeleteProductPriceListsByProductId(AProductId: Int64): String;
+    function InsertProductPriceList(AProductPriceList: TProductPriceList): String;
   end;
 
 implementation

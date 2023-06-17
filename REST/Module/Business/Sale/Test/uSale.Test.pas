@@ -115,7 +115,6 @@ uses
   uCashFlow.Show.DTO,
   uIndexResult,
   uCashFlow.DataFactory,
-  uSaleGenerateBillingRepositories,
   uSale.PdfReport.UseCase,
   uCashFlowTransaction.Types;
 
@@ -265,7 +264,7 @@ begin
   // FATURAR VENDA (Descontar itens do estoque, gerar contas a receber, gerar fluxo de caixa e alterar status da venda)
   // ------------------------------------------------------------------------------------------------------------------
   const LSaleBilled = TSaleGenerateBillingUseCase.Make(
-    TSaleGenerateBillingRepositories.Make(FSaleRepository.Conn),
+    TRepositoryFactory.Make(FSaleRepository.Conn),
     LSaleIdStored,
     LCashFlowStored.Value.station_id,
     TSaleGenerateBillingOperation.Approve
@@ -312,7 +311,7 @@ begin
   // ---------------------------------------------------------------------------
   // Estornar Venda
   TSaleGenerateBillingUseCase.Make(
-    TSaleGenerateBillingRepositories.Make(FSaleRepository.Conn),
+    TRepositoryFactory.Make(FSaleRepository.Conn),
     LSaleIdStored,
     LCashFlowStored.Value.station_id,
     TSaleGenerateBillingOperation.Revert
@@ -398,12 +397,16 @@ const
     'discount',
     'increase',
     'freight',
+    'cover_charge',
+    'service_charge',
     'total',
     'money_received',
     'money_change',
     'amount_of_people',
     'informed_legal_entity_number',
     'consumption_number',
+    'sale_check_id',
+    'sale_check_name',
     'created_at',
     'updated_at',
     'created_by_acl_user_id',
@@ -528,7 +531,7 @@ begin
   // FATURAR VENDA (Descontar itens do estoque, gerar contas a receber, gerar fluxo de caixa e alterar status da venda)
   // ------------------------------------------------------------------------------------------------------------------
   const LSaleBilled = TSaleGenerateBillingUseCase.Make(
-    TSaleGenerateBillingRepositories.Make(FSaleRepository.Conn),
+    TRepositoryFactory.Make(FSaleRepository.Conn),
     LSaleIdStored,
     LCashFlowStored.Value.station_id,
     TSaleGenerateBillingOperation.Approve
@@ -539,7 +542,7 @@ begin
   // ESTORNAR VENDA
   // ---------------------------------------------------------------------------
   TSaleGenerateBillingUseCase.Make(
-    TSaleGenerateBillingRepositories.Make(FSaleRepository.Conn),
+    TRepositoryFactory.Make(FSaleRepository.Conn),
     LSaleIdStored,
     LCashFlowStored.Value.station_id,
     TSaleGenerateBillingOperation.Revert

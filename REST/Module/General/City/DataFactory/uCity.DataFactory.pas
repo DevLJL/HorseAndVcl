@@ -11,7 +11,7 @@ uses
 
 type
   ICityDataFactory = Interface
-    ['{E45CDB64-2E8A-46E8-991A-1D2997E73F59}']
+    ['{7BD83B1C-BEEA-4985-A818-CA0A7A99D17A}']
     function GenerateInsert: TCityShowDTO;
     function GenerateInput: TCityInputDTO;
   End;

@@ -101,7 +101,7 @@ function TCostCenterViewModel.FromShowDTO(AInput: TCostCenterShowDTO): ICostCent
 begin
   Result := Self;
 
-  FCostCenter.UnsignEvents.FromJson(AInput.AsJSON);
+  FCostCenter.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

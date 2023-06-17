@@ -4,7 +4,7 @@ interface
 
 type
   IBaseViewModel = Interface
-    ['{5FADEF19-635D-46E4-BA84-8C34FD03C91A}']
+    ['{591377C7-4A24-4413-912F-70A8279240AE}']
   end;
 
 implementation

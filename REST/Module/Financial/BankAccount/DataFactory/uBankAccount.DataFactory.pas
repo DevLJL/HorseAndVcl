@@ -11,7 +11,7 @@ uses
 
 type
   IBankAccountDataFactory = Interface
-    ['{D5D72F35-917F-4F7D-9028-F0956E51EB2C}']
+    ['{EE8F6C7E-587A-4F71-BE34-A9BCDE6CB45A}']
     function GenerateInsert: TBankAccountShowDTO;
     function GenerateInput: TBankAccountInputDTO;
   End;

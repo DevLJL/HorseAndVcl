@@ -20,8 +20,9 @@ type
     class function Make: ICashFlowService;
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TCashFlowFilterDTO = nil): Either<String, IIndexResult>;
+    function IsOpenedByStationId(AStationId: Int64): Boolean;
     function Show(AId: Int64): TCashFlowShowDTO;
-    function StoreAndShow(AInput: TCashFlowInputDTO): Either<String, TCashFlowShowDTO>;
+    function StoreAndShow(AInput: TCashFlowInputDTO; AReturnShowDTO: Boolean = true): Either<String, TCashFlowShowDTO>;
     function UpdateAndShow(AId: Int64; AInput: TCashFlowInputDTO): Either<String, TCashFlowShowDTO>;
     function Validate(AInput: TCashFlowInputDTO; AState: TEntityState): String;
   end;
@@ -34,7 +35,9 @@ uses
   uCashFlow.ViewModel,
   uReq,
   uTrans,
-  uHlp;
+  uHlp,
+  uEnv.Vcl,
+  uSmartPointer;
 
 const
   RESOURCE = '/CashFlows';
@@ -97,6 +100,28 @@ begin
   Result := LIndexResult;
 end;
 
+function TCashFlowService.IsOpenedByStationId(AStationId: Int64): Boolean;
+begin
+  // Filtro de Pesquisa
+  const LFilter: SH<TCashFlowFilterDTO> = TCashFlowFilterDTO.Create;
+  With LFilter.Value do
+  begin
+    station_id := ENV_VCL.StationId.ToString;
+    opened     := '1';
+  end;
+
+  // Efetuar pesquisa e retornar se caixa está Aberto/Fechado
+  With Self.Index(LFilter) do
+  begin
+    if not Match then
+    begin
+      Result := False;
+      Exit;
+    end;
+    Result := Right.Data.RecordCount > 0;
+  end;
+end;
+
 class function TCashFlowService.Make: ICashFlowService;
 begin
   Result := TCashFlowService.Create;
@@ -118,7 +143,7 @@ begin
   Result := TCashFlowShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
 end;
 
-function TCashFlowService.StoreAndShow(AInput: TCashFlowInputDTO): Either<String, TCashFlowShowDTO>;
+function TCashFlowService.StoreAndShow(AInput: TCashFlowInputDTO; AReturnShowDTO: Boolean): Either<String, TCashFlowShowDTO>;
 begin
   // Validar
   const LError = Validate(AInput, TEntityState.Store);
@@ -141,7 +166,10 @@ begin
   end;
 
   // Retornar registro incluso
-  Result := TCashFlowShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
+  case AReturnShowDTO of
+    True:  Result := TCashFlowShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
+    False: Result := Nil;
+  end;
 end;
 
 function TCashFlowService.UpdateAndShow(AId: Int64; AInput: TCashFlowInputDTO): Either<String, TCashFlowShowDTO>;

@@ -14,8 +14,6 @@ type
   public
     class function Make: IStationSQLBuilder;
 
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
@@ -76,25 +74,6 @@ end;
 class function TStationSQLBuilderMySQL.Make: IStationSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TStationSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result :=
-    ' CREATE TABLE `station` (               '+
-    '   `id` bigint NOT NULL AUTO_INCREMENT, '+
-    '   `name` varchar(255) NOT NULL,        '+
-    '   PRIMARY KEY (`id`)                   '+
-    ' )                                      ';
-end;
-
-function TStationSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := ' insert into station (name) values (''Estação 001''); '+
-            ' insert into station (name) values (''Estação 002''); '+
-            ' insert into station (name) values (''Estação 003''); '+
-            ' insert into station (name) values (''Estação 004''); '+
-            ' insert into station (name) values (''Estação 005''); ';
 end;
 
 function TStationSQLBuilderMySQL.SelectAll: String;

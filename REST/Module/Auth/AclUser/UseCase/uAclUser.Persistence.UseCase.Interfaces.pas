@@ -12,7 +12,7 @@ uses
 
 type
   IAclUserPersistenceUseCase = Interface
-    ['{F678F475-F3C6-446C-B575-FB2CA2988EE4}']
+    ['{9E182CB8-95AD-4F3B-8800-E30EEF3CB4F3}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilterDTO: TAclUserFilterDTO): IIndexResult; overload;
     function Index(AFilterEntity: IFilter): IIndexResult; overload;

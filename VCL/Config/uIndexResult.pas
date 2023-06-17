@@ -8,7 +8,7 @@ uses
 
 type
   IIndexResult = interface
-    ['{CE8286C8-78E5-4C53-850C-4578DC606289}']
+    ['{3E1EA3EC-540C-40E6-9498-9D59A4EFB297}']
 
     function Data: IZLMemTable; overload;
     function Data(AValue: IZLMemTable): IIndexResult; overload;

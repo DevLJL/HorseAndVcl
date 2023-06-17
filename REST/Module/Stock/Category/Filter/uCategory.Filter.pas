@@ -7,7 +7,7 @@ uses
 
 type
   ICategoryFilter = Interface(IFilter)
-    ['{8A236BB6-FC7D-405E-9049-6DCEBF03744D}']
+    ['{C7B98FE9-7024-4DE2-8C49-36C543D60947}']
   End;
 
   TCategoryFilter = class(TFilter, ICategoryFilter)

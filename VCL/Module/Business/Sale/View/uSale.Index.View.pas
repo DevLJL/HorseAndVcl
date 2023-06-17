@@ -83,6 +83,7 @@ type
     procedure mniGenerateOrUndoSaleClick(Sender: TObject);
     procedure mniCancelSaleClick(Sender: TObject);
     procedure mniSendA4ByEmailClick(Sender: TObject);
+    procedure mniTicketPosPrinterClick(Sender: TObject);
   private
     FIndexResult: IIndexResult;
     FFilterOrderBy: String;
@@ -106,7 +107,7 @@ uses
   uHlp,
   System.StrUtils,
   uSale.Input.View,
-  uNotificationView,
+  uToast.View,
   uDTM,
   uYesOrNo.View,
   uAlert.View,
@@ -142,7 +143,7 @@ begin
   pnlBackground.BorderWidth  := 1;
   pnlBackground.Color        := $00857950;
   if ABackgroundTransparent then
-    createTransparentBackground(Self);
+    CreateDarkBackground(Self);
 
   // Varrer dbgrid e esconder botoes
   for var lI := 0 to DBGrid1.Columns.Count-1 do
@@ -202,7 +203,7 @@ begin
     end;
 
     dtsIndex.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
     if edtSearchValue.CanFocus then edtSearchValue.SetFocus;
@@ -786,7 +787,7 @@ begin
       True:  const LSaleShowDTO: SH<TSaleShowDTO> = LResult.Right;
       False: raise Exception.Create(LResult.Left);
     end;
-    NotificationView.Execute('Processo realizado com sucesso.', tneError);
+    ToastView.Execute('Processo realizado com sucesso.', tneError);
 
     // Atualizar Lista
     DoSearch(1, LPk);
@@ -800,7 +801,7 @@ begin
   inherited;
   // Excluir Grid
   dbgridDeleteConfig(DBGrid1, '');
-  NotificationView.Execute('Feche e abra a janela para carregar a nova configura��o.');
+  ToastView.Execute('Feche e abra a janela para carregar a nova configura��o.');
 end;
 
 procedure TSaleIndexView.mniGenerateOrUndoSaleClick(Sender: TObject);
@@ -826,17 +827,17 @@ begin
     // Definir tipo de operação
     var LMessageTitle: String;
     var LOperation: TSaleGenerateBillingOperation;
-    var LTypeNotification: TTypeNotificationEnum;
+    var LTypeToast: TTypeToastEnum;
     case LSaleStatus of
       TSaleStatus.Pending: Begin
         LMessageTitle     := 'Faturar';
         LOperation        := TSaleGenerateBillingOperation.Approve;
-        LTypeNotification := TTypeNotificationEnum.tneSuccess;
+        LTypeToast := TTypeToastEnum.tneSuccess;
       End;
       TSaleStatus.Approved: Begin
         LMessageTitle     := 'Estornar';
         LOperation        := TSaleGenerateBillingOperation.Revert;
-        LTypeNotification := TTypeNotificationEnum.tneError;
+        LTypeToast := TTypeToastEnum.tneError;
       End;
     end;
 
@@ -862,7 +863,7 @@ begin
     end;
 
     // Atualizar Lista
-    NotificationView.Execute('Processo realizado com sucesso.', LTypeNotification);
+    ToastView.Execute('Processo realizado com sucesso.', LTypeToast);
     DoSearch(1, lPk);
   finally
     UnlockControl(pnlBackground);
@@ -891,7 +892,7 @@ begin
   inherited;
   // Salvar Config do Grid
   dbgridSaveConfig(DBGrid1, '');
-  NotificationView.Execute('Grade Salva');
+  ToastView.Execute('Grade Salva');
 end;
 
 procedure TSaleIndexView.mniSendA4ByEmailClick(Sender: TObject);
@@ -914,7 +915,23 @@ begin
     LockControl(pnlBackground);
     TSaleService.Make.SendPdfReport(dtsIndex.DataSet.FieldByName('id').AsLargeInt);
 
-    NotificationView.Execute(Trans.SendEmailSuccessfullyRequested);
+    ToastView.Execute(Trans.SendEmailSuccessfullyRequested);
+  finally
+    UnLockControl(pnlBackground);
+  end;
+end;
+
+procedure TSaleIndexView.mniTicketPosPrinterClick(Sender: TObject);
+begin
+  // Evitar erros
+  const LKeepGoing = Assigned(dtsIndex.DataSet) and dtsIndex.DataSet.Active and (dtsIndex.DataSet.RecordCount > 0);
+  if not LKeepGoing then
+    Exit;
+
+  Try
+    LockControl(pnlBackground);
+
+    TSaleService.Make.PosTicket(dtsIndex.DataSet.FieldByName('id').AsLargeInt, 1);
   finally
     UnLockControl(pnlBackground);
   end;

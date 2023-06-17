@@ -41,10 +41,10 @@ uses
   uHlp,
   uSmartPointer,
   System.SysUtils,
-  uPersonContacts.ViewModel,
   Vcl.Forms,
-  uPersonContact.Show.DTO,
   XSuperObject,
+  uPersonContacts.ViewModel,
+  uPersonContact.Show.DTO,
   uPersonContact.Input.DTO,
   uCity.Show.DTO,
   uCity.Service;
@@ -208,7 +208,7 @@ begin
   Result := Self;
 
   // Person
-  FPerson.UnsignEvents.FromJson(AInput.AsJSON);
+  FPerson.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 
   // PersonContacts

@@ -12,7 +12,7 @@ uses
 
 type
   IChartOfAccountPersistenceUseCase = Interface
-    ['{3A7916A8-3B15-468D-961E-FF4221FDC9D2}']
+    ['{53D39C2C-89FB-482A-A057-26F83CB62458}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TChartOfAccountFilterDTO): IIndexResult overload;

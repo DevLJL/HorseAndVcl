@@ -7,7 +7,7 @@ uses
 
 type
   IChartOfAccountFilter = Interface(IFilter)
-    ['{88C6925C-1606-4828-A397-2F7241787D28}']
+    ['{586201E5-13F6-4F58-B50E-13AD5C7B74A7}']
   End;
 
   TChartOfAccountFilter = class(TFilter, IChartOfAccountFilter)

@@ -3,7 +3,10 @@ unit u2023_02_08_09_21_AclRole.Seeder;
 interface
 
 uses
-  uBase.Migration;
+  uBase.Migration,
+  uConnMigration,
+  uEnv.Rest,
+  uZLConnection.Types;
 
 type
   TSeeder = class(TBaseMigration)
@@ -12,20 +15,15 @@ type
 
 implementation
 
-uses
-  uConnMigration,
-  uSQLBuilder.Factory,
-  uEnv.Rest,
-  System.SysUtils;
-
 { TSeeder }
-
 class function TSeeder.&Register: TSeeder;
+const
+  LMYSQL_SCRIPT = ' INSERT INTO acl_role (name) VALUES (''Administrador''); '+
+                  ' INSERT INTO acl_role (name) VALUES (''Colaborador''); ';
 begin
-  ConnMigration.AddSeeder(
-    Self.UnitName,
-    TSQLBuilderFactory.Make(ENV_REST.DriverDB).AclRole.ScriptSeedTable
-  );
+  case ENV_REST.DriverDB of
+    ddMySql: ConnMigration.AddSeeder(Self.UnitName, LMYSQL_SCRIPT);
+  end;
 end;
 
 initialization

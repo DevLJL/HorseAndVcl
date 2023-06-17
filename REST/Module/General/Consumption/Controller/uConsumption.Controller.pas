@@ -15,7 +15,8 @@ uses
   uConsumption.Input.DTO,
   uConsumption.Show.DTO,
   uConsumption.Filter,
-  uConsumption.Filter.DTO;
+  uConsumption.Filter.DTO,
+  uConsumptionSale.Filter.DTO;
 
 Type
   [SwagPath('Consumption', 'Consumo')]
@@ -41,6 +42,12 @@ Type
     [SwagResponse(HTTP_BAD_REQUEST)]
     [SwagResponse(HTTP_INTERNAL_SERVER_ERROR)]
     procedure Index;
+
+    [SwagPOST('/IndexWithSale','Listagem de consumo com Vendas')]
+    [SwagParamBody('body', TConsumptionSaleFilterDTO, false, '', false)]
+    [SwagResponse(HTTP_BAD_REQUEST)]
+    [SwagResponse(HTTP_INTERNAL_SERVER_ERROR)]
+    procedure IndexWithSale;
 
     [SwagGET('/{id}', 'Localizar por ID')]
     [SwagParamPath('id', 'ID')]
@@ -74,19 +81,23 @@ uses
   uHlp,
   uResponse,
   uSmartPointer,
-  System.SysUtils, uTrans;
+  System.SysUtils,
+  uTrans,
+  uMyClaims,
+  uEither;
 
 constructor TConsumptionController.Create(Req: THorseRequest; Res: THorseResponse);
 begin
-  FReq                := Req;
-  FRes                := Res;
-  FRepository         := TRepositoryFactory.Make.Consumption;
+  FReq         := Req;
+  FRes         := Res;
+  FRepository  := TRepositoryFactory.Make.Consumption;
   FPersistence := TConsumptionPersistenceUseCase.Make(FRepository);
 end;
 
 procedure TConsumptionController.Delete;
 begin
   const LID = StrInt(FReq.Params['id']);
+  
   FPersistence.Delete(LID);
   Response(FRes).StatusCode(HTTP_NO_CONTENT);
 end;
@@ -94,27 +105,38 @@ end;
 procedure TConsumptionController.Index;
 begin
   // Obter FilterDTO
-  const LInput: SH<TConsumptionFilterDTO> = TConsumptionFilterDTO.FromReq(FReq);
-  SwaggerValidator.Validate(LInput);
+  const LFilter: SH<TConsumptionFilterDTO> = TConsumptionFilterDTO.FromReq(FReq);
+  SwaggerValidator.Validate(LFilter);
 
   // Efetuar Listagem
-  const LIndexResult = FPersistence.Index(LInput);
+  const LIndexResult = FPersistence.Index(LFilter);
 
   // Retorno
   Response(FRes).Data(LIndexResult.ToSuperObject);
 end;
 
-procedure TConsumptionController.Show;
+procedure TConsumptionController.IndexWithSale;
 begin
-  // Obter ID
-  const LID = StrInt(FReq.Params['id']);
+  // Obter FilterDTO
+  const LFilter: SH<TConsumptionSaleFilterDTO> = TConsumptionSaleFilterDTO.FromReq(FReq);
+  SwaggerValidator.Validate(LFilter);
 
-  // Procurar por ID
-  const LOutput: SH<TConsumptionShowDTO> = FPersistence.Show(LID);
+  // Listar Consumo relacionado a vendas
+  const LDataSet = FPersistence.IndexWithSale(LFilter).DataSet;
 
   // Retorno
-  case Assigned(LOutput.Value) of
-    True:  Response(FRes).Data(LOutput.Value);
+  Response(FRes).Data(LDataSet);
+end;
+
+procedure TConsumptionController.Show;
+begin
+  // Obter e Procurar ID
+  const LID = StrInt(FReq.Params['id']);
+  const LOutput = FPersistence.Show(LID);
+
+  // Retorno
+  case Assigned(LOutput) of
+    True:  Response(FRes).Data(LOutput);
     False: Response(FRes).StatusCode(HTTP_NOT_FOUND);
   end;
 end;
@@ -126,7 +148,7 @@ begin
   SwaggerValidator.Validate(LInput);
 
   // Inserir
-  const LUseCaseResult = FPersistence.StoreAndShow(LInput);
+  const LUseCaseResult: Either<String, TConsumptionShowDTO> = FPersistence.StoreAndShow(LInput);
   if not LUseCaseResult.Match then
   begin
     Response(FRes).Error(True).Message(LUseCaseResult.Left);
@@ -134,7 +156,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TConsumptionShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput).StatusCode(HTTP_CREATED);
 end;
 
@@ -161,7 +183,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TConsumptionShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput);
 end;
 

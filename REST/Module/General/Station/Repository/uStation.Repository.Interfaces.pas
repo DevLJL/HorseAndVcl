@@ -8,7 +8,7 @@ uses
 
 type
   IStationRepository = interface(IBaseRepository)
-    ['{FE7D968C-E357-4401-A9C4-29B09F4D3A67}']
+    ['{4F705E00-D2A2-4568-AF45-39353B46D8FB}']
     function Show(AId: Int64): TStation;
   end;
 

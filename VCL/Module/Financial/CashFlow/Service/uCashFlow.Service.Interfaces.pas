@@ -12,11 +12,12 @@ uses
 
 type
   ICashFlowService = Interface(IBaseService)
-    ['{9C50D5DC-B425-4D70-9B5D-7D9758436A8B}']
+    ['{7884E94B-7EF9-46E2-9973-43042A266F3D}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TCashFlowFilterDTO = nil): Either<String, IIndexResult>;
+    function IsOpenedByStationId(AStationId: Int64): Boolean;
     function Show(AId: Int64): TCashFlowShowDTO;
-    function StoreAndShow(AInput: TCashFlowInputDTO): Either<String, TCashFlowShowDTO>;
+    function StoreAndShow(AInput: TCashFlowInputDTO; AReturnShowDTO: Boolean = true): Either<String, TCashFlowShowDTO>;
     function UpdateAndShow(AId: Int64; AInput: TCashFlowInputDTO): Either<String, TCashFlowShowDTO>;
   End;
 

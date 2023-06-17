@@ -101,7 +101,7 @@ function TCategoryViewModel.FromShowDTO(AInput: TCategoryShowDTO): ICategoryView
 begin
   Result := Self;
 
-  FCategory.UnsignEvents.FromJson(AInput.AsJSON);
+  FCategory.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

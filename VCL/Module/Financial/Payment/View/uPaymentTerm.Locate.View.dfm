@@ -1074,7 +1074,7 @@ object PaymentTermLocateView: TPaymentTermLocateView
                 Left = 5
                 Top = 5
                 Width = 58
-                Height = 14
+                Height = 15
                 Margins.Left = 5
                 Margins.Top = 5
                 Margins.Right = 5
@@ -1087,6 +1087,7 @@ object PaymentTermLocateView: TPaymentTermLocateView
                 Font.Name = 'Tahoma'
                 Font.Style = [fsBold]
                 ParentFont = False
+                ExplicitHeight = 14
               end
             end
           end

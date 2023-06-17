@@ -12,7 +12,7 @@ uses
 
 type
   IChartOfAccountService = Interface(IBaseService)
-    ['{32133C5C-1CE2-4221-8FBC-5C0B01DD0E0C}']
+    ['{D3F0B28D-E7D8-4159-B280-E4B9AB7A02EC}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TChartOfAccountFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TChartOfAccountShowDTO;

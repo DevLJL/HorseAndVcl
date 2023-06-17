@@ -11,7 +11,7 @@ uses
 
 type
   IQueueEmailDataFactory = Interface
-    ['{711003F6-6201-4489-B922-E859AAEC304F}']
+    ['{7E54D8DC-2697-4787-985E-E255B50395DD}']
     function GenerateInsert: TQueueEmailShowDTO;
     function GenerateInput: TQueueEmailInputDTO;
   End;

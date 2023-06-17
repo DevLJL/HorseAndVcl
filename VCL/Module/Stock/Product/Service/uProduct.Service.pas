@@ -21,6 +21,7 @@ type
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TProductFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TProductShowDTO;
+    function ShowByEanOrSkuCode(AValue: String): TProductShowDTO;
     function StoreAndShow(AInput: TProductInputDTO): Either<String, TProductShowDTO>;
     function UpdateAndShow(AId: Int64; AInput: TProductInputDTO): Either<String, TProductShowDTO>;
     function Validate(AInput: TProductInputDTO; AState: TEntityState): String;
@@ -33,7 +34,8 @@ uses
   System.SysUtils,
   uProduct.ViewModel,
   uReq,
-  uTrans;
+  uTrans,
+  uHlp;
 
 const
   RESOURCE = '/Products';
@@ -117,6 +119,22 @@ begin
   Result := TProductShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
 end;
 
+function TProductService.ShowByEanOrSkuCode(AValue: String): TProductShowDTO;
+begin
+  Result := Nil;
+  if AValue.Trim.IsEmpty then
+    Exit;
+
+  // Efetuar Requisição
+  const LEndPoint = RESOURCE+'/ShowByEanOrSkuCode/'+AValue.Trim;
+  const LResponse = Req(LEndPoint).Execute;
+  if not (LResponse.StatusCode = 200) then
+    Exit;
+
+  // Retornar registro encontado
+  Result := TProductShowDTO.FromJSON(SO(LResponse.Content).O['data'].AsJSON);
+end;
+
 function TProductService.StoreAndShow(AInput: TProductInputDTO): Either<String, TProductShowDTO>;
 begin
   // Validar
@@ -173,6 +191,20 @@ function TProductService.Validate(AInput: TProductInputDTO; AState: TEntityState
 begin
   if AInput.name.IsEmpty then
     Result := Result + Trans.FieldWasNotInformed('Nome') + #13;
+
+  // ProductPriceList
+  for var LI := 0 to Pred(AInput.product_price_lists.Count) do
+  begin
+    var LCurrentError := '';
+    if (AInput.product_price_lists.Items[LI].price_list_id <= 0) then
+      LCurrentError := LCurrentError + '     [Lista de Preço (ID)] é um campo obrigatório.'+ #13;
+
+    if (AInput.product_price_lists.Items[LI].price <= 0) then
+      LCurrentError := LCurrentError + '     [Preço] é um campo obrigatório.'+ #13;
+
+    if not LCurrentError.Trim.IsEmpty then
+      Result := Result + '   Lista de Preço > Posição ' + StrZero((lI+1).ToString,3) + ': ' + #13 + LCurrentError;
+  end;
 end;
 
 end.

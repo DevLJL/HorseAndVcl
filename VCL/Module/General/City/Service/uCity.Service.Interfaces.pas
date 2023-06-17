@@ -12,7 +12,7 @@ uses
 
 type
   ICityService = Interface(IBaseService)
-    ['{6CFF6182-3301-4209-B4F0-C6233A4B9B26}']
+    ['{9821CEAD-4270-49C2-80D4-61BF7D64AF52}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TCityFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TCityShowDTO;

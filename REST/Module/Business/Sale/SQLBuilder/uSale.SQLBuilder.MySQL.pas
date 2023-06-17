@@ -6,7 +6,6 @@ uses
   uFilter,
   uSelectWithFilter,
   uSale,
-  criteria.query.language,
   uSale.SQLBuilder.Interfaces,
   uBase.Entity,
   uSaleItem,
@@ -17,9 +16,10 @@ type
   public
     class function Make: ISaleSQLBuilder;
 
+    // SaleCheck
+    function NextSaleCheckId: String;
+
     // Sale
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function DeleteById(AId: Int64): String;
     function DeleteByIdRange(AId: String): String;
     function SelectAll: String;
@@ -31,13 +31,11 @@ type
     function SQLForReport(ASaleId: Int64): TSQLForReportOutput;
 
     // SaleItem
-    function ScriptCreateSaleItemTable: String;
     function SelectSaleItemsBySaleId(ASaleId: Int64): String;
     function DeleteSaleItemsBySaleId(ASaleId: Int64): String;
     function InsertSaleItem(ASaleItem: TSaleItem): String;
 
     // SalePayment
-    function ScriptCreateSalePaymentTable: String;
     function SelectSalePaymentsBySaleId(ASaleId: Int64): String;
     function DeleteSalePaymentsBySaleId(ASaleId: Int64): String;
     function InsertSalePayment(ASalePayment: TSalePayment): String;
@@ -163,10 +161,11 @@ function TSaleSQLBuilderMySQL.Insert(AEntity: TBaseEntity): String;
 begin
   const LSQL = ' INSERT INTO sale '+
                '   (person_id, seller_id, carrier_id, note, internal_note, status, delivery_status, type, '+
-               '    flg_payment_requested, sum_sale_item_total, discount, increase, freight, total, money_received, '+
-               '    money_change, amount_of_people, informed_legal_entity_number, consumption_number, created_at, created_by_acl_user_id) '+
+               '    flg_payment_requested, sum_sale_item_total, discount, increase, freight, service_charge, cover_charge, '+
+               '    total, money_received, money_change, amount_of_people, informed_legal_entity_number, '+
+               '    consumption_number, sale_check_id, sale_check_name, created_at, created_by_acl_user_id) '+
                ' VALUES '+
-               '   (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)';
+               '   (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)';
   const LSale = AEntity as TSale;
 
   Result := Format(LSQL, [
@@ -183,15 +182,28 @@ begin
     Q(LSale.discount, DECIMAL_PLACES),
     Q(LSale.increase, DECIMAL_PLACES),
     Q(LSale.freight, DECIMAL_PLACES),
+    Q(LSale.service_charge, DECIMAL_PLACES),
+    Q(LSale.cover_charge, DECIMAL_PLACES),
     Q(LSale.total, DECIMAL_PLACES),
     Q(LSale.money_received, DECIMAL_PLACES),
     Q(LSale.money_change, DECIMAL_PLACES),
     Q(LSale.amount_of_people),
     Q(LSale.informed_legal_entity_number),
     Q(LSale.consumption_number),
+    Q(LSale.sale_check_id),
+    Q(LSale.sale_check_name),
     Q(Now(), TDBDriver.dbMYSQL),
     Q(LSale.created_by_acl_user_id)
   ]);
+end;
+
+function TSaleSQLBuilderMySQL.NextSaleCheckId: String;
+begin
+  const LSQL = ' INSERT INTO sale_check '+
+               '   (`created_at`) '+
+               ' VALUES '+
+               '   (%s) ';
+  Result := Format(LSQL, [Q(Now(), TDBDriver.dbMYSQL)]);
 end;
 
 function TSaleSQLBuilderMySQL.InsertSaleItem(ASaleItem: TSaleItem): String;
@@ -237,98 +249,6 @@ end;
 class function TSaleSQLBuilderMySQL.Make: ISaleSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TSaleSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result := ' CREATE TABLE `sale` ( '+
-            ' `id` bigint NOT NULL AUTO_INCREMENT, '+
-            ' `person_id` bigint DEFAULT NULL, '+
-            ' `seller_id` bigint NOT NULL, '+
-            ' `carrier_id` bigint DEFAULT NULL, '+
-            ' `note` text, '+
-            ' `internal_note` text, '+
-            ' `status` tinyint DEFAULT NULL COMMENT ''[0-Pendente, 1-Concluido, 2-Cancelado]'', '+
-            ' `delivery_status` tinyint DEFAULT NULL COMMENT ''[0-Novo, 1-Recusado, 2-Agendado, 3-Preparando, 4-Em Transito, 5-Entregue, 6-Cancelado]'', '+
-            ' `type` tinyint DEFAULT NULL COMMENT ''[0-Normal, 1-Consumo, 2-Entrega]'', '+
-            ' `flg_payment_requested` tinyint DEFAULT NULL, '+
-            ' `sum_sale_item_total` decimal(15,8) DEFAULT NULL, '+
-            ' `discount` decimal(15,8) DEFAULT NULL, '+
-            ' `increase` decimal(15,8) DEFAULT NULL, '+
-            ' `freight` decimal(15,8) DEFAULT NULL, '+
-            ' `total` decimal(15,8) DEFAULT NULL, '+
-            ' `money_received` decimal(15,8) DEFAULT NULL, '+
-            ' `money_change` decimal(15,8) DEFAULT NULL, '+
-            ' `amount_of_people` tinyint DEFAULT NULL, '+
-            ' `informed_legal_entity_number` varchar(20) DEFAULT NULL, '+
-            ' `consumption_number` bigint DEFAULT NULL, '+
-            ' `created_at` datetime DEFAULT NULL, '+
-            ' `updated_at` datetime DEFAULT NULL, '+
-            ' `created_by_acl_user_id` bigint DEFAULT NULL, '+
-            ' `updated_by_acl_user_id` bigint DEFAULT NULL, '+
-            ' PRIMARY KEY (`id`), '+
-            ' KEY `sale_fk_created_by_acl_user_id` (`created_by_acl_user_id`), '+
-            ' KEY `sale_fk_updated_by_sale_id` (`updated_by_acl_user_id`), '+
-            ' KEY `sale_fk_person_id` (`person_id`), '+
-            ' KEY `sale_fk_seller_id` (`seller_id`), '+
-            ' KEY `sale_fk_carrier_id` (`carrier_id`), '+
-            ' KEY `sale_idx_status` (`status`) /*!80000 INVISIBLE */, '+
-            ' KEY `sale_idx_delivery_status` (`delivery_status`) /*!80000 INVISIBLE */, '+
-            ' KEY `sale_idx_type` (`type`) /*!80000 INVISIBLE */, '+
-            ' KEY `sale_idx_flg_payment_requested` (`flg_payment_requested`), '+
-            ' KEY `sale_idx_consumption_number` (`consumption_number`), '+
-            ' KEY `sale_idx_created_at` (`created_at`), '+
-            ' CONSTRAINT `sale_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`), '+
-            ' CONSTRAINT `sale_fk_updated_by_sale_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`),    '+
-            ' CONSTRAINT `sale_fk_carrier_id` FOREIGN KEY (`carrier_id`) REFERENCES `person` (`id`), '+
-            ' CONSTRAINT `sale_fk_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`), '+
-            ' CONSTRAINT `sale_fk_seller_id` FOREIGN KEY (`seller_id`) REFERENCES `person` (`id`) '+
-            ' ) ';
-end;
-
-function TSaleSQLBuilderMySQL.ScriptCreateSaleItemTable: String;
-begin
-  Result := ' CREATE TABLE `sale_item` ( '+
-            '   `id` bigint NOT NULL AUTO_INCREMENT, '+
-            '   `sale_id` bigint NOT NULL, '+
-            '   `product_id` bigint NOT NULL, '+
-            '   `quantity` decimal(18,4) DEFAULT NULL, '+
-            '   `price` decimal(18,4) DEFAULT NULL, '+
-            '   `unit_discount` decimal(18,4) DEFAULT NULL, '+
-            '   `total` decimal(18,4) DEFAULT NULL, '+
-            '   `seller_id` bigint NOT NULL, '+
-            '   `note` text, '+
-            '   PRIMARY KEY (`id`), '+
-            '   KEY `sale_item_fk_sale_id` (`sale_id`), '+
-            '   KEY `sale_item_fk_product_id` (`product_id`), ' +
-            '   CONSTRAINT `sale_item_fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`), ' +
-            '   CONSTRAINT `sale_item_fk_sale_id` FOREIGN KEY (`sale_id`) REFERENCES `sale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE '+
-            ' )  ';
-end;
-
-function TSaleSQLBuilderMySQL.ScriptCreateSalePaymentTable: String;
-begin
-  Result := ' CREATE TABLE `sale_payment` ( '+
-            '   `id` bigint NOT NULL AUTO_INCREMENT, '+
-            '   `sale_id` bigint NOT NULL, '+
-            '   `collection_uuid` char(36) NOT NULL, '+
-            '   `payment_id` bigint NOT NULL, '+
-            '   `bank_account_id` bigint NOT NULL, '+
-            '   `amount` decimal(18,4) NOT NULL, '+
-            '   `note` text, '+
-            '   `due_date` DATE NOT NULL, '+
-            '   PRIMARY KEY (`id`), '+
-            '   KEY `sale_payment_fk_sale_id` (`sale_id`), '+
-            '   KEY `sale_payment_fk_payment_id` (`payment_id`), ' +
-            '   KEY `sale_payment_fk_bank_account_id` (`bank_account_id`), ' +
-            '   CONSTRAINT `sale_payment_fk_bank_account_id` FOREIGN KEY (`bank_account_id`) REFERENCES `bank_account` (`id`), ' +
-            '   CONSTRAINT `sale_payment_fk_sale_id` FOREIGN KEY (`sale_id`) REFERENCES `sale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE '+
-            ' )  ';
-end;
-
-function TSaleSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := '';
 end;
 
 function TSaleSQLBuilderMySQL.SelectAll: String;
@@ -420,6 +340,8 @@ begin
                '   discount = %s, '+
                '   increase = %s, '+
                '   freight = %s, '+
+               '   service_charge = %s, '+
+               '   cover_charge = %s, '+
                '   total = %s, '+
                '   money_received = %s, '+
                '   money_change = %s, '+
@@ -445,6 +367,8 @@ begin
     Q(LSale.discount, DECIMAL_PLACES),
     Q(LSale.increase, DECIMAL_PLACES),
     Q(LSale.freight, DECIMAL_PLACES),
+    Q(LSale.service_charge, DECIMAL_PLACES),
+    Q(LSale.cover_charge, DECIMAL_PLACES),
     Q(LSale.total, DECIMAL_PLACES),
     Q(LSale.money_received, DECIMAL_PLACES),
     Q(LSale.money_change, DECIMAL_PLACES),

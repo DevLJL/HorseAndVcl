@@ -102,7 +102,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uNotificationView,
+  uToast.View,
   Quick.Threads,
   Vcl.Dialogs,
   uHandle.Exception,
@@ -185,7 +185,7 @@ begin
     LockControl(pnlBackground);
 
     dtsCashFlowTransactions.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
   End;
@@ -271,12 +271,12 @@ begin
             TAlertView.Handle(LSaved.Left);
 
           FViewModel.CashFlow.Edit;
-          NotificationView.Execute(Trans.RecordValidationFailed, tneError);
+          ToastView.Execute(Trans.RecordValidationFailed, tneError);
           Exit;
         end;
 
         // Retornar registro inserido/atualizado
-        NotificationView.Execute(Trans.RecordSaved, tneSuccess);
+        ToastView.Execute(Trans.RecordSaved, tneSuccess);
         FHandleResult := LSaved.Right;
         ModalResult   := MrOK;
       finally

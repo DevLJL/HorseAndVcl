@@ -12,7 +12,7 @@ uses
 
 type
   IQueueEmailPersistenceUseCase = Interface
-    ['{05187FB2-4FF7-4D56-BF9F-D3DD8B3AF6AF}']
+    ['{F31340F8-8E92-442B-A86F-DF98DC36D4E7}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TQueueEmailFilterDTO): IIndexResult overload;

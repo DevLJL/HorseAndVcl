@@ -26,7 +26,8 @@ uses
   XSuperObject,
   uTrans,
   uFilter.Types,
-  uCashFlow.Filter;
+  uCashFlow.Filter,
+  uHlp;
 
 { TCashFlowMapper }
 
@@ -68,6 +69,19 @@ begin
   // Pesquisa por ID
   if (AInput.id_search_content > 0) then
     Result.Where(TParentheses.OpenAndClose, 'cash_flow.id', TCondition.Equal, AInput.id_search_content.ToString);
+
+  // StationId
+  if not AInput.station_id.Trim.IsEmpty then
+    Result.Where(TParentheses.OpenAndClose, 'cash_flow.station_id', TCondition.Equal, StrInt(AInput.station_id).ToString);
+
+  // Opened
+  if not AInput.opened.Trim.IsEmpty then
+  begin
+    case StrInt(AInput.opened.Trim) of
+      0: Result.Where(TParentheses.OpenAndClose, 'cash_flow.closing_date', TCondition.IsNotNull);
+      1: Result.Where(TParentheses.OpenAndClose, 'cash_flow.closing_date', TCondition.IsNull);
+    end;
+  end;
 end;
 
 class function TCashFlowMapper.InputToEntity(AInput: TCashFlowInputDTO): TCashFlow;

@@ -135,7 +135,7 @@ function TBankAccountViewModel.FromShowDTO(AInput: TBankAccountShowDTO): IBankAc
 begin
   Result := Self;
 
-  FBankAccount.UnsignEvents.FromJson(AInput.AsJSON);
+  FBankAccount.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

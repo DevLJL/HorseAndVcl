@@ -14,17 +14,21 @@ uses
   uSale.Show.DTO,
   uProduct.Types,
   uCashFlowTransaction.Types,
-  uSaleGenerateBillingRepositories;
+  uRepository.Factory;
 
 type
   ISaleGenerateBillingUseCase = Interface
-    ['{EFF30E6A-EFC2-45E2-A259-F13F6A348D96}']
+    ['{FD249E36-4A4C-4580-9502-CC79F9171E9F}']
     function Execute(AReturnShowDTO: Boolean = true): TSaleShowDTO;
   end;
 
   TSaleGenerateBillingUseCase = class(TInterfacedObject, ISaleGenerateBillingUseCase)
   private
-    FRepositories: ISaleGenerateBillingRepositories;
+    FSharedConn: IZLConnection;
+    FSaleRepository: ISaleRepository;
+    FProductRepository: IProductRepository;
+    FBillPayReceiveRepository: IBillPayReceiveRepository;
+    FCashFlowRepository: ICashFlowRepository;
     FSaleId: Int64;
     FStationId: Int64;
     FOperation: TSaleGenerateBillingOperation;
@@ -34,7 +38,7 @@ type
     FTypeMov: TProductMovStock;
     FFlgGenerateBillReceives: Boolean;
     FTypeTransaction: TCashFlowTransactionType;
-    constructor Create(ARepositories: ISaleGenerateBillingRepositories; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation; AInput: TSaleInputDTO);
+    constructor Create(ARepositoryFactory: IRepositoryFactory; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation; AInput: TSaleInputDTO);
     destructor Destroy; override;
     function Validate: ISaleGenerateBillingUseCase;
     function HandleChangeSaleStatus: ISaleGenerateBillingUseCase;
@@ -45,11 +49,11 @@ type
     /// <summary>
     ///   Informar ID da Venda que já está salva e Faturar
     /// </summary>
-    class function Make(ARepositories: ISaleGenerateBillingRepositories; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation): ISaleGenerateBillingUseCase; overload;
+    class function Make(ARepositoryFactory: IRepositoryFactory; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation): ISaleGenerateBillingUseCase; overload;
     /// <summary>
     ///   Informar Input da Venda para Incluir e Faturar
     /// </summary>
-    class function Make(ARepositories: ISaleGenerateBillingRepositories; AInput: TSaleInputDTO; AStationId: Int64): ISaleGenerateBillingUseCase; overload;
+    class function Make(ARepositoryFactory: IRepositoryFactory; AInput: TSaleInputDTO; AStationId: Int64): ISaleGenerateBillingUseCase; overload;
     function Execute(AReturnShowDTO: Boolean = true): TSaleShowDTO;
   end;
 
@@ -73,14 +77,28 @@ uses
   uSale.GenerateCashFlowTransactionsBySale,
   uCache;
 
-constructor TSaleGenerateBillingUseCase.Create(ARepositories: ISaleGenerateBillingRepositories; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation; AInput: TSaleInputDTO);
+constructor TSaleGenerateBillingUseCase.Create(ARepositoryFactory: IRepositoryFactory; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation; AInput: TSaleInputDTO);
 begin
   inherited Create;
-  FRepositories          := ARepositories;
-  FSaleId                := ASaleId;
-  FStationId             := AStationId;
-  FOperation             := AOperation;
-  FInput                 := AInput;
+
+  // Repositórios
+  FSharedConn               := ARepositoryFactory.Conn;
+  FSaleRepository           := ARepositoryFactory.Sale;
+  FProductRepository        := ARepositoryFactory.Product;
+  FBillPayReceiveRepository := ARepositoryFactory.BillPayReceive;
+  FCashFlowRepository       := ARepositoryFactory.CashFlow;
+
+  // Desligar Gerenciamento de Transação interna dos Repositórios
+  // Transação será gerenciada por FSharedConn
+  FSaleRepository.SetManageTransaction(False);
+  FProductRepository.SetManageTransaction(False);
+  FBillPayReceiveRepository.SetManageTransaction(False);
+  FCashFlowRepository.SetManageTransaction(False);
+
+  FSaleId                   := ASaleId;
+  FStationId                := AStationId;
+  FOperation                := AOperation;
+  FInput                    := AInput;
 
   case FOperation of
     TSaleGenerateBillingOperation.Revert: Begin
@@ -110,27 +128,27 @@ begin
   inherited;
 end;
 
-class function TSaleGenerateBillingUseCase.Make(ARepositories: ISaleGenerateBillingRepositories; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation): ISaleGenerateBillingUseCase;
+class function TSaleGenerateBillingUseCase.Make(ARepositoryFactory: IRepositoryFactory; ASaleId: Int64; AStationId: Int64; AOperation: TSaleGenerateBillingOperation): ISaleGenerateBillingUseCase;
 begin
-  Result := Self.Create(ARepositories, ASaleId, AStationId, AOperation, nil);
+  Result := Self.Create(ARepositoryFactory, ASaleId, AStationId, AOperation, nil);
 end;
 
-class function TSaleGenerateBillingUseCase.Make(ARepositories: ISaleGenerateBillingRepositories; AInput: TSaleInputDTO; AStationId: Int64): ISaleGenerateBillingUseCase;
+class function TSaleGenerateBillingUseCase.Make(ARepositoryFactory: IRepositoryFactory; AInput: TSaleInputDTO; AStationId: Int64): ISaleGenerateBillingUseCase;
 const
   LSALE_ID_NOT_INFORMED = 0;
 begin
-  Result := Self.Create(ARepositories, LSALE_ID_NOT_INFORMED, AStationId, TSaleGenerateBillingOperation.Approve, AInput);
+  Result := Self.Create(ARepositoryFactory, LSALE_ID_NOT_INFORMED, AStationId, TSaleGenerateBillingOperation.Approve, AInput);
 end;
 
 function TSaleGenerateBillingUseCase.Execute(AReturnShowDTO: Boolean): TSaleShowDTO;
 begin
   try
-    FRepositories.Shared.StartTransaction;
+    FSharedConn.StartTransaction;
 
     case (FSaleId > 0) of
       // Localizar Venda quando ID informado
       True: Begin
-        FSale := FRepositories.Sale.Show(FSaleId);
+        FSale := FSaleRepository.Show(FSaleId);
         if not Assigned(FSale) then
           raise Exception.Create(Trans.RecordNotFound + ': ' + FSaleId.ToString);
       End;
@@ -140,7 +158,7 @@ begin
         const LErrors = LEntity.Value.BeforeSaveAndValidate(TEntityState.Store);
         if not LErrors.Trim.IsEmpty then
           raise TEntityValidationException.Create(LErrors);
-        FSale := FRepositories.Sale.Show(FRepositories.Sale.Store(LEntity));
+        FSale := FSaleRepository.Show(FSaleRepository.Store(LEntity));
       End;
     end;
 
@@ -150,10 +168,10 @@ begin
     HandleBillReceive;      {Gerar/Estornar Contas a Receber}
     HandleCashFlow;         {Gerar Fluxo de Caixa}
 
-    FRepositories.Shared.CommitTransaction;
+    FSharedConn.CommitTransaction;
   except on E: Exception do
     Begin
-      FRepositories.Shared.RollBackTransaction;
+      FSharedConn.RollBackTransaction;
       raise;
     End;
   end;
@@ -161,7 +179,7 @@ begin
   // Retornar Venda C/ Alterações
   if AReturnShowDTO then
   begin
-    const LEntity: SH<TSale> = FRepositories.Sale.Show(FSale.id);
+    const LEntity: SH<TSale> = FSaleRepository.Show(FSale.id);
     Result := TSaleMapper.EntityToShow(LEntity.Value);
   end;
 
@@ -193,14 +211,14 @@ end;
 function TSaleGenerateBillingUseCase.HandleChangeSaleStatus: ISaleGenerateBillingUseCase;
 begin
   Result := Self;
-  FRepositories.Sale.ChangeStatus(FSale.id, FSaleStatus);
+  FSaleRepository.ChangeStatus(FSale.id, FSaleStatus);
 end;
 
 function TSaleGenerateBillingUseCase.HandleMovStock: ISaleGenerateBillingUseCase;
 begin
   Result := Self;
   for var LSaleItem in FSale.sale_items do
-    FRepositories.Product.MoveProduct(LSaleItem.product_id, LSaleItem.quantity, FTypeMov);
+    FProductRepository.MoveProduct(LSaleItem.product_id, LSaleItem.quantity, FTypeMov);
 end;
 
 function TSaleGenerateBillingUseCase.HandleBillReceive: ISaleGenerateBillingUseCase;
@@ -212,10 +230,10 @@ begin
     True: Begin
       const LBillReceives: SH<TObjectList<TBillPayReceive>> = TSaleGenerateBillReceivesBySale.Make.Execute(FSale);
       for var LBillReceive in LBillReceives.Value do
-        FRepositories.BillPayReceive.Store(lBillReceive);
+        FBillPayReceiveRepository.Store(lBillReceive);
     End;
     // Estornar Contas a Receber
-    False: FRepositories.BillPayReceive.DeleteBySaleId(FSale.id);
+    False: FBillPayReceiveRepository.DeleteBySaleId(FSale.id);
   end;
 end;
 
@@ -224,14 +242,14 @@ begin
   Result := Self;
 
   // Obter ID de Fluxo de Caixa Ativo por Estação
-  const LCashFlowIdInUse = FRepositories.CashFlow.GetIdByStationInUse(FStationId);
+  const LCashFlowIdInUse = FCashFlowRepository.GetIdByStationInUse(FStationId);
   if not (LCashFlowIdInUse > 0) then
     Exit;
 
   // Gerar Fluxo de Caixa
   const LCashFlowTransactions: SH<TObjectList<TCashFlowTransaction>> = TSaleGenerateCashFlowTransactionsBySale.Make.Execute(FSale, LCashFlowIdInUse, FTypeTransaction);
   for var LCashFlowTransaction in LCashFlowTransactions.Value do
-    FRepositories.CashFlow.StoreTransaction(LCashFlowTransaction);
+    FCashFlowRepository.StoreTransaction(LCashFlowTransaction);
 end;
 
 end.

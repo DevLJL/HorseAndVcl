@@ -7,14 +7,13 @@ uses
   uSelectWithFilter,
   uProduct,
   uProduct.SQLBuilder.Interfaces,
-  uBase.Entity;
+  uBase.Entity,
+  uProductPriceList;
 
 type
   TProductSQLBuilderMySQL = class(TInterfacedObject, IProductSQLBuilder)
   public
     class function Make: IProductSQLBuilder;
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function DeleteById(AId: Int64): String;
     function DeleteByIdRange(AId: String): String;
     function SelectAll: String;
@@ -25,6 +24,11 @@ type
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function RegisteredFields(AColumName, AColumnValue: String; AId: Int64): String;
     function SelectByEanOrSkuCode(AValue: String): String;
+
+    // ProductPriceList
+    function SelectProductPriceListsByProductId(AProductId: Int64): String;
+    function DeleteProductPriceListsByProductId(AProductId: Int64): String;
+    function InsertProductPriceList(AProductPriceList: TProductPriceList): String;
   end;
 
 implementation
@@ -57,16 +61,22 @@ begin
   Result := Format(LSQL, [AId]);
 end;
 
+function TProductSQLBuilderMySQL.DeleteProductPriceListsByProductId(AProductId: Int64): String;
+begin
+  const LSQL = 'DELETE FROM product_price_list WHERE product_id = %s';
+  Result := Format(LSQL, [Q(AProductId)]);
+end;
+
 function TProductSQLBuilderMySQL.Insert(AEntity: TBaseEntity): String;
 begin
   const LSQL = ' INSERT INTO product '+
                '   (name, simplified_name, type, sku_code, ean_code, manufacturing_code, '+
                '    identification_code, cost, marketup, price, current_quantity, minimum_quantity, '+
                '    maximum_quantity, gross_weight, net_weight, packing_weight, flg_to_move_the_stock, '+
-               '    flg_product_for_scales, internal_note, complement_note, flg_discontinued, genre, '+
+               '    flg_product_for_scales, flg_additional, internal_note, complement_note, flg_discontinued, genre, check_value_before_insert, '+
                '    unit_id, ncm_id, category_id, brand_id, size_id, storage_location_id, created_at, created_by_acl_user_id) '+
                ' VALUES '+
-               '   (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)';
+               '   (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)';
   const LProduct = AEntity as TProduct;
 
   Result := Format(LSQL, [
@@ -88,10 +98,12 @@ begin
     Q(LProduct.packing_weight, DECIMAL_PLACES),
     Q(LProduct.flg_to_move_the_stock),
     Q(LProduct.flg_product_for_scales),
+    Q(LProduct.flg_additional),
     Q(LProduct.internal_note),
     Q(LProduct.complement_note),
     Q(LProduct.flg_discontinued),
     Q(Ord(LProduct.genre)),
+    Q(Ord(LProduct.check_value_before_insert)),
     QN(LProduct.unit_id),
     QN(LProduct.ncm_id),
     QN(LProduct.category_id),
@@ -100,6 +112,19 @@ begin
     QN(LProduct.storage_location_id),
     Q(Now(), TDBDriver.dbMYSQL),
     Q(LProduct.created_by_acl_user_id)
+  ]);
+end;
+
+function TProductSQLBuilderMySQL.InsertProductPriceList(AProductPriceList: TProductPriceList): String;
+begin
+  const LSQL = ' INSERT INTO product_price_list '+
+               '   (product_id, price_list_id, price) '+
+               ' VALUES '+
+               '   (%s, %s, %s)';
+  Result := Format(LSQL, [
+    Q(AProductPriceList.product_id),
+    Q(AProductPriceList.price_list_id),
+    Q(AProductPriceList.price, DECIMAL_PLACES)
   ]);
 end;
 
@@ -122,68 +147,6 @@ begin
     Q(AColumnValue),
     AId.ToString
   ]);
-end;
-
-function TProductSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result := ' CREATE TABLE `product` ( '+
-            '   `id` bigint NOT NULL AUTO_INCREMENT, '+
-            '   `name` varchar(255) NOT NULL, '+
-            '   `simplified_name` varchar(30) NOT NULL, '+
-            '   `type` tinyint(4) DEFAULT NULL COMMENT ''[0-product, 1-service]'', '+
-            '   `sku_code` varchar(45) NOT NULL, '+
-            '   `ean_code` varchar(45) DEFAULT NULL, '+
-            '   `manufacturing_code` varchar(45) DEFAULT NULL, '+
-            '   `identification_code` varchar(45) DEFAULT NULL, '+
-            '   `cost` decimal(18,4) DEFAULT NULL, '+
-            '   `marketup` decimal(18,4) DEFAULT NULL, '+
-            '   `price` decimal(18,4) DEFAULT NULL, '+
-            '   `current_quantity` decimal(18,4) DEFAULT NULL, '+
-            '   `minimum_quantity` decimal(18,4) DEFAULT NULL, '+
-            '   `maximum_quantity` decimal(18,4) DEFAULT NULL, '+
-            '   `gross_weight` decimal(18,4) DEFAULT NULL, '+
-            '   `net_weight` decimal(18,4) DEFAULT NULL, '+
-            '   `packing_weight` decimal(18,4) DEFAULT NULL, '+
-            '   `flg_to_move_the_stock` tinyint(4) DEFAULT NULL, '+
-            '   `flg_product_for_scales` tinyint(4) DEFAULT NULL, '+
-            '   `internal_note` text, '+
-            '   `complement_note` text, '+
-            '   `flg_discontinued` tinyint(4) DEFAULT NULL, '+
-            '   `unit_id` bigint NOT NULL, '+
-            '   `ncm_id` bigint NOT NULL, '+
-            '   `category_id` bigint DEFAULT NULL, '+
-            '   `brand_id` bigint DEFAULT NULL, '+
-            '   `size_id` bigint DEFAULT NULL, '+
-            '   `storage_location_id` bigint DEFAULT NULL, '+
-            '   `genre` tinyint(4) DEFAULT NULL COMMENT ''[0-none, 1-masculine, 2-feminine, 3-unissex]'', '+
-            '   `created_at` datetime DEFAULT NULL, '+
-            '   `updated_at` datetime DEFAULT NULL, '+
-            '   `created_by_acl_user_id` bigint DEFAULT NULL, '+
-            '   `updated_by_acl_user_id` bigint DEFAULT NULL, '+
-            '   PRIMARY KEY (`id`), '+
-            '   KEY `product_idx_created_at` (`created_at`), '+
-            '   KEY `product_fk_unit_id` (`unit_id`), '+
-            '   KEY `product_fk_ncm_id` (`ncm_id`), '+
-            '   KEY `product_fk_category_id` (`category_id`), '+
-            '   KEY `product_fk_brand_id` (`brand_id`), '+
-            '   KEY `product_fk_size_id` (`size_id`), '+
-            '   KEY `product_fk_storage_location_id` (`storage_location_id`), '+
-            '   KEY `product_fk_created_by_acl_user_id` (`created_by_acl_user_id`), '+
-            '   KEY `product_fk_updated_by_acl_user_id` (`updated_by_acl_user_id`), '+
-            '   CONSTRAINT `product_fk_brand_id` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`) , '+
-            '   CONSTRAINT `product_fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) , '+
-            '   CONSTRAINT `product_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`) , '+
-            '   CONSTRAINT `product_fk_size_id` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) , '+
-            '   CONSTRAINT `product_fk_storage_location_id` FOREIGN KEY (`storage_location_id`) REFERENCES `storage_location` (`id`) , '+
-            '   CONSTRAINT `product_fk_unit_id` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`) , '+
-            '   CONSTRAINT `product_fk_ncm_id` FOREIGN KEY (`ncm_id`) REFERENCES `ncm` (`id`) , '+
-            '   CONSTRAINT `product_fk_updated_by_acl_user_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`)  '+
-            ' )  ';
-end;
-
-function TProductSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := '';
 end;
 
 function TProductSQLBuilderMySQL.SelectAll: String;
@@ -228,12 +191,28 @@ end;
 
 function TProductSQLBuilderMySQL.SelectByEanOrSkuCode(AValue: String): String;
 begin
-  Result := SelectAll + ' WHERE (product.ean_code = ' + AValue.Trim + ' OR product.sku_code = ' + AValue.Trim + ')';
+  Result := SelectAll + ' WHERE (product.ean_code = ' + Q(AValue.Trim) + ' OR product.sku_code = ' + Q(AValue.Trim) + ')';
 end;
 
 function TProductSQLBuilderMySQL.SelectById(AId: Int64): String;
 begin
   Result := SelectAll + ' WHERE product.id = ' + AId.ToString;
+end;
+
+function TProductSQLBuilderMySQL.SelectProductPriceListsByProductId(AProductId: Int64): String;
+begin
+  const LSQL = ' SELECT '+
+               '   product_price_list.*, '+
+               '   price_list.name as price_list_name '+
+               ' FROM '+
+               '   product_price_list '+
+               ' INNER JOIN price_list '+
+               '         ON price_list.id = product_price_list.price_list_id '+
+               ' WHERE '+
+               '   product_price_list.product_id = %s '+
+               ' ORDER BY '+
+               '   product_price_list.id';
+  Result := Format(LSQL, [Q(AProductId)]);
 end;
 
 function TProductSQLBuilderMySQL.Update(AId: Int64; AEntity: TBaseEntity): String;
@@ -257,10 +236,12 @@ begin
                '   packing_weight = %s, '+
                '   flg_to_move_the_stock = %s, '+
                '   flg_product_for_scales = %s, '+
+               '   flg_additional = %s, '+
                '   internal_note = %s, '+
                '   complement_note = %s, '+
                '   flg_discontinued = %s, '+
                '   genre = %s, '+
+               '   check_value_before_insert = %s, '+
                '   unit_id = %s, '+
                '   ncm_id = %s, '+
                '   category_id = %s, '+
@@ -292,10 +273,12 @@ begin
     Q(LProduct.packing_weight, DECIMAL_PLACES),
     Q(LProduct.flg_to_move_the_stock),
     Q(LProduct.flg_product_for_scales),
+    Q(LProduct.flg_additional),
     Q(LProduct.internal_note),
     Q(LProduct.complement_note),
     Q(LProduct.flg_discontinued),
     Q(Ord(LProduct.genre)),
+    Q(Ord(LProduct.check_value_before_insert)),
     QN(LProduct.unit_id),
     QN(LProduct.ncm_id),
     QN(LProduct.category_id),

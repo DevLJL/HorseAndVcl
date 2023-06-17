@@ -28,7 +28,9 @@ uses
   uFilter.Types,
   uAclUser.Filter,
   uRepository.Factory,
-  uAclRole.Persistence.UseCase;
+  uAclRole.Persistence.UseCase,
+  uSmartPointer,
+  uPerson;
 
 { TAclUserMapper }
 
@@ -39,6 +41,14 @@ begin
 
   Result := TAclUserShowDTO.FromJSON(AEntity.AsJSON);
   Result.acl_role_name := AEntity.acl_role.name;
+
+  {TODO -oOwner -cGeneral : Refatorar, código ruim}
+  // Localizar Nome do Vendedor
+  const LPerson: SH<TPerson> = TRepositoryFactory.Make.Person.Show(AEntity.seller_id);
+  case Assigned(LPerson.Value) of
+    True:  Result.seller_name := LPerson.Value.name;
+    False: Result.seller_id := 0;
+  end;
 
   // Anexar informações do Perfil
   const AclRoleRepository = TRepositoryFactory.Make.AclRole;

@@ -11,7 +11,7 @@ uses
 
 type
   ISaleDataFactory = Interface
-    ['{4E99E73F-5AE1-42C8-80B0-696E85C869F5}']
+    ['{1FDB1DCE-9F4C-4849-845C-BF06623AAADD}']
     function GenerateInsert: TSaleShowDTO;
     function GenerateInput: TSaleInputDTO;
   End;

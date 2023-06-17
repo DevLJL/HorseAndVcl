@@ -11,7 +11,7 @@ uses
 
 type
   ICategoryDataFactory = Interface
-    ['{7DA32579-EBB3-40ED-B9CF-33B1EE9016DB}']
+    ['{E0F5028A-6CF4-455D-86BF-31C6CED0E82D}']
     function GenerateInsert: TCategoryShowDTO;
     function GenerateInput: TCategoryInputDTO;
   End;

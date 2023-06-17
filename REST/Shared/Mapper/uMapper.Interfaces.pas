@@ -4,7 +4,7 @@ interface
 
 type
   IMapper = Interface
-    ['{9CEF6F51-7F9F-4993-ACBE-25DC55FB7DCF}']
+    ['{CE76349C-E7C3-4B35-9A62-ABD3DABE93B7}']
   end;
 
 implementation

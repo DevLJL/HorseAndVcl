@@ -11,9 +11,8 @@ uses
 
 type
   IAclUserSQLBuilder = interface(IBaseSQLBuilder)
-    ['{20EA2F29-0BC5-4934-A0A1-408F86513656}']
+    ['{1D94D95C-4C7F-46B1-B1F5-564A167CFDC3}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function ShowByLoginAndPassword(ALogin, APassword: String): String;

@@ -29,12 +29,6 @@ Type
   public
     constructor Create(Req: THorseRequest; Res: THorseResponse);
 
-    [SwagGET('/{id}/DataForReport', 'Dados para emissão de comprovante no Front-End por ID')]
-    [SwagParamPath('id', 'ID')]
-    [SwagResponse(HTTP_BAD_REQUEST)]
-    [SwagResponse(HTTP_INTERNAL_SERVER_ERROR)]
-    procedure DataForReport;
-
     [SwagDELETE('/{id}', 'Deletar')]
     [SwagParamPath('id', 'ID')]
     [SwagResponse(HTTP_NO_CONTENT)]
@@ -71,6 +65,15 @@ Type
     [SwagResponse(HTTP_BAD_REQUEST)]
     [SwagResponse(HTTP_INTERNAL_SERVER_ERROR)]
     procedure SendPdfReportByEmail;
+
+    [SwagPOST('/{id}/Ticket/PosPrinter/{pos_printer_id}/Copies/{copies}/SendToQueue', 'Enviar Compr. de Venda em Ticket p/ Fila de Impressão')]
+    [SwagParamPath('id', 'ID')]
+    [SwagParamPath('pos_printer_id', 'PosPrinter (ID)')]
+    [SwagParamPath('copies', 'Qde de Cópias')]
+    [SwagResponse(HTTP_NO_CONTENT)]
+    [SwagResponse(HTTP_BAD_REQUEST)]
+    [SwagResponse(HTTP_INTERNAL_SERVER_ERROR)]
+    procedure SendTicketPrintToQueue;
 
     [SwagGET('/{id}', 'Localizar por ID')]
     [SwagParamPath('id', 'ID')]
@@ -116,11 +119,13 @@ uses
   System.Classes,
   uTrans,
   uSale.GenerateBilling.UseCase,
-  uSaleGenerateBillingRepositories,
   uOutPutFileStream,
   uSale.PdfReport.UseCase,
   XSuperObject,
-  uSale.SendPdfReportByEmail.UseCase;
+  uSale.SendPdfReportByEmail.UseCase,
+  uMyClaims,
+  uEither,
+  uSale.SendPrintTicketToQueue;
 
 constructor TSaleController.Create(Req: THorseRequest; Res: THorseResponse);
 begin
@@ -130,22 +135,10 @@ begin
   FPersistence := TSalePersistenceUseCase.Make(FRepository);
 end;
 
-procedure TSaleController.DataForReport;
-begin
-  // Obter ID e Conteúdo para relatório
-  const LID = StrInt(FReq.Params['id']);
-  const LData = FRepository.DataForReport(LID);
-
-  // Retornar conteúdo para relatório
-  const OutPut = SO(LData.Sale.ToJson);
-  OutPut.A['sale_items']    := SA(LData.SaleItems.ToJsonArray);
-  OutPut.A['sale_payments'] := SA(LData.SalePayments.ToJsonArray);
-  Response(FRes).Data(OutPut);
-end;
-
 procedure TSaleController.Delete;
 begin
   const LID = StrInt(FReq.Params['id']);
+  
   FPersistence.Delete(LID);
   Response(FRes).StatusCode(HTTP_NO_CONTENT);
 end;
@@ -157,9 +150,8 @@ begin
   const LOperation = TSaleGenerateBillingOperation(StrInt(FReq.Params['operation_ord']));
 
   // Faturar/Estornar
-  const LRepositories = TSaleGenerateBillingRepositories.Make(FRepository.Conn);
-  const LSaleShowDTO: SH<TSaleShowDTO> = TSaleGenerateBillingUseCase.Make(
-    LRepositories,
+  const LSaleShowDTO = TSaleGenerateBillingUseCase.Make(
+    TRepositoryFactory.Make(FRepository.Conn),
     LID,
     LStationId,
     LOperation
@@ -172,11 +164,11 @@ end;
 procedure TSaleController.Index;
 begin
   // Obter FilterDTO
-  const LInput: SH<TSaleFilterDTO> = TSaleFilterDTO.FromReq(FReq);
-  SwaggerValidator.Validate(LInput);
+  const LFilter: SH<TSaleFilterDTO> = TSaleFilterDTO.FromReq(FReq);
+  SwaggerValidator.Validate(LFilter);
 
   // Efetuar Listagem
-  const LIndexResult = FPersistence.Index(LInput);
+  const LIndexResult = FPersistence.Index(LFilter);
 
   // Retorno
   Response(FRes).Data(LIndexResult.ToSuperObject);
@@ -205,17 +197,29 @@ begin
   Response(FRes).StatusCode(HTTP_NO_CONTENT);
 end;
 
+procedure TSaleController.SendTicketPrintToQueue;
+begin
+  const LID           = StrInt(FReq.Params['id']);
+  const LPosPrinterID = StrInt(FReq.Params['pos_printer_id']);
+  const LCopies       = StrInt(FReq.Params['copies']);
+
+  TSaleSendTicketPrintToQueue
+    .Make(TRepositoryFactory.Make(FRepository.Conn))
+    .Execute(LID, LPosPrinterID, LCopies);
+
+  // Não retornar conteúdo se tudo der certo
+  Response(FRes).StatusCode(HTTP_NO_CONTENT);
+end;
+
 procedure TSaleController.Show;
 begin
-  // Obter ID
+  // Obter e Procurar ID
   const LID = StrInt(FReq.Params['id']);
-
-  // Procurar por ID
-  const LOutput: SH<TSaleShowDTO> = FPersistence.Show(LID);
+  const LOutput = FPersistence.Show(LID);
 
   // Retorno
-  case Assigned(LOutput.Value) of
-    True:  Response(FRes).Data(LOutput.Value);
+  case Assigned(LOutput) of
+    True:  Response(FRes).Data(LOutput);
     False: Response(FRes).StatusCode(HTTP_NOT_FOUND);
   end;
 end;
@@ -227,7 +231,7 @@ begin
   SwaggerValidator.Validate(LInput);
 
   // Inserir
-  const LUseCaseResult = FPersistence.StoreAndShow(LInput);
+  const LUseCaseResult: Either<String, TSaleShowDTO> = FPersistence.StoreAndShow(LInput);
   if not LUseCaseResult.Match then
   begin
     Response(FRes).Error(True).Message(LUseCaseResult.Left);
@@ -235,7 +239,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TSaleShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput).StatusCode(HTTP_CREATED);
 end;
 
@@ -247,9 +251,8 @@ begin
   SwaggerValidator.Validate(LInput);
 
   // Incluir e Faturar
-  const LRepositories = TSaleGenerateBillingRepositories.Make(FRepository.Conn);
-  const LOutput: SH<TSaleShowDTO> = TSaleGenerateBillingUseCase.Make(
-    LRepositories,
+  const LOutput = TSaleGenerateBillingUseCase.Make(
+    TRepositoryFactory.Make(FRepository.Conn),
     LInput,
     LStationId
   ).Execute;
@@ -281,7 +284,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TSaleShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput);
 end;
 

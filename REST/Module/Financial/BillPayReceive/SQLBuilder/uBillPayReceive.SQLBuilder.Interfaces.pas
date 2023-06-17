@@ -9,9 +9,8 @@ uses
 
 type
   IBillPayReceiveSQLBuilder = interface(IBaseSQLBuilder)
-    ['{5F61055B-59F6-4D0C-94E9-B8056B51FAD4}']
+    ['{96483028-3917-43E1-9C99-F3158C8CB23F}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

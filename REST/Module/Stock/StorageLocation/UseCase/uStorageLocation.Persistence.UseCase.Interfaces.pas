@@ -12,7 +12,7 @@ uses
 
 type
   IStorageLocationPersistenceUseCase = Interface
-    ['{6391C6D7-B5B0-41EF-9C46-4D7E004C1960}']
+    ['{A5F676C9-0E28-422D-9DDD-80B79C678624}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TStorageLocationFilterDTO): IIndexResult; overload;

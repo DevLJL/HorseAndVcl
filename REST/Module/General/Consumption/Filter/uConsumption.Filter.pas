@@ -7,7 +7,7 @@ uses
 
 type
   IConsumptionFilter = Interface(IFilter)
-    ['{91DD2FEF-A42C-4165-BCBA-C89754B1964D}']
+    ['{1CE61872-4155-4ACC-A1D5-5B62ADD08DE9}']
   End;
 
   TConsumptionFilter = class(TFilter, IConsumptionFilter)

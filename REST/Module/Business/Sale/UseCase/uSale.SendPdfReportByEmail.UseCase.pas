@@ -9,7 +9,7 @@ uses
 
 type
   ISaleSendPdfReportByEmailUseCase = Interface
-    ['{B21B8410-A27F-4232-B671-AEF87914325E}']
+    ['{B5D65E59-90DC-428C-A10C-11BE3B021751}']
     function Execute(AId: Int64): ISaleSendPdfReportByEmailUseCase;
   End;
 
@@ -41,7 +41,7 @@ uses
 constructor TSaleSendPdfReportByEmailUseCase.Create(ARepository: ISaleRepository; AQueueEmailRepository: IQueueEmailRepository);
 begin
   inherited Create;
-  FRepository              := ARepository;
+  FRepository           := ARepository;
   FQueueEmailRepository := AQueueEmailRepository;
 end;
 

@@ -7,7 +7,7 @@ uses
 
 type
   IPersonFilter = Interface(IFilter)
-    ['{4B1E4CCD-6713-4869-A482-90B10FF14353}']
+    ['{A7DE6EAC-554F-4534-8254-5DA8B3C93210}']
   End;
 
   TPersonFilter = class(TFilter, IPersonFilter)

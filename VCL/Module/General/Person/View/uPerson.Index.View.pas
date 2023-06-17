@@ -14,6 +14,14 @@ uses
   uBase.DTO;
 
 type
+  {$SCOPEDENUMS ON}
+  TPersonFormFilterValue = (None, Yes, No);
+  TPersonFormFilter = record
+    flg_customer: TPersonFormFilterValue;
+    flg_seller: TPersonFormFilterValue;
+    flg_supplier: TPersonFormFilterValue;
+    flg_carrier: TPersonFormFilterValue;
+  end;
   TPersonIndexView = class(TBaseIndexView)
     tmrDoSearch: TTimer;
     pnlLocate: TPanel;
@@ -73,11 +81,14 @@ type
     FFilterOrderBy: String;
     FLayoutLocate: Boolean;
     FLocateResult: Integer;
+    FPersonFormFilter: TPersonFormFilter;
     procedure CleanFilter;
     procedure DoSearch(ACurrentPage: Integer = 1; ATryLocateId: Int64 = 0);
     procedure SetLocateResult(const Value: Integer);
   public
-    class function HandleLocate: Int64;
+    constructor Create(AOwner: TComponent; APersonFormFilter: TPersonFormFilter);
+    class function HandleLocate: Int64; overload;
+    class function HandleLocate(APersonFormFilter: TPersonFormFilter): Int64; overload;
     property  LocateResult: Integer read FLocateResult write SetLocateResult;
     procedure SetLayoutLocate(ABackgroundTransparent: Boolean = True);
   end;
@@ -91,7 +102,7 @@ uses
   uHlp,
   System.StrUtils,
   uPerson.Input.View,
-  uNotificationView,
+  uToast.View,
   uDTM,
   uYesOrNo.View,
   uAlert.View,
@@ -113,6 +124,8 @@ uses
 procedure TPersonIndexView.SetLayoutLocate(ABackgroundTransparent: Boolean);
 const
   L_ACTIONS: TArray<String> = ['action_edit','action_delete','action_view','action_option'];
+var
+  LTitle: String;
 begin
   FLayoutLocate      := true;
   pnlNavigator.Align := alNone;
@@ -121,13 +134,20 @@ begin
   pnlLocate.Align    := alBottom;
   pnlNavigator.Align := alBottom;
 
-  lblTitle.Caption           := 'Pesquisando... Pessoas';
+  LTitle := 'Pesquisando... Pessoas';
+  if (FPersonFormFilter.flg_seller = TPersonFormFilterValue.Yes) and
+  (FPersonFormFilter.flg_customer in [TPersonFormFilterValue.None, TPersonFormFilterValue.No]) and
+  (FPersonFormFilter.flg_supplier in [TPersonFormFilterValue.None, TPersonFormFilterValue.No]) and
+  (FPersonFormFilter.flg_carrier in [TPersonFormFilterValue.None, TPersonFormFilterValue.No]) then
+    LTitle := 'Pesquisando... Vendedores';
+
+  lblTitle.Caption           := LTitle;
   pnlAppend.Width            := 0;
   Self.BorderStyle           := bsNone;
   pnlBackground.BorderWidth  := 1;
   pnlBackground.Color        := $00857950;
   if ABackgroundTransparent then
-    createTransparentBackground(Self);
+    CreateDarkBackground(Self);
 
   // Varrer dbgrid e esconder botoes
   for var lI := 0 to DBGrid1.Columns.Count-1 do
@@ -183,7 +203,7 @@ begin
     end;
 
     dtsIndex.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
     if edtSearchValue.CanFocus then edtSearchValue.SetFocus;
@@ -313,6 +333,12 @@ begin
   edtSearchValue.OnChange := nil;
   edtSearchValue.Clear;
   edtSearchValue.OnChange := edtSearchValueChange;
+end;
+
+constructor TPersonIndexView.Create(AOwner: TComponent; APersonFormFilter: TPersonFormFilter);
+begin
+  inherited Create(AOwner);
+  FPersonFormFilter := APersonFormFilter;
 end;
 
 procedure TPersonIndexView.DBGrid1CellClick(Column: TColumn);
@@ -477,6 +503,35 @@ begin
       False: LSearchValue := edtSearchValue.Text;
     end;
 
+    // -------------------------------------------------------------------------
+    // Filtro - Tipo de pessoa definido via construtor
+    // -------------------------------------------------------------------------
+    // Cliente
+    case FPersonFormFilter.flg_customer of
+      TPersonFormFilterValue.Yes: LFilter.Value.flg_customer := '1';
+      TPersonFormFilterValue.No:  LFilter.Value.flg_customer := '0';
+    end;
+
+    // Vendedor
+    case FPersonFormFilter.flg_seller of
+      TPersonFormFilterValue.Yes: LFilter.Value.flg_seller := '1';
+      TPersonFormFilterValue.No:  LFilter.Value.flg_seller := '0';
+    end;
+
+    // Fornecedor
+    case FPersonFormFilter.flg_supplier of
+      TPersonFormFilterValue.Yes: LFilter.Value.flg_supplier := '1';
+      TPersonFormFilterValue.No:  LFilter.Value.flg_supplier := '0';
+    end;
+
+    // Transportador
+    case FPersonFormFilter.flg_carrier of
+      TPersonFormFilterValue.Yes: LFilter.Value.flg_carrier := '1';
+      TPersonFormFilterValue.No:  LFilter.Value.flg_carrier := '0';
+    end;
+    // -------------------------------------------------------------------------
+
+
     // Filtros
     case cbxFilterIndex.ItemIndex of
       0:  custom_search_content := LSearchValue; {Pesquisa Customizada}
@@ -634,15 +689,20 @@ begin
 end;
 
 class function TPersonIndexView.HandleLocate: Int64;
+var
+  LFilter: TPersonFormFilter;
 begin
-  Result := -1;
+  Result := HandleLocate(LFilter);
+end;
 
-  const LView: SH<TPersonIndexView> = TPersonIndexView.Create(nil);
+class function TPersonIndexView.HandleLocate(APersonFormFilter: TPersonFormFilter): Int64;
+begin
+  const LView: SH<TPersonIndexView> = TPersonIndexView.Create(nil, APersonFormFilter);
   LView.Value.SetLayoutLocate;
-  if not (LView.Value.ShowModal = mrOK) then
-    Exit;
-
-  Result := LView.Value.LocateResult;
+  case (LView.Value.ShowModal = mrOK) of
+    True:  Result := LView.Value.LocateResult;
+    False: Result := -1;
+  end;
 end;
 
 procedure TPersonIndexView.imgDoSearchClick(Sender: TObject);
@@ -675,7 +735,7 @@ begin
   inherited;
   // Excluir Grid
   dbgridDeleteConfig(DBGrid1, '');
-  NotificationView.Execute('Feche e abra a janela para carregar a nova configura��o.');
+  ToastView.Execute('Feche e abra a janela para carregar a nova configura��o.');
 end;
 
 procedure TPersonIndexView.mniSaveGridConfigClick(Sender: TObject);
@@ -683,7 +743,7 @@ begin
   inherited;
   // Salvar Config do Grid
   dbgridSaveConfig(DBGrid1, '');
-  NotificationView.Execute('Grade Salva');
+  ToastView.Execute('Grade Salva');
 end;
 
 procedure TPersonIndexView.tmrDoSearchTimer(Sender: TObject);

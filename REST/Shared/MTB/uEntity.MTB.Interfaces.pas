@@ -4,7 +4,7 @@ interface
 
 type
   IEntityMTB = Interface
-    ['{4305C5FA-D6E7-44A7-8CD7-6C2B3EB59FBD}']
+    ['{0C521983-60F7-4C3C-92A8-BA95C853A76C}']
   end;
 
 implementation

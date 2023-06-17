@@ -7,7 +7,7 @@ uses
 
 type
   IPaymentFilter = Interface(IFilter)
-    ['{2CB9F3B0-3B26-40C9-84BF-DCBDC7CB0A85}']
+    ['{7D2AC545-483F-4812-806C-CC3B23BE796B}']
   End;
 
   TPaymentFilter = class(TFilter, IPaymentFilter)

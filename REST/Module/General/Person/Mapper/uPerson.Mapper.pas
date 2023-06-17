@@ -26,7 +26,8 @@ uses
   XSuperObject,
   uTrans,
   uFilter.Types,
-  uPerson.Filter, uHlp;
+  uPerson.Filter,
+  uHlp;
 
 { TPersonMapper }
 
@@ -114,6 +115,18 @@ begin
   // financial_email
   if not AInput.financial_email.Trim.IsEmpty then
     Result.Where(TParentheses.OpenAndClose, 'person.financial_email', TCondition.LikeInitial, AInput.financial_email.Trim);
+
+  // flg_customer
+  if not AInput.flg_customer.Trim.IsEmpty then
+    Result.Where(TParentheses.OpenAndClose, 'person.flg_customer', TCondition.Equal, StrInt(AInput.flg_customer).ToString);
+
+  // flg_seller
+  if not AInput.flg_seller.Trim.IsEmpty then
+    Result.Where(TParentheses.OpenAndClose, 'person.flg_seller', TCondition.Equal, StrInt(AInput.flg_seller).ToString);
+
+  // flg_carrier
+  if not AInput.flg_carrier.Trim.IsEmpty then
+    Result.Where(TParentheses.OpenAndClose, 'person.flg_carrier', TCondition.Equal, StrInt(AInput.flg_carrier).ToString);
 end;
 
 class function TPersonMapper.InputToEntity(AInput: TPersonInputDTO): TPerson;

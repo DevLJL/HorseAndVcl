@@ -12,7 +12,7 @@ uses
 
 type
   ISalePersistenceUseCase = Interface
-    ['{39E651D8-535C-47A9-80BF-689276680D6A}']
+    ['{89DC90C3-26AC-47B4-8974-BF2C5602A2CA}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TSaleFilterDTO): IIndexResult; overload;

@@ -23,6 +23,7 @@ type
     Fcustom_search_content: String;
     Fid_search_content: Int64;
     Fetag: String;
+    Facl_user_id: Int64;
     procedure Setcurrent_page(const Value: Integer);
     procedure Setlimit_per_page(const Value: Integer);
   public
@@ -59,6 +60,10 @@ type
     [SwagString]
     [SwagProp('ETag', 'If-None-Match', false)]
     property etag: String read Fetag write Fetag;
+
+    [SwagIgnore]
+    [DISABLE]
+    property acl_user_id: Int64 read Facl_user_id write Facl_user_id;
   end;
 
 implementation

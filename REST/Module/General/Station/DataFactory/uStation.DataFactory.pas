@@ -11,7 +11,7 @@ uses
 
 type
   IStationDataFactory = Interface
-    ['{4AE707B3-9D88-4C64-B116-B67C938866EF}']
+    ['{75783978-43B7-4BF2-B67D-AD6EE42C9CCB}']
     function GenerateInsert: TStationShowDTO;
     function GenerateInput: TStationInputDTO;
   End;

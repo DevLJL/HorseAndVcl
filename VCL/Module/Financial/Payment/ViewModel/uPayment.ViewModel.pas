@@ -155,11 +155,11 @@ begin
   Result := Self;
 
   // Payment
-  FPayment.UnsignEvents.FromJson(AInput.AsJSON);
+  FPayment.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 
   // PaymentTerms
-  PaymentTerms.UnsignEvents;
+  PaymentTerms.EmptyDataSet.UnsignEvents;
   for var LPaymentTerm in AInput.payment_terms do
   begin
     MergeDataSet(LPaymentTerm.AsJSON, PaymentTerms.DataSet, true);

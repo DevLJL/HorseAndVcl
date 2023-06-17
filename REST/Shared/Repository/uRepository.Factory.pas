@@ -3,12 +3,15 @@ unit uRepository.Factory;
 interface
 
 uses
+  uAdditional.Repository.Interfaces,
+  uPriceList.Repository.Interfaces,
+  uGlobalConfig.Repository.Interfaces,
   uQueueEmail.Repository.Interfaces,
   uCashFlow.Repository.Interfaces,
   uConsumption.Repository.Interfaces,
-//  uPosPrinter.Repository.Interfaces,
+  uPosPrinter.Repository.Interfaces,
   uBillPayReceive.Repository.Interfaces,
-  uCompany.Repository.Interfaces,
+  uTenant.Repository.Interfaces,
   uSale.Repository.Interfaces,
   uStation.Repository.Interfaces,
   uPayment.Repository.Interfaces,
@@ -24,7 +27,6 @@ uses
   uUnit.Repository.Interfaces,
   uPerson.Repository.Interfaces,
   uCity.Repository.Interfaces,
-//  uAppParam.Repository.Interfaces,
   uAclUser.Repository.Interfaces,
   uAclRole.Repository.Interfaces,
   uBrand.Repository.Interfaces,
@@ -33,13 +35,16 @@ uses
 
 type
   IRepositoryFactory = Interface
-    ['{615F1A92-1A11-459B-BA16-D503396A2191}']
+    ['{30B8DCC2-78FB-4995-A3B7-E125761D6BC9}']
+    function Additional: IAdditionalRepository;
+    function PriceList: IPriceListRepository;
+    function GlobalConfig: IGlobalConfigRepository;
     function QueueEmail: IQueueEmailRepository;
     function CashFlow: ICashFlowRepository;
     function Consumption: IConsumptionRepository;
-//    function PosPrinter: IPosPrinterRepository;
+    function PosPrinter: IPosPrinterRepository;
     function BillPayReceive: IBillPayReceiveRepository;
-    function Company: ICompanyRepository;
+    function Tenant: ITenantRepository;
     function Sale: ISaleRepository;
     function Station: IStationRepository;
     function Payment: IPaymentRepository;
@@ -55,10 +60,10 @@ type
     function &Unit: IUnitRepository;
     function Person: IPersonRepository;
     function City: ICityRepository;
-//    function AppParam: IAppParamRepository;
     function AclUser: IAclUserRepository;
     function AclRole: IAclRoleRepository;
     function Brand: IBrandRepository;
+    function Conn: IZLConnection;
   end;
 
   TRepositoryFactory = class(TInterfacedObject, IRepositoryFactory)
@@ -69,12 +74,17 @@ type
     constructor Create(AConn: IZLConnection; ARepoType: TZLRepositoryType; ADriverDB: TZLDriverDB);
   public
     class function Make(AConn: IZLConnection = nil; ARepoType: TZLRepositoryType = rtDefault; ADriverDB: TZLDriverDB = ddDefault): IRepositoryFactory;
+    function Conn: IZLConnection;
+
+    function Additional: IAdditionalRepository;
+    function PriceList: IPriceListRepository;
+    function GlobalConfig: IGlobalConfigRepository;
     function QueueEmail: IQueueEmailRepository;
     function CashFlow: ICashFlowRepository;
     function Consumption: IConsumptionRepository;
-//    function PosPrinter: IPosPrinterRepository;
+    function PosPrinter: IPosPrinterRepository;
     function BillPayReceive: IBillPayReceiveRepository;
-    function Company: ICompanyRepository;
+    function Tenant: ITenantRepository;
     function Sale: ISaleRepository;
     function Station: IStationRepository;
     function Payment: IPaymentRepository;
@@ -90,7 +100,6 @@ type
     function &Unit: IUnitRepository;
     function Person: IPersonRepository;
     function City: ICityRepository;
-//    function AppParam: IAppParamRepository;
     function AclUser: IAclUserRepository;
     function AclRole: IAclRoleRepository;
     function Brand: IBrandRepository;
@@ -99,12 +108,15 @@ type
 implementation
 
 uses
+  uAdditional.Repository.SQL,
+  uPriceList.Repository.SQL,
+  uGlobalConfig.Repository.SQL,
   uQueueEmail.Repository.SQL,
   uCashFlow.Repository.SQL,
   uConsumption.Repository.SQL,
-//  uPosPrinter.Repository.SQL,
+  uPosPrinter.Repository.SQL,
   uBillPayReceive.Repository.SQL,
-  uCompany.Repository.SQL,
+  uTenant.Repository.SQL,
   uSale.Repository.SQL,
   uStation.Repository.SQL,
   uPayment.Repository.SQL,
@@ -120,7 +132,6 @@ uses
   uUnit.Repository.SQL,
   uPerson.Repository.SQL,
   uCity.Repository.SQL,
-//  uAppParam.Repository.SQL,
   uAclUser.Repository.SQL,
   uAclRole.Repository.SQL,
   uBrand.Repository.SQL,
@@ -151,13 +162,13 @@ begin
   end;
 end;
 
-//function TRepositoryFactory.AppParam: IAppParamRepository;
-//begin
-//  case FRepoType of
-//    rtSQL: Result := TAppParamRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).AppParam);
-//  end;
-//end;
-//
+function TRepositoryFactory.Additional: IAdditionalRepository;
+begin
+  case FRepoType of
+    rtSQL: Result := TAdditionalRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).Additional);
+  end;
+end;
+
 function TRepositoryFactory.Bank: IBankRepository;
 begin
   case FRepoType of
@@ -199,7 +210,7 @@ begin
     rtSQL: Result := TCategoryRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).Category);
   end;
 end;
-//
+
 function TRepositoryFactory.ChartOfAccount: IChartOfAccountRepository;
 begin
   case FRepoType of
@@ -214,11 +225,16 @@ begin
   end;
 end;
 
-function TRepositoryFactory.Company: ICompanyRepository;
+function TRepositoryFactory.Tenant: ITenantRepository;
 begin
   case FRepoType of
-    rtSQL: Result := TCompanyRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).Company);
+    rtSQL: Result := TTenantRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).Tenant);
   end;
+end;
+
+function TRepositoryFactory.Conn: IZLConnection;
+begin
+  Result := FConn;
 end;
 
 function TRepositoryFactory.Consumption: IConsumptionRepository;
@@ -253,6 +269,13 @@ begin
   case Assigned(AConn) of
     True:  FConn := AConn;
     False: FConn := TConnectionFactory.Make;
+  end;
+end;
+
+function TRepositoryFactory.GlobalConfig: IGlobalConfigRepository;
+begin
+  case FRepoType of
+    rtSQL: Result := TGlobalConfigRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).GlobalConfig);
   end;
 end;
 
@@ -296,13 +319,20 @@ begin
   end;
 end;
 
-//function TRepositoryFactory.PosPrinter: IPosPrinterRepository;
-//begin
-//  case FRepoType of
-//    rtSQL: Result := TPosPrinterRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).PosPrinter);
-//  end;
-//end;
-//
+function TRepositoryFactory.PosPrinter: IPosPrinterRepository;
+begin
+  case FRepoType of
+    rtSQL: Result := TPosPrinterRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).PosPrinter);
+  end;
+end;
+
+function TRepositoryFactory.PriceList: IPriceListRepository;
+begin
+  case FRepoType of
+    rtSQL: Result := TPriceListRepositorySQL.Make(FConn, TSQLBuilderFactory.Make(FDriverDB).PriceList);
+  end;
+end;
+
 function TRepositoryFactory.Product: IProductRepository;
 begin
   case FRepoType of

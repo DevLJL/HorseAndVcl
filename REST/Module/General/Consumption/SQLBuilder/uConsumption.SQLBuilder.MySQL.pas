@@ -14,8 +14,6 @@ type
   public
     class function Make: IConsumptionSQLBuilder;
 
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
@@ -90,31 +88,6 @@ end;
 class function TConsumptionSQLBuilderMySQL.Make: IConsumptionSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TConsumptionSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result :=
-    ' CREATE TABLE `consumption` (                                                                                                '+
-    '   `id` bigint NOT NULL AUTO_INCREMENT,                                                                                      '+
-    '   `number` bigint NOT NULL,                                                                                                 '+
-    '   `flg_active` tinyint(4) DEFAULT NULL,                                                                                      '+
-    '   `created_at` datetime DEFAULT NULL,                                                                                       '+
-    '   `updated_at` datetime DEFAULT NULL,                                                                                       '+
-    '   `created_by_acl_user_id` bigint DEFAULT NULL,                                                                             '+
-    '   `updated_by_acl_user_id` bigint DEFAULT NULL,                                                                             '+
-    '   PRIMARY KEY (`id`),                                                                                                       '+
-    '   KEY `consumption_idx_created_at` (`created_at`), '+
-    '   KEY `consumption_fk_created_by_acl_user_id` (`created_by_acl_user_id`),                                                   '+
-    '   KEY `consumption_fk_updated_by_consumption_id` (`updated_by_acl_user_id`),                                                '+
-    '   CONSTRAINT `consumption_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`),   '+
-    '   CONSTRAINT `consumption_fk_updated_by_consumption_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`) '+
-    ' )                                                                                                                           ';
-end;
-
-function TConsumptionSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := '';
 end;
 
 function TConsumptionSQLBuilderMySQL.SelectAll: String;

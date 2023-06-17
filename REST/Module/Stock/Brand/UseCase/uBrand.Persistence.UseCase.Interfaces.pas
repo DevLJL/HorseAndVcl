@@ -12,7 +12,7 @@ uses
 
 type
   IBrandPersistenceUseCase = Interface
-    ['{05187FB2-4FF7-4D56-BF9F-D3DD8B3AF6AF}']
+    ['{49898F7A-BE6E-4F39-98F0-940438873784}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TBrandFilterDTO): IIndexResult overload;

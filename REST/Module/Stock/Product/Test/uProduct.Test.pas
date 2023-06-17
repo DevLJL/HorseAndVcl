@@ -50,7 +50,7 @@ uses
 procedure TProductTest.Setup;
 begin
   FPersistence := TProductPersistenceUseCase.Make(TRepositoryFactory.Make(TestConnection.Conn).Product);
-  FDataFactory        := TProductDataFactory.Make(FPersistence);
+  FDataFactory := TProductDataFactory.Make(FPersistence);
 end;
 
 procedure TProductTest.should_update_by_id;
@@ -154,6 +154,7 @@ const
     'packing_weight',
     'flg_to_move_the_stock',
     'flg_product_for_scales',
+    'flg_additional',
     'internal_note',
     'complement_note',
     'flg_discontinued',
@@ -164,6 +165,7 @@ const
     'size_id',
     'storage_location_id',
     'genre',
+    'check_value_before_insert',
     'created_at',
     'updated_at',
     'created_by_acl_user_id',

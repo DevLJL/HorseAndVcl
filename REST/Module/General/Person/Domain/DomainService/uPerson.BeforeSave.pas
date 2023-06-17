@@ -8,7 +8,7 @@ uses
 
 type
   IPersonBeforeSave = Interface
-    ['{1B262FC5-418D-4CC4-A3CD-9CD7C63F64D9}']
+    ['{8FB45C63-7C07-46DD-AAC5-5FF1CB231E79}']
     function Execute: IPersonBeforeSave;
   end;
 

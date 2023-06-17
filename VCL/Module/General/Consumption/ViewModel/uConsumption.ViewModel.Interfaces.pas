@@ -10,7 +10,7 @@ uses
 
 type
   IConsumptionViewModel = Interface(IBaseViewModel)
-    ['{7AB49534-A5F6-43ED-B1F2-1B6EB242425F}']
+    ['{CC80A375-3B93-474E-BF65-203FC818AA09}']
     function  FromShowDTO(AInput: TConsumptionShowDTO): IConsumptionViewModel;
     function  ToInputDTO: TConsumptionInputDTO;
     function  EmptyDataSets: IConsumptionViewModel;

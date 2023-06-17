@@ -7,7 +7,7 @@ uses
 
 type
   IStationFilter = Interface(IFilter)
-    ['{F9B0AEB1-339B-4AF7-BB22-B261B7302EE1}']
+    ['{F301806A-B86D-4EAB-A3CC-E6D6B0029C5B}']
   End;
 
   TStationFilter = class(TFilter, IStationFilter)

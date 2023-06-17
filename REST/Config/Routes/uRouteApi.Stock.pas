@@ -13,6 +13,8 @@ type
 implementation
 
 uses
+  uAdditional.Controller,
+  uPriceList.Controller,
   uBrand.Controller,
   Horse.GBSwagger.Register,
   uCategory.Controller,
@@ -28,6 +30,8 @@ class procedure TRouteApiStock.Registry;
 begin
   With THorseGBSwaggerRegister do
   begin
+    RegisterPath(TAdditionalController);
+    RegisterPath(TPriceListController);
     RegisterPath(TBrandController);
     RegisterPath(TCategoryController);
     RegisterPath(TNcmController);

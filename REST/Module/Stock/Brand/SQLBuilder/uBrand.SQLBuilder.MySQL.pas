@@ -14,9 +14,7 @@ type
   public
     class function Make: IBrandSQLBuilder;
 
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
-    function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
+   function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
     function Insert(AEntity: TBaseEntity): String;
@@ -34,14 +32,18 @@ uses
   uBrand,
   uAppRest.Types,
   uQuotedStr,
-  uHlp;
+  uHlp,
+  uAclUser.Show.DTO,
+  XSuperObject;
 
 { TBrandSQLBuilderMySQL }
 
 function TBrandSQLBuilderMySQL.DeleteById(AId: Int64): String;
 begin
   const LSQL = 'DELETE FROM brand WHERE brand.id = %s';
-  Result := Format(LSQL, [AId.ToString]);
+  Result := Format(LSQL, [
+    Q(AId.ToString)
+  ]);
 end;
 
 function TBrandSQLBuilderMySQL.DeleteByIdRange(AId: String): String;
@@ -72,30 +74,6 @@ end;
 class function TBrandSQLBuilderMySQL.Make: IBrandSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TBrandSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result :=
-    ' CREATE TABLE `brand` (                                                                                              '+
-    '   `id` bigint NOT NULL AUTO_INCREMENT,                                                                              '+
-    '   `name` varchar(255) NOT NULL,                                                                                     '+
-    '   `created_at` datetime DEFAULT NULL,                                                                               '+
-    '   `updated_at` datetime DEFAULT NULL,                                                                               '+
-    '   `created_by_acl_user_id` bigint DEFAULT NULL,                                                                     '+
-    '   `updated_by_acl_user_id` bigint DEFAULT NULL,                                                                     '+
-    '   PRIMARY KEY (`id`),                                                                                               '+
-    '   KEY `brand_idx_created_at` (`created_at`),                                                                        '+
-    '   KEY `brand_fk_created_by_acl_user_id` (`created_by_acl_user_id`),                                                 '+
-    '   KEY `brand_fk_updated_by_brand_id` (`updated_by_acl_user_id`),                                                    '+
-    '   CONSTRAINT `brand_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`), '+
-    '   CONSTRAINT `brand_fk_updated_by_brand_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`)     '+
-    ' )                                                                                                                   ';
-end;
-
-function TBrandSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := '';
 end;
 
 function TBrandSQLBuilderMySQL.SelectAll: String;

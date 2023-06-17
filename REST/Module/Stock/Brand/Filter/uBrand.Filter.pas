@@ -7,7 +7,7 @@ uses
 
 type
   IBrandFilter = Interface(IFilter)
-    ['{0ACD7CD8-3320-403E-98E8-D27DAFB09769}']
+    ['{FE3F03C4-2CA5-4DF2-82F7-45C71FA9E9B1}']
   End;
 
   TBrandFilter = class(TFilter, IBrandFilter)

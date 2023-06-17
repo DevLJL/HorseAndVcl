@@ -10,7 +10,7 @@ uses
 
 type
   ICashFlowViewModel = Interface(IBaseViewModel)
-    ['{DFFE2945-2496-4373-B50B-4ED3D293B2A0}']
+    ['{F9B51FC5-9116-428A-A223-B888B7DC56FE}']
     function  FromShowDTO(AInput: TCashFlowShowDTO): ICashFlowViewModel;
     function  ToInputDTO: TCashFlowInputDTO;
     function  EmptyDataSets: ICashFlowViewModel;
@@ -21,7 +21,7 @@ type
   end;
 
   ICashFlowTransactionsViewModel = Interface
-    ['{A22A23BD-BBAD-461F-9BDB-E46E3CE68CF3}']
+    ['{8FB4AB1F-15E4-49C0-BED6-2AC51D151E09}']
     function  CashFlowTransactions: IZLMemTable;
     function  SetEvents: ICashFlowTransactionsViewModel;
   End;

@@ -10,7 +10,7 @@ uses
 
 type
   ISaleGenerateCashFlowTransactionsBySale = Interface
-    ['{48FDADEE-70C1-4B3E-A480-BB433A51A251}']
+    ['{9A174889-A6C0-47E8-B551-F1DDBC828F05}']
     function Execute(ASale: TSale; ACashFlowID: Int64; AType: TCashFlowTransactionType): TObjectList<TCashFlowTransaction>;
   End;
 

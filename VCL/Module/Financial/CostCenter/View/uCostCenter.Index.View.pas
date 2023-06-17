@@ -91,7 +91,7 @@ uses
   uHlp,
   System.StrUtils,
   uCostCenter.Input.View,
-  uNotificationView,
+  uToast.View,
   uDTM,
   uYesOrNo.View,
   uAlert.View,
@@ -127,7 +127,7 @@ begin
   pnlBackground.BorderWidth  := 1;
   pnlBackground.Color        := $00857950;
   if ABackgroundTransparent then
-    createTransparentBackground(Self);
+    CreateDarkBackground(Self);
 
   // Varrer dbgrid e esconder botoes
   for var lI := 0 to DBGrid1.Columns.Count-1 do
@@ -183,7 +183,7 @@ begin
     end;
 
     dtsIndex.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
     if edtSearchValue.CanFocus then edtSearchValue.SetFocus;
@@ -645,7 +645,7 @@ begin
   inherited;
   // Excluir Grid
   dbgridDeleteConfig(DBGrid1, '');
-  NotificationView.Execute('Feche e abra a janela para carregar a nova configura��o.');
+  ToastView.Execute('Feche e abra a janela para carregar a nova configura��o.');
 end;
 
 procedure TCostCenterIndexView.mniSaveGridConfigClick(Sender: TObject);
@@ -653,7 +653,7 @@ begin
   inherited;
   // Salvar Config do Grid
   dbgridSaveConfig(DBGrid1, '');
-  NotificationView.Execute('Grade Salva');
+  ToastView.Execute('Grade Salva');
 end;
 
 procedure TCostCenterIndexView.tmrDoSearchTimer(Sender: TObject);

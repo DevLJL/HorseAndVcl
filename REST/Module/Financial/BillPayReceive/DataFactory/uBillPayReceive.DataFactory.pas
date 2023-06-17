@@ -11,7 +11,7 @@ uses
 
 type
   IBillPayReceiveDataFactory = Interface
-    ['{D9F0D1AC-03A0-4D2C-8DEE-D1C4FC52CFC7}']
+    ['{134EBA93-56D8-44F3-9B86-67E923614318}']
     function GenerateInsert: TBillPayReceiveShowDTO;
     function GenerateInput: TBillPayReceiveInputDTO;
   End;

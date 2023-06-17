@@ -10,7 +10,7 @@ uses
 
 type
   INcmViewModel = Interface(IBaseViewModel)
-    ['{8C2DF3A4-800D-45CB-B3C0-FC3D09085ABE}']
+    ['{D571AFC3-AA1E-4BB6-AA69-0EA5334EF601}']
     function  FromShowDTO(AInput: TNcmShowDTO): INcmViewModel;
     function  ToInputDTO: TNcmInputDTO;
     function  EmptyDataSets: INcmViewModel;

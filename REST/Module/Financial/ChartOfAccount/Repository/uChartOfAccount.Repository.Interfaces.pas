@@ -8,7 +8,7 @@ uses
 
 type
   IChartOfAccountRepository = interface(IBaseRepository)
-    ['{72E61A9C-858E-4A33-B39C-C7C1CED7EB9E}']
+    ['{9BB6BB36-A249-4806-8425-C22F5D5558A2}']
     function Show(AId: Int64): TChartOfAccount;
   end;
 

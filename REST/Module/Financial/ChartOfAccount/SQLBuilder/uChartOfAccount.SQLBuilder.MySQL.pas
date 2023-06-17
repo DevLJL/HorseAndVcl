@@ -14,8 +14,6 @@ type
   public
     class function Make: IChartOfAccountSQLBuilder;
 
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
@@ -81,33 +79,6 @@ end;
 class function TChartOfAccountSQLBuilderMySQL.Make: IChartOfAccountSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TChartOfAccountSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result := ' CREATE TABLE `chart_of_account` ( '+
-            '   `id` bigint NOT NULL AUTO_INCREMENT, '+
-            '   `name` varchar(100) NOT NULL, '+
-            '   `hierarchy_code` varchar(100) NOT NULL, '+
-            '   `flg_analytical` tinyint(4) DEFAULT NULL, '+
-            '   `note` text, '+
-            '   `created_at` datetime DEFAULT NULL, '+
-            '   `updated_at` datetime DEFAULT NULL, '+
-            '   `created_by_acl_user_id` bigint DEFAULT NULL, '+
-            '   `updated_by_acl_user_id` bigint DEFAULT NULL, '+
-            '   PRIMARY KEY (`id`), '+
-            '   KEY `chart_of_account_idx_created_at` (`created_at`), '+
-            '   KEY `chart_of_account_idx_flg_analytical` (`flg_analytical`), '+
-            '   KEY `chart_of_account_fk_created_by_acl_user_id` (`created_by_acl_user_id`), '+
-            '   KEY `chart_of_account_fk_updated_by_acl_role_id` (`updated_by_acl_user_id`), '+
-            '   CONSTRAINT `chart_of_account_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`), '+
-            '   CONSTRAINT `chart_of_account_fk_updated_by_acl_role_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`)  '+
-            ' ) ';
-end;
-
-function TChartOfAccountSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := '';
 end;
 
 function TChartOfAccountSQLBuilderMySQL.SelectAll: String;

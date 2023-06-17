@@ -12,7 +12,7 @@ uses
 
 type
   ISizeService = Interface(IBaseService)
-    ['{3AE502AE-B899-4451-882D-F32876769EE9}']
+    ['{6E08ED8A-83F1-4A2C-9009-3366F1D0F194}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TSizeFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TSizeShowDTO;

@@ -105,7 +105,7 @@ end;
 
 procedure TPaymentTermLocateView.FormCreate(Sender: TObject);
 begin
-  //FPaymentTerm := TPaymentService.Make.ListPaymentTerms(FPaymentId);
+  FPaymentTerm := TPaymentService.Make.ListPaymentTerms(FPaymentId);
   dtsPaymentTerm.DataSet        := FPaymentTerm.DataSet;
   dbgPaymentTermList.DataSource := dtsPaymentTerm;
 end;

@@ -77,7 +77,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label1: TLabel
               Left = 167
-              Top = 85
+              Top = 83
               Width = 32
               Height = 14
               Caption = 'Nome'
@@ -90,7 +90,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label2: TLabel
               Left = 157
-              Top = 85
+              Top = 83
               Width = 8
               Height = 14
               Caption = '*'
@@ -103,7 +103,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label5: TLabel
               Left = 649
-              Top = 85
+              Top = 83
               Width = 215
               Height = 14
               Caption = 'Nome Simplificado (M'#225'x: 25 caracteres)'
@@ -116,7 +116,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label12: TLabel
               Left = 157
-              Top = 131
+              Top = 129
               Width = 57
               Height = 14
               Caption = 'Refer'#234'ncia'
@@ -129,7 +129,7 @@ inherited ProductInputView: TProductInputView
             end
             object Image1: TImage
               Left = 296
-              Top = 131
+              Top = 129
               Width = 14
               Height = 14
               Hint = 'Campo '#250'nico. O valor deste campo n'#227'o pode se repetir!'
@@ -150,22 +150,9 @@ inherited ProductInputView: TProductInputView
                 AE426082}
               ShowHint = True
             end
-            object Label37: TLabel
-              Left = 824
-              Top = 131
-              Width = 129
-              Height = 14
-              Caption = 'F1 - Unidade de Medida'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
             object Label9: TLabel
               Left = 320
-              Top = 131
+              Top = 129
               Width = 79
               Height = 14
               Caption = 'C'#243'd. de Barras'
@@ -178,7 +165,7 @@ inherited ProductInputView: TProductInputView
             end
             object Image2: TImage
               Left = 460
-              Top = 131
+              Top = 129
               Width = 14
               Height = 14
               Hint = 'Campo '#250'nico. O valor deste campo n'#227'o pode se repetir!'
@@ -201,7 +188,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label10: TLabel
               Left = 484
-              Top = 131
+              Top = 129
               Width = 84
               Height = 14
               Caption = 'C'#243'd. de F'#225'brica'
@@ -214,7 +201,7 @@ inherited ProductInputView: TProductInputView
             end
             object Image3: TImage
               Left = 625
-              Top = 131
+              Top = 129
               Width = 14
               Height = 14
               Hint = 'Campo '#250'nico. O valor deste campo n'#227'o pode se repetir!'
@@ -237,7 +224,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label11: TLabel
               Left = 649
-              Top = 131
+              Top = 129
               Width = 69
               Height = 14
               Caption = 'Identifica'#231#227'o'
@@ -250,7 +237,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label3: TLabel
               Left = 157
-              Top = 39
+              Top = 37
               Width = 12
               Height = 14
               Caption = 'ID'
@@ -263,7 +250,7 @@ inherited ProductInputView: TProductInputView
             end
             object Label4: TLabel
               Left = 217
-              Top = 39
+              Top = 37
               Width = 24
               Height = 14
               Caption = 'Tipo'
@@ -274,239 +261,60 @@ inherited ProductInputView: TProductInputView
               Font.Style = []
               ParentFont = False
             end
-            object Label7: TLabel
-              Left = 10
-              Top = 182
-              Width = 175
-              Height = 14
-              Caption = 'Descri'#231#227'o Detalhada do Produto'
+            object imgInfocheck_value_before_insert: TImage
+              AlignWithMargins = True
+              Left = 970
+              Top = 34
+              Width = 14
+              Height = 44
+              Cursor = crHandPoint
+              Hint = 'Ajuda [Clique aqui para mais informa'#231#245'es]'
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Bottom = 0
+              Center = True
+              ParentShowHint = False
+              Picture.Data = {
+                0954506E67496D61676589504E470D0A1A0A0000000D494844520000000E0000
+                000E08060000001F482DD1000000017352474200AECE1CE90000000467414D41
+                0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                264944415478DA6D52CB6DC24010F5BA01960EA082E00E28012A000BE51629F8
+                9423708A72728872E380A9C0748252414C057107C97BD60C7A5859E9696767E7
+                CD3F247256AF1F314DD30DC429300222D00067607F78796ADC36B8F0F8F6B9C6
+                45520B54C0D5E40760698E7290AB1BD14825B003DEF1D926BD031BFED36E8EFF
+                7380829E2E8C024561464C75020C18D9A3407FC43503321237964AC64846AAAD
+                B6C41CD0696EE46FD61C5C9068F458E23D9614A77867F25E92F8EB794B3DD1C4
+                D2B2D9E27F278E6B27DEBA25E4DAC692F79CD2D1D153ADDCA318901495647AF6
+                64163C67180C7B06EC60A30EAD846E02C11E3FDA394935816E2EBA2DAEE76E1C
+                5AB00DBFF867F8D1B66AEDFDD095EB8A9695FBEAAD1CC9C5DDCA09995BB490DD
+                6C65C94FBAE47FA8149C29F5ED03410000000049454E44AE426082}
+              ShowHint = True
+              OnClick = imgInfocheck_value_before_insertClick
+            end
+            object rdgcheck_value_before_insert: TDBRadioGroup
+              Left = 480
+              Top = 32
+              Width = 488
+              Height = 47
+              Caption = 
+                ' Ao efetuar o lan'#231'amento deste item em "Pedidos, Vendas, PDV e o' +
+                'utras telas"'
+              Columns = 2
+              DataField = 'check_value_before_insert'
+              DataSource = dtsProduct
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -12
+              Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = []
+              Items.Strings = (
+                'Inser'#231#227'o imediata'
+                'Conferir valores antes de inserir')
               ParentFont = False
-            end
-            object Label8: TLabel
-              Left = 484
-              Top = 182
-              Width = 299
-              Height = 14
-              Caption = 'Observa'#231#245'es Internas (elas ser'#227'o exibidas apenas aqui)'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label23: TLabel
-              Left = 10
-              Top = 309
-              Width = 99
-              Height = 18
-              Caption = 'Classifica'#231#227'o'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 8747344
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object Label35: TLabel
-              Left = 338
-              Top = 338
-              Width = 56
-              Height = 14
-              Caption = 'F1 - Marca'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label36: TLabel
-              Left = 10
-              Top = 338
-              Width = 76
-              Height = 14
-              Caption = 'F1 - Categoria'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label71: TLabel
-              Left = 667
-              Top = 338
-              Width = 163
-              Height = 14
-              Caption = 'F1 - Local de Armazenamento'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label34: TLabel
-              Left = 10
-              Top = 384
-              Width = 76
-              Height = 14
-              Caption = 'F1 - Tamanho'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label24: TLabel
-              Left = 10
-              Top = 445
-              Width = 43
-              Height = 18
-              Caption = 'Pre'#231'o'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 8747344
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object Label25: TLabel
-              Left = 510
-              Top = 445
-              Width = 86
-              Height = 18
-              Caption = 'Quantidade'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 8747344
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object Label14: TLabel
-              Left = 10
-              Top = 474
-              Width = 59
-              Height = 14
-              Caption = 'Custo (R$)'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label15: TLabel
-              Left = 173
-              Top = 474
-              Width = 56
-              Height = 14
-              Caption = 'Lucro (%)'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label16: TLabel
-              Left = 337
-              Top = 474
-              Width = 63
-              Height = 14
-              Caption = 'Venda (R$)'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label17: TLabel
-              Left = 510
-              Top = 474
-              Width = 66
-              Height = 14
-              Caption = 'Em Estoque'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label20: TLabel
-              Left = 673
-              Top = 474
-              Width = 36
-              Height = 14
-              Caption = 'M'#237'nima'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label21: TLabel
-              Left = 836
-              Top = 474
-              Width = 39
-              Height = 14
-              Caption = 'M'#225'xima'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label13: TLabel
-              Left = 814
-              Top = 131
-              Width = 8
-              Height = 14
-              Caption = '*'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clRed
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object Label18: TLabel
-              Left = 348
-              Top = 384
-              Width = 49
-              Height = 14
-              Caption = 'F1 - NCM'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label19: TLabel
-              Left = 338
-              Top = 384
-              Width = 8
-              Height = 14
-              Caption = '*'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clRed
-              Font.Height = -12
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
+              TabOrder = 14
+              Values.Strings = (
+                '0'
+                '1')
             end
             object Panel5: TPanel
               Left = 10
@@ -516,18 +324,18 @@ inherited ProductInputView: TProductInputView
               BevelOuter = bvNone
               Color = 14209468
               ParentBackground = False
-              TabOrder = 29
+              TabOrder = 12
             end
             object pnlFotoCapa: TPanel
               Left = 10
-              Top = 39
+              Top = 37
               Width = 137
               Height = 133
               BevelOuter = bvNone
               BorderWidth = 1
               Color = 14209468
               ParentBackground = False
-              TabOrder = 30
+              TabOrder = 13
               object Panel46: TPanel
                 Left = 1
                 Top = 1
@@ -646,7 +454,7 @@ inherited ProductInputView: TProductInputView
             end
             object edtName: TDBEdit
               Left = 157
-              Top = 100
+              Top = 98
               Width = 482
               Height = 26
               DataField = 'name'
@@ -664,7 +472,7 @@ inherited ProductInputView: TProductInputView
             end
             object DBEdit5: TDBEdit
               Left = 649
-              Top = 100
+              Top = 98
               Width = 335
               Height = 26
               DataField = 'simplified_name'
@@ -683,7 +491,7 @@ inherited ProductInputView: TProductInputView
             end
             object edtsku_code: TDBEdit
               Left = 157
-              Top = 146
+              Top = 144
               Width = 153
               Height = 26
               DataField = 'sku_code'
@@ -699,98 +507,9 @@ inherited ProductInputView: TProductInputView
               OnExit = EdtFieldExit
               OnKeyDown = EdtFieldKeyDown
             end
-            object edtunit_name: TDBEdit
-              Left = 892
-              Top = 146
-              Width = 92
-              Height = 26
-              Color = 16053492
-              DataField = 'unit_name'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGray
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 9
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object Panel41: TPanel
-              Left = 814
-              Top = 146
-              Width = 26
-              Height = 26
-              Cursor = crHandPoint
-              BevelOuter = bvNone
-              BorderWidth = 1
-              Color = 5327153
-              ParentBackground = False
-              TabOrder = 31
-              object Panel42: TPanel
-                Left = 1
-                Top = 1
-                Width = 24
-                Height = 24
-                Cursor = crHandPoint
-                Align = alClient
-                BevelOuter = bvNone
-                Color = 8747344
-                ParentBackground = False
-                TabOrder = 0
-                object imgLocaUnit: TImage
-                  Left = 0
-                  Top = 0
-                  Width = 24
-                  Height = 24
-                  Align = alClient
-                  AutoSize = True
-                  Center = True
-                  Picture.Data = {
-                    0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
-                    0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
-                    0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
-                    414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
-                    80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
-                    9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
-                    E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
-                    D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
-                    C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
-                    20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
-                    D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
-                    436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
-                    F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
-                    BA02035FC005512468860000000049454E44AE426082}
-                  OnClick = imgLocaUnitClick
-                  ExplicitTop = 14
-                  ExplicitWidth = 18
-                  ExplicitHeight = 18
-                end
-              end
-            end
-            object edtunit_id: TDBEdit
-              Left = 841
-              Top = 146
-              Width = 50
-              Height = 26
-              DataField = 'unit_id'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 8
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
             object DBEdit7: TDBEdit
               Left = 320
-              Top = 146
+              Top = 144
               Width = 154
               Height = 26
               DataField = 'ean_code'
@@ -808,7 +527,7 @@ inherited ProductInputView: TProductInputView
             end
             object DBEdit8: TDBEdit
               Left = 484
-              Top = 146
+              Top = 144
               Width = 155
               Height = 26
               DataField = 'manufacturing_code'
@@ -826,8 +545,8 @@ inherited ProductInputView: TProductInputView
             end
             object DBEdit9: TDBEdit
               Left = 649
-              Top = 146
-              Width = 155
+              Top = 144
+              Width = 335
               Height = 26
               DataField = 'identification_code'
               DataSource = dtsProduct
@@ -840,11 +559,11 @@ inherited ProductInputView: TProductInputView
               TabOrder = 7
               OnEnter = EdtFieldEnter
               OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
+              OnKeyDown = DBEdit9KeyDown
             end
             object DBEdit3: TDBEdit
               Left = 157
-              Top = 54
+              Top = 52
               Width = 50
               Height = 26
               TabStop = False
@@ -863,7 +582,7 @@ inherited ProductInputView: TProductInputView
             end
             object JvDBComboBox1: TJvDBComboBox
               Left = 217
-              Top = 54
+              Top = 52
               Width = 150
               Height = 26
               DataField = 'type'
@@ -892,13 +611,13 @@ inherited ProductInputView: TProductInputView
               OnKeyDown = EdtFieldKeyDown
             end
             object DBCheckBox4: TDBCheckBox
-              Left = 869
-              Top = 11
-              Width = 115
+              Left = 380
+              Top = 38
+              Width = 91
               Height = 17
               Cursor = crHandPoint
               TabStop = False
-              Caption = 'Item descontinuado!'
+              Caption = 'Descontinuado!'
               DataField = 'flg_discontinued'
               DataSource = dtsProduct
               Font.Charset = DEFAULT_CHARSET
@@ -907,496 +626,1195 @@ inherited ProductInputView: TProductInputView
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              TabOrder = 32
+              TabOrder = 15
               ValueChecked = '1'
               ValueUnchecked = '0'
             end
-            object DBMemo1: TDBMemo
-              Left = 10
-              Top = 197
-              Width = 464
-              Height = 92
-              TabStop = False
-              DataField = 'complement_note'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 10
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-            end
-            object DBMemo2: TDBMemo
-              Left = 484
-              Top = 197
-              Width = 500
-              Height = 92
-              TabStop = False
-              DataField = 'internal_note'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
+            object pgcNotes: TPageControl
+              Left = 515
+              Top = 438
+              Width = 465
+              Height = 126
+              ActivePage = TabSheet1
               TabOrder = 11
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
+              object TabSheet1: TTabSheet
+                Caption = '     Descri'#231#227'o detalhada     '
+                object DBMemo1: TDBMemo
+                  Left = 0
+                  Top = 0
+                  Width = 457
+                  Height = 97
+                  TabStop = False
+                  Align = alClient
+                  DataField = 'complement_note'
+                  DataSource = dtsProduct
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clBlack
+                  Font.Height = -15
+                  Font.Name = 'Tahoma'
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                  TabOrder = 0
+                  OnEnter = EdtFieldEnter
+                  OnExit = EdtFieldExit
+                end
+              end
+              object TabSheet2: TTabSheet
+                Caption = 'Observa'#231#227'o interna (Exibe apenas aqui)'
+                ImageIndex = 1
+                object DBMemo2: TDBMemo
+                  Left = 0
+                  Top = 0
+                  Width = 457
+                  Height = 97
+                  TabStop = False
+                  Align = alClient
+                  DataField = 'internal_note'
+                  DataSource = dtsProduct
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clBlack
+                  Font.Height = -15
+                  Font.Name = 'Tahoma'
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                  TabOrder = 0
+                  OnEnter = EdtFieldEnter
+                  OnExit = EdtFieldExit
+                end
+              end
             end
-            object Panel6: TPanel
+            object pgcPriceAndQuantities: TPageControl
               Left = 10
-              Top = 327
+              Top = 329
+              Width = 497
+              Height = 235
+              ActivePage = TabSheet3
+              TabOrder = 9
+              object TabSheet3: TTabSheet
+                Caption = '     Pre'#231'os     '
+                object Panel3: TPanel
+                  Left = 144
+                  Top = 24
+                  Width = 185
+                  Height = 41
+                  BevelOuter = bvNone
+                  Color = 16579576
+                  ParentBackground = False
+                  TabOrder = 0
+                end
+                object Panel7: TPanel
+                  Left = 0
+                  Top = 0
+                  Width = 489
+                  Height = 41
+                  Align = alTop
+                  BevelOuter = bvNone
+                  Color = 16579576
+                  ParentBackground = False
+                  TabOrder = 1
+                  object Label14: TLabel
+                    Left = 5
+                    Top = 0
+                    Width = 59
+                    Height = 14
+                    Caption = 'Custo (R$)'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label15: TLabel
+                    Left = 169
+                    Top = 0
+                    Width = 56
+                    Height = 14
+                    Caption = 'Lucro (%)'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label16: TLabel
+                    Left = 333
+                    Top = 0
+                    Width = 63
+                    Height = 14
+                    Caption = 'Venda (R$)'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object DBEdit11: TDBEdit
+                    Left = 5
+                    Top = 15
+                    Width = 154
+                    Height = 26
+                    DataField = 'cost'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 0
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object DBEdit12: TDBEdit
+                    Left = 169
+                    Top = 15
+                    Width = 154
+                    Height = 26
+                    DataField = 'marketup'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 1
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object DBEdit13: TDBEdit
+                    Left = 333
+                    Top = 15
+                    Width = 151
+                    Height = 26
+                    DataField = 'price'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 2
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = DBEdit13KeyDown
+                  end
+                end
+                object Panel4: TPanel
+                  AlignWithMargins = True
+                  Left = 5
+                  Top = 46
+                  Width = 479
+                  Height = 155
+                  Margins.Left = 5
+                  Margins.Top = 5
+                  Margins.Right = 5
+                  Margins.Bottom = 5
+                  Align = alClient
+                  BevelOuter = bvNone
+                  BorderWidth = 1
+                  Color = 14209468
+                  ParentBackground = False
+                  TabOrder = 2
+                  object dbgProductPriceLists: TDBGrid
+                    Left = 1
+                    Top = 31
+                    Width = 477
+                    Height = 123
+                    Cursor = crHandPoint
+                    Align = alClient
+                    BorderStyle = bsNone
+                    Color = clWhite
+                    DataSource = dtsProductPriceLists
+                    DrawingStyle = gdsGradient
+                    FixedColor = 15131349
+                    GradientEndColor = 16381936
+                    GradientStartColor = 15920607
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgTitleClick, dgTitleHotTrack]
+                    ParentFont = False
+                    TabOrder = 0
+                    TitleFont.Charset = DEFAULT_CHARSET
+                    TitleFont.Color = 8747344
+                    TitleFont.Height = -13
+                    TitleFont.Name = 'Tahoma'
+                    TitleFont.Style = [fsBold]
+                    OnCellClick = dbgProductPriceListsCellClick
+                    OnDrawColumnCell = dbgProductPriceListsDrawColumnCell
+                    OnKeyDown = dbgProductPriceListsKeyDown
+                    Columns = <
+                      item
+                        Expanded = False
+                        FieldName = 'action_delete'
+                        ReadOnly = True
+                        Title.Caption = ' '
+                        Width = 25
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'price_list_id'
+                        Title.Caption = 'Lista'
+                        Width = 50
+                        Visible = True
+                      end
+                      item
+                        Color = 16579576
+                        Expanded = False
+                        FieldName = 'price_list_name'
+                        Font.Charset = DEFAULT_CHARSET
+                        Font.Color = clGray
+                        Font.Height = -15
+                        Font.Name = 'Tahoma'
+                        Font.Style = []
+                        ReadOnly = True
+                        Title.Caption = 'Nome'
+                        Width = 228
+                        Visible = True
+                      end
+                      item
+                        Alignment = taRightJustify
+                        Expanded = False
+                        FieldName = 'price'
+                        Title.Alignment = taRightJustify
+                        Title.Caption = 'Pre'#231'o'
+                        Width = 124
+                        Visible = True
+                      end>
+                  end
+                  object Panel9: TPanel
+                    Left = 1
+                    Top = 1
+                    Width = 477
+                    Height = 30
+                    Align = alTop
+                    Alignment = taLeftJustify
+                    BevelOuter = bvNone
+                    Caption = '        Lista de Pre'#231'os'
+                    Color = 16579576
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = 8747344
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentBackground = False
+                    ParentFont = False
+                    TabOrder = 1
+                    object imgProductPriceListsAdd: TImage
+                      AlignWithMargins = True
+                      Left = 2
+                      Top = 2
+                      Width = 25
+                      Height = 26
+                      Cursor = crHandPoint
+                      Margins.Left = 2
+                      Margins.Top = 2
+                      Margins.Right = 2
+                      Margins.Bottom = 2
+                      Align = alLeft
+                      AutoSize = True
+                      Center = True
+                      Picture.Data = {
+                        0954506E67496D61676589504E470D0A1A0A0000000D49484452000000190000
+                        00190806000000C4E98563000000017352474200AECE1CE90000000467414D41
+                        0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                        F44944415478DA6364C003D4BAFC05181818BD1818FEC703B98A402C0AC40250
+                        E907407C018837DC2ADBB8109F398CB80D67A807E204244309810940CB0A89B2
+                        04688101909A0FC406441A8E0C2E303032C6DD2ADD7019A725500BF693E07A6C
+                        E01F101B037D7501C3122A5900031F80D811661123D40201A8057883A8DBBB90
+                        41825798E1F69B470C4D7B6611B2E801D01245644B4091DC4048D796C4490CAA
+                        2272604B7CE6E711E3A306A0458D8C505FDC272698C8B0E403D0124190253140
+                        CE6262749061090824822C590F6404D0D0920D204B4041A540434BDE802CF90D
+                        64B0208BC61BFB3284EAB962A81607A62C3E766E301B64113A38FBF43A43FDAE
+                        E9E8C21F4096FC47174D360D6028734820D6A52896442DABC410C7EA134F756B
+                        866CAB700CC5A0A002814F3FBF32BCFCFC1643FED69B870C459B7BD185FF822C
+                        B90D64A810E35232E3E436C892B94046120D2D590DB2240EC858488C6A322D09
+                        84E5F81740CC4E034B4005A5227DCA2EB0253D417C0CFFFE828A65457C3A3A3C
+                        F318E40425199E7D7ACD50B2A58F900520F340C5FD07E4FA4481015250520360
+                        D627088B02EC818D860354B0201168C1069800AE3A1E54682A9061C179A091F1
+                        B7CAF0D4F168961500A93E7C6AD05CDF08C40B4071802E49D000A065A036971D
+                        103B21F90E6410A85C01B9782303A4EDF501971900C505DBD800F5C9E2000000
+                        0049454E44AE426082}
+                      OnClick = imgProductPriceListsAddClick
+                      ExplicitLeft = 10
+                      ExplicitTop = 0
+                      ExplicitHeight = 25
+                    end
+                  end
+                end
+              end
+            end
+            object pgcClassifications: TPageControl
+              Left = 10
+              Top = 185
               Width = 974
-              Height = 1
-              BevelOuter = bvNone
-              Color = 14209468
-              ParentBackground = False
-              TabOrder = 33
-            end
-            object edtbrand_name: TDBEdit
-              Left = 416
-              Top = 353
-              Width = 241
-              Height = 26
-              Color = 16053492
-              DataField = 'brand_name'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGray
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 15
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object Panel37: TPanel
-              Left = 338
-              Top = 353
-              Width = 26
-              Height = 26
-              Cursor = crHandPoint
-              BevelOuter = bvNone
-              BorderWidth = 1
-              Color = 5327153
-              ParentBackground = False
-              TabOrder = 34
-              object Panel38: TPanel
-                Left = 1
-                Top = 1
-                Width = 24
-                Height = 24
-                Cursor = crHandPoint
-                Align = alClient
-                BevelOuter = bvNone
-                Color = 8747344
-                ParentBackground = False
-                TabOrder = 0
-                object imgLocaBrand: TImage
+              Height = 128
+              ActivePage = TabSheet5
+              TabOrder = 8
+              object TabSheet5: TTabSheet
+                Caption = '     Classifica'#231#227'o     '
+                object Panel8: TPanel
                   Left = 0
                   Top = 0
-                  Width = 24
-                  Height = 24
+                  Width = 966
+                  Height = 99
                   Align = alClient
-                  AutoSize = True
-                  Center = True
-                  Picture.Data = {
-                    0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
-                    0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
-                    0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
-                    414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
-                    80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
-                    9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
-                    E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
-                    D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
-                    C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
-                    20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
-                    D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
-                    436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
-                    F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
-                    BA02035FC005512468860000000049454E44AE426082}
-                  OnClick = imgLocaBrandClick
-                  ExplicitLeft = -4
+                  BevelOuter = bvNone
+                  Color = 16579576
+                  ParentBackground = False
+                  TabOrder = 0
+                  object Label37: TLabel
+                    Left = 15
+                    Top = 7
+                    Width = 129
+                    Height = 14
+                    Caption = 'F1 - Unidade de Medida'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label13: TLabel
+                    Left = 5
+                    Top = 7
+                    Width = 8
+                    Height = 14
+                    Caption = '*'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clRed
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                  end
+                  object Label71: TLabel
+                    Left = 5
+                    Top = 53
+                    Width = 163
+                    Height = 14
+                    Caption = 'F1 - Local de Armazenamento'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label19: TLabel
+                    Left = 330
+                    Top = 7
+                    Width = 8
+                    Height = 14
+                    Caption = '*'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clRed
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                  end
+                  object Label18: TLabel
+                    Left = 340
+                    Top = 7
+                    Width = 49
+                    Height = 14
+                    Caption = 'F1 - NCM'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label35: TLabel
+                    Left = 330
+                    Top = 53
+                    Width = 56
+                    Height = 14
+                    Caption = 'F1 - Marca'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label36: TLabel
+                    Left = 655
+                    Top = 53
+                    Width = 76
+                    Height = 14
+                    Caption = 'F1 - Categoria'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object edtunit_name: TDBEdit
+                    Left = 83
+                    Top = 22
+                    Width = 237
+                    Height = 26
+                    Color = 16053492
+                    DataField = 'unit_name'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 1
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object Panel41: TPanel
+                    Left = 5
+                    Top = 22
+                    Width = 26
+                    Height = 26
+                    Cursor = crHandPoint
+                    BevelOuter = bvNone
+                    BorderWidth = 1
+                    Color = 5327153
+                    ParentBackground = False
+                    TabOrder = 11
+                    object Panel42: TPanel
+                      Left = 1
+                      Top = 1
+                      Width = 24
+                      Height = 24
+                      Cursor = crHandPoint
+                      Align = alClient
+                      BevelOuter = bvNone
+                      Color = 8747344
+                      ParentBackground = False
+                      TabOrder = 0
+                      object imgLocaUnit: TImage
+                        Left = 0
+                        Top = 0
+                        Width = 24
+                        Height = 24
+                        Align = alClient
+                        AutoSize = True
+                        Center = True
+                        Picture.Data = {
+                          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
+                          0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
+                          0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                          414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
+                          80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
+                          9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
+                          E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
+                          D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
+                          C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
+                          20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
+                          D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
+                          436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
+                          F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
+                          BA02035FC005512468860000000049454E44AE426082}
+                        OnClick = imgLocaUnitClick
+                        ExplicitTop = 14
+                        ExplicitWidth = 18
+                        ExplicitHeight = 18
+                      end
+                    end
+                  end
+                  object edtunit_id: TDBEdit
+                    Left = 32
+                    Top = 22
+                    Width = 50
+                    Height = 26
+                    DataField = 'unit_id'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 0
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object edtstorage_location_name: TDBEdit
+                    Left = 83
+                    Top = 68
+                    Width = 237
+                    Height = 26
+                    Color = 16053492
+                    DataField = 'storage_location_name'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 6
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object Panel43: TPanel
+                    Left = 5
+                    Top = 68
+                    Width = 26
+                    Height = 26
+                    Cursor = crHandPoint
+                    BevelOuter = bvNone
+                    BorderWidth = 1
+                    Color = 5327153
+                    ParentBackground = False
+                    TabOrder = 12
+                    object Panel44: TPanel
+                      Left = 1
+                      Top = 1
+                      Width = 24
+                      Height = 24
+                      Cursor = crHandPoint
+                      Align = alClient
+                      BevelOuter = bvNone
+                      Color = 8747344
+                      ParentBackground = False
+                      TabOrder = 0
+                      object imgLocaStorageLocation: TImage
+                        Left = 0
+                        Top = 0
+                        Width = 24
+                        Height = 24
+                        Align = alClient
+                        AutoSize = True
+                        Center = True
+                        Picture.Data = {
+                          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
+                          0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
+                          0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                          414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
+                          80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
+                          9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
+                          E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
+                          D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
+                          C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
+                          20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
+                          D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
+                          436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
+                          F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
+                          BA02035FC005512468860000000049454E44AE426082}
+                        OnClick = imgLocaStorageLocationClick
+                        ExplicitTop = 14
+                        ExplicitWidth = 18
+                        ExplicitHeight = 18
+                      end
+                    end
+                  end
+                  object edtstorage_location_id: TDBEdit
+                    Left = 32
+                    Top = 68
+                    Width = 50
+                    Height = 26
+                    DataField = 'storage_location_id'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 5
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object edtncm_name: TDBEdit
+                    Left = 508
+                    Top = 22
+                    Width = 453
+                    Height = 26
+                    Color = 16053492
+                    DataField = 'ncm_name'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 4
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object edtncm_id: TDBEdit
+                    Left = 357
+                    Top = 22
+                    Width = 50
+                    Height = 26
+                    DataField = 'ncm_id'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 2
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object Panel1: TPanel
+                    Left = 330
+                    Top = 22
+                    Width = 26
+                    Height = 26
+                    Cursor = crHandPoint
+                    BevelOuter = bvNone
+                    BorderWidth = 1
+                    Color = 5327153
+                    ParentBackground = False
+                    TabOrder = 13
+                    object Panel2: TPanel
+                      Left = 1
+                      Top = 1
+                      Width = 24
+                      Height = 24
+                      Cursor = crHandPoint
+                      Align = alClient
+                      BevelOuter = bvNone
+                      Color = 8747344
+                      ParentBackground = False
+                      TabOrder = 0
+                      object imgLocaNCM: TImage
+                        Left = 0
+                        Top = 0
+                        Width = 24
+                        Height = 24
+                        Align = alClient
+                        AutoSize = True
+                        Center = True
+                        Picture.Data = {
+                          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
+                          0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
+                          0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                          414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
+                          80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
+                          9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
+                          E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
+                          D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
+                          C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
+                          20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
+                          D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
+                          436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
+                          F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
+                          BA02035FC005512468860000000049454E44AE426082}
+                        OnClick = imgLocaNCMClick
+                        ExplicitLeft = -1
+                      end
+                    end
+                  end
+                  object edtncm_code: TDBEdit
+                    Left = 408
+                    Top = 22
+                    Width = 100
+                    Height = 26
+                    Color = 16053492
+                    DataField = 'ncm_code'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 3
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object edtbrand_name: TDBEdit
+                    Left = 408
+                    Top = 68
+                    Width = 237
+                    Height = 26
+                    Color = 16053492
+                    DataField = 'brand_name'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 8
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object edtbrand_id: TDBEdit
+                    Left = 357
+                    Top = 68
+                    Width = 50
+                    Height = 26
+                    DataField = 'brand_id'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 7
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object Panel37: TPanel
+                    Left = 330
+                    Top = 68
+                    Width = 26
+                    Height = 26
+                    Cursor = crHandPoint
+                    BevelOuter = bvNone
+                    BorderWidth = 1
+                    Color = 5327153
+                    ParentBackground = False
+                    TabOrder = 14
+                    object Panel38: TPanel
+                      Left = 1
+                      Top = 1
+                      Width = 24
+                      Height = 24
+                      Cursor = crHandPoint
+                      Align = alClient
+                      BevelOuter = bvNone
+                      Color = 8747344
+                      ParentBackground = False
+                      TabOrder = 0
+                      object imgLocaBrand: TImage
+                        Left = 0
+                        Top = 0
+                        Width = 24
+                        Height = 24
+                        Align = alClient
+                        AutoSize = True
+                        Center = True
+                        Picture.Data = {
+                          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
+                          0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
+                          0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                          414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
+                          80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
+                          9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
+                          E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
+                          D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
+                          C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
+                          20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
+                          D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
+                          436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
+                          F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
+                          BA02035FC005512468860000000049454E44AE426082}
+                        OnClick = imgLocaBrandClick
+                        ExplicitLeft = -4
+                      end
+                    end
+                  end
+                  object edtcategory_name: TDBEdit
+                    Left = 733
+                    Top = 68
+                    Width = 228
+                    Height = 26
+                    Color = 16053492
+                    DataField = 'category_name'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 10
+                    OnKeyDown = edtcategory_nameKeyDown
+                  end
+                  object Panel39: TPanel
+                    Left = 655
+                    Top = 68
+                    Width = 26
+                    Height = 26
+                    Cursor = crHandPoint
+                    BevelOuter = bvNone
+                    BorderWidth = 1
+                    Color = 5327153
+                    ParentBackground = False
+                    TabOrder = 15
+                    object Panel40: TPanel
+                      Left = 1
+                      Top = 1
+                      Width = 24
+                      Height = 24
+                      Cursor = crHandPoint
+                      Align = alClient
+                      BevelOuter = bvNone
+                      Color = 8747344
+                      ParentBackground = False
+                      TabOrder = 0
+                      object imgLocaCategory: TImage
+                        Left = 0
+                        Top = 0
+                        Width = 24
+                        Height = 24
+                        Align = alClient
+                        AutoSize = True
+                        Center = True
+                        Picture.Data = {
+                          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
+                          0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
+                          0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                          414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
+                          80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
+                          9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
+                          E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
+                          D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
+                          C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
+                          20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
+                          D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
+                          436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
+                          F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
+                          BA02035FC005512468860000000049454E44AE426082}
+                        OnClick = imgLocaCategoryClick
+                        ExplicitTop = 14
+                        ExplicitWidth = 18
+                        ExplicitHeight = 18
+                      end
+                    end
+                  end
+                  object edtcategory_id: TDBEdit
+                    Left = 682
+                    Top = 68
+                    Width = 50
+                    Height = 26
+                    DataField = 'category_id'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 9
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                end
+              end
+              object TabSheet6: TTabSheet
+                Caption = '     +     '
+                ImageIndex = 1
+                object Panel6: TPanel
+                  Left = 0
+                  Top = 0
+                  Width = 966
+                  Height = 99
+                  Align = alClient
+                  BevelOuter = bvNone
+                  Color = 16579576
+                  ParentBackground = False
+                  TabOrder = 0
+                  object Label34: TLabel
+                    Left = 5
+                    Top = 5
+                    Width = 76
+                    Height = 14
+                    Caption = 'F1 - Tamanho'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object edtsize_name: TDBEdit
+                    Left = 83
+                    Top = 22
+                    Width = 237
+                    Height = 26
+                    Color = 16053492
+                    DataField = 'size_name'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGray
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 0
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object Panel17: TPanel
+                    Left = 5
+                    Top = 22
+                    Width = 26
+                    Height = 26
+                    Cursor = crHandPoint
+                    BevelOuter = bvNone
+                    BorderWidth = 1
+                    Color = 5327153
+                    ParentBackground = False
+                    TabOrder = 1
+                    object Panel19: TPanel
+                      Left = 1
+                      Top = 1
+                      Width = 24
+                      Height = 24
+                      Cursor = crHandPoint
+                      Align = alClient
+                      BevelOuter = bvNone
+                      Color = 8747344
+                      ParentBackground = False
+                      TabOrder = 0
+                      object imgLocaSize: TImage
+                        Left = 0
+                        Top = 0
+                        Width = 24
+                        Height = 24
+                        Align = alClient
+                        AutoSize = True
+                        Center = True
+                        Picture.Data = {
+                          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
+                          0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
+                          0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
+                          414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
+                          80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
+                          9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
+                          E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
+                          D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
+                          C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
+                          20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
+                          D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
+                          436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
+                          F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
+                          BA02035FC005512468860000000049454E44AE426082}
+                        OnClick = imgLocaSizeClick
+                        ExplicitTop = 14
+                        ExplicitWidth = 18
+                        ExplicitHeight = 18
+                      end
+                    end
+                  end
+                  object edtsize_id: TDBEdit
+                    Left = 32
+                    Top = 22
+                    Width = 50
+                    Height = 26
+                    DataField = 'size_id'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 2
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
                 end
               end
             end
-            object edtbrand_id: TDBEdit
-              Left = 365
-              Top = 353
-              Width = 50
-              Height = 26
-              DataField = 'brand_id'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 14
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object edtcategory_name: TDBEdit
-              Left = 88
-              Top = 353
-              Width = 240
-              Height = 26
-              Color = 16053492
-              DataField = 'category_name'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGray
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 13
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object Panel39: TPanel
-              Left = 10
-              Top = 353
-              Width = 26
-              Height = 26
-              Cursor = crHandPoint
-              BevelOuter = bvNone
-              BorderWidth = 1
-              Color = 5327153
-              ParentBackground = False
-              TabOrder = 35
-              object Panel40: TPanel
-                Left = 1
-                Top = 1
-                Width = 24
-                Height = 24
-                Cursor = crHandPoint
-                Align = alClient
-                BevelOuter = bvNone
-                Color = 8747344
-                ParentBackground = False
-                TabOrder = 0
-                object imgLocaCategory: TImage
+            object PageControl1: TPageControl
+              Left = 515
+              Top = 329
+              Width = 469
+              Height = 100
+              ActivePage = TabSheet8
+              TabOrder = 10
+              object TabSheet8: TTabSheet
+                Caption = '     Quantidades     '
+                ImageIndex = 1
+                OnShow = TabSheet4Show
+                object Panel15: TPanel
                   Left = 0
                   Top = 0
-                  Width = 24
-                  Height = 24
+                  Width = 461
+                  Height = 71
                   Align = alClient
-                  AutoSize = True
-                  Center = True
-                  Picture.Data = {
-                    0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
-                    0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
-                    0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
-                    414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
-                    80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
-                    9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
-                    E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
-                    D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
-                    C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
-                    20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
-                    D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
-                    436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
-                    F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
-                    BA02035FC005512468860000000049454E44AE426082}
-                  OnClick = imgLocaCategoryClick
-                  ExplicitTop = 14
-                  ExplicitWidth = 18
-                  ExplicitHeight = 18
+                  BevelOuter = bvNone
+                  Color = 16579576
+                  ParentBackground = False
+                  TabOrder = 0
+                  object Label23: TLabel
+                    Left = 332
+                    Top = 5
+                    Width = 39
+                    Height = 14
+                    Caption = 'M'#225'xima'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label24: TLabel
+                    Left = 168
+                    Top = 5
+                    Width = 36
+                    Height = 14
+                    Caption = 'M'#237'nima'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object Label25: TLabel
+                    Left = 4
+                    Top = 5
+                    Width = 66
+                    Height = 14
+                    Caption = 'Em Estoque'
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -12
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                  end
+                  object DBEdit6: TDBEdit
+                    Left = 4
+                    Top = 20
+                    Width = 154
+                    Height = 26
+                    DataField = 'current_quantity'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 0
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object DBCheckBox2: TDBCheckBox
+                    Left = 168
+                    Top = 52
+                    Width = 200
+                    Height = 17
+                    Cursor = crHandPoint
+                    TabStop = False
+                    Caption = 'Produto para pesagem em balan'#231'as.'
+                    DataField = 'flg_product_for_scales'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                    TabOrder = 3
+                    ValueChecked = '1'
+                    ValueUnchecked = '0'
+                  end
+                  object DBCheckBox5: TDBCheckBox
+                    Left = 4
+                    Top = 51
+                    Width = 116
+                    Height = 17
+                    Cursor = crHandPoint
+                    TabStop = False
+                    Caption = 'Controlar estoque.'
+                    DataField = 'flg_to_move_the_stock'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -11
+                    Font.Name = 'Tahoma'
+                    Font.Style = []
+                    ParentFont = False
+                    TabOrder = 4
+                    ValueChecked = '1'
+                    ValueUnchecked = '0'
+                  end
+                  object DBEdit10: TDBEdit
+                    Left = 332
+                    Top = 20
+                    Width = 124
+                    Height = 26
+                    DataField = 'maximum_quantity'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 2
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
+                  object DBEdit17: TDBEdit
+                    Left = 168
+                    Top = 20
+                    Width = 154
+                    Height = 26
+                    DataField = 'minimum_quantity'
+                    DataSource = dtsProduct
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clBlack
+                    Font.Height = -15
+                    Font.Name = 'Tahoma'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 1
+                    OnClick = EdtFieldClick
+                    OnEnter = EdtFieldEnter
+                    OnExit = EdtFieldExit
+                    OnKeyDown = EdtFieldKeyDown
+                  end
                 end
               end
-            end
-            object edtcategory_id: TDBEdit
-              Left = 37
-              Top = 353
-              Width = 50
-              Height = 26
-              DataField = 'category_id'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 12
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object edtstorage_location_name: TDBEdit
-              Left = 745
-              Top = 353
-              Width = 239
-              Height = 26
-              Color = 16053492
-              DataField = 'storage_location_name'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGray
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 17
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object Panel43: TPanel
-              Left = 667
-              Top = 353
-              Width = 26
-              Height = 26
-              Cursor = crHandPoint
-              BevelOuter = bvNone
-              BorderWidth = 1
-              Color = 5327153
-              ParentBackground = False
-              TabOrder = 36
-              object Panel44: TPanel
-                Left = 1
-                Top = 1
-                Width = 24
-                Height = 24
-                Cursor = crHandPoint
-                Align = alClient
-                BevelOuter = bvNone
-                Color = 8747344
-                ParentBackground = False
-                TabOrder = 0
-                object imgLocaStorageLocation: TImage
-                  Left = 0
-                  Top = 0
-                  Width = 24
-                  Height = 24
-                  Align = alClient
-                  AutoSize = True
-                  Center = True
-                  Picture.Data = {
-                    0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
-                    0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
-                    0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
-                    414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
-                    80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
-                    9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
-                    E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
-                    D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
-                    C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
-                    20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
-                    D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
-                    436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
-                    F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
-                    BA02035FC005512468860000000049454E44AE426082}
-                  OnClick = imgLocaStorageLocationClick
-                  ExplicitTop = 14
-                  ExplicitWidth = 18
-                  ExplicitHeight = 18
-                end
-              end
-            end
-            object edtstorage_location_id: TDBEdit
-              Left = 694
-              Top = 353
-              Width = 50
-              Height = 26
-              DataField = 'storage_location_id'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 16
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object edtsize_name: TDBEdit
-              Left = 88
-              Top = 399
-              Width = 240
-              Height = 26
-              Color = 16053492
-              DataField = 'size_name'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGray
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 19
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object Panel17: TPanel
-              Left = 10
-              Top = 399
-              Width = 26
-              Height = 26
-              Cursor = crHandPoint
-              BevelOuter = bvNone
-              BorderWidth = 1
-              Color = 5327153
-              ParentBackground = False
-              TabOrder = 37
-              object Panel19: TPanel
-                Left = 1
-                Top = 1
-                Width = 24
-                Height = 24
-                Cursor = crHandPoint
-                Align = alClient
-                BevelOuter = bvNone
-                Color = 8747344
-                ParentBackground = False
-                TabOrder = 0
-                object imgLocaSize: TImage
-                  Left = 0
-                  Top = 0
-                  Width = 24
-                  Height = 24
-                  Align = alClient
-                  AutoSize = True
-                  Center = True
-                  Picture.Data = {
-                    0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
-                    0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
-                    0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
-                    414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
-                    80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
-                    9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
-                    E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
-                    D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
-                    C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
-                    20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
-                    D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
-                    436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
-                    F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
-                    BA02035FC005512468860000000049454E44AE426082}
-                  OnClick = imgLocaSizeClick
-                  ExplicitTop = 14
-                  ExplicitWidth = 18
-                  ExplicitHeight = 18
-                end
-              end
-            end
-            object edtsize_id: TDBEdit
-              Left = 37
-              Top = 399
-              Width = 50
-              Height = 26
-              DataField = 'size_id'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 18
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object Panel7: TPanel
-              Left = 10
-              Top = 463
-              Width = 480
-              Height = 1
-              BevelOuter = bvNone
-              Color = 14209468
-              ParentBackground = False
-              TabOrder = 38
-            end
-            object Panel8: TPanel
-              Left = 510
-              Top = 463
-              Width = 474
-              Height = 1
-              BevelOuter = bvNone
-              Color = 14209468
-              ParentBackground = False
-              TabOrder = 39
-            end
-            object DBEdit11: TDBEdit
-              Left = 10
-              Top = 489
-              Width = 153
-              Height = 26
-              DataField = 'cost'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 23
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object DBEdit12: TDBEdit
-              Left = 169
-              Top = 489
-              Width = 153
-              Height = 26
-              DataField = 'marketup'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 24
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object DBEdit13: TDBEdit
-              Left = 337
-              Top = 489
-              Width = 153
-              Height = 26
-              DataField = 'price'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 25
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
             end
             object DBCheckBox1: TDBCheckBox
-              Left = 673
-              Top = 445
-              Width = 116
+              Left = 380
+              Top = 61
+              Width = 91
               Height = 17
               Cursor = crHandPoint
               TabStop = False
-              Caption = 'Controle de estoque'
-              DataField = 'flg_to_move_the_stock'
+              Caption = 'Item adicional'
+              DataField = 'flg_additional'
               DataSource = dtsProduct
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
@@ -1404,191 +1822,9 @@ inherited ProductInputView: TProductInputView
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              TabOrder = 40
+              TabOrder = 16
               ValueChecked = '1'
               ValueUnchecked = '0'
-            end
-            object DBCheckBox3: TDBCheckBox
-              Left = 836
-              Top = 445
-              Width = 127
-              Height = 17
-              Cursor = crHandPoint
-              TabStop = False
-              Caption = 'Produto para pesagem'
-              DataField = 'flg_product_for_scales'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 41
-              ValueChecked = '1'
-              ValueUnchecked = '0'
-            end
-            object DBEdit14: TDBEdit
-              Left = 510
-              Top = 489
-              Width = 153
-              Height = 26
-              DataField = 'current_quantity'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 26
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object DBEdit15: TDBEdit
-              Left = 673
-              Top = 489
-              Width = 153
-              Height = 26
-              DataField = 'minimum_quantity'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 27
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object DBEdit16: TDBEdit
-              Left = 836
-              Top = 489
-              Width = 148
-              Height = 26
-              DataField = 'maximum_quantity'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 28
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object edtncm_code: TDBEdit
-              Left = 416
-              Top = 399
-              Width = 100
-              Height = 26
-              Color = 16053492
-              DataField = 'ncm_code'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGray
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 21
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object Panel1: TPanel
-              Left = 338
-              Top = 399
-              Width = 26
-              Height = 26
-              Cursor = crHandPoint
-              BevelOuter = bvNone
-              BorderWidth = 1
-              Color = 5327153
-              ParentBackground = False
-              TabOrder = 42
-              object Panel2: TPanel
-                Left = 1
-                Top = 1
-                Width = 24
-                Height = 24
-                Cursor = crHandPoint
-                Align = alClient
-                BevelOuter = bvNone
-                Color = 8747344
-                ParentBackground = False
-                TabOrder = 0
-                object imgLocaNCM: TImage
-                  Left = 0
-                  Top = 0
-                  Width = 24
-                  Height = 24
-                  Align = alClient
-                  AutoSize = True
-                  Center = True
-                  Picture.Data = {
-                    0954506E67496D61676589504E470D0A1A0A0000000D49484452000000120000
-                    0012080600000056CE8E57000000017352474200AECE1CE90000000467414D41
-                    0000B18F0BFC6105000000097048597300000EC300000EC301C76FA864000001
-                    414944415478DAA5938171C2300C45ADCB00850DC2040D1B94094A2600262899
-                    80D205B84E001B1426209DA0D9A0E904658284FF13B9C7E56C27477DF7CFC696
-                    9E14498809ACBAAE47D85EA0391443FC5D4247E85D444A6B2B014882ED431D73
-                    E8A44F043E434BE815B0AD1704088DCF1A790BE38BDE199B85063A5755F51645
-                    D1CE07DAABD34A1D3650017DE22EEF64FD054DC401B18F53E802119A32AB6050
-                    C7038BBB84E314676672C2B908D4928DD8BB40744EE09CE2BCC39EF574B6F982
-                    20C80C5821509BAAC87820688D6DE1028DB4D86CFBA10742DB664CC4138105A7
-                    D1ACA7D0EC58D2D87920ACCFC2B4D39B7533C310C6B8DBC09E81E60C260EC88A
-                    436727D7B4B3C4EC72358D5585DA96BC946E26A4DFFCCF9A3A69031E15F84368
-                    F793C593C91F6448E72CE8FBBF100BFA65D5A107E8700FC4829E6E8A9ADD03E1
-                    BA02035FC005512468860000000049454E44AE426082}
-                  OnClick = imgLocaNCMClick
-                  ExplicitLeft = -1
-                end
-              end
-            end
-            object edtncm_id: TDBEdit
-              Left = 365
-              Top = 399
-              Width = 50
-              Height = 26
-              DataField = 'ncm_id'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 20
-              OnClick = EdtFieldClick
-              OnEnter = EdtFieldEnter
-              OnExit = EdtFieldExit
-              OnKeyDown = EdtFieldKeyDown
-            end
-            object edtncm_name: TDBEdit
-              Left = 517
-              Top = 399
-              Width = 467
-              Height = 26
-              Color = 16053492
-              DataField = 'ncm_name'
-              DataSource = dtsProduct
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGray
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 22
-              OnKeyDown = EdtFieldKeyDown
             end
           end
         end
@@ -1641,7 +1877,11 @@ inherited ProductInputView: TProductInputView
     end
   end
   object dtsProduct: TDataSource [2]
-    Left = 851
+    Left = 611
+    Top = 1
+  end
+  object dtsProductPriceLists: TDataSource
+    Left = 705
     Top = 1
   end
 end

@@ -11,10 +11,10 @@ type
   TBaseReport = class(TForm)
     RLReport1: TRLReport;
     bndHeader: TRLBand;
-    memCompanyMoreInfo: TRLMemo;
+    memTenantMoreInfo: TRLMemo;
     pnlLogo: TRLPanel;
     imgLogo: TRLImage;
-    memCompanyAliasName: TRLMemo;
+    memTenantAliasName: TRLMemo;
     bndFooter: TRLBand;
     RLSystemInfo1PageNumber: TRLSystemInfo;
     pnlDivisor2: TRLPanel;
@@ -23,14 +23,14 @@ type
     bndSpacer1: TRLBand;
     RLSystemInfo4PageCount: TRLSystemInfo;
     lblSoftwareHouse: TRLLabel;
-    lblCompanyEin: TRLLabel;
+    lblTenantEin: TRLLabel;
     RLSystemInfo1FullDate: TRLSystemInfo;
-    memCompanyContacts: TRLMemo;
+    memTenantContacts: TRLMemo;
     RLPDFFilter1: TRLPDFFilter;
     procedure FormCreate(Sender: TObject); virtual;
   public
     FPath: String;
-    procedure LoadCompany;
+    procedure LoadTenant;
   end;
 
 var
@@ -41,7 +41,7 @@ implementation
 uses
   uHlp,
   uRepository.Factory,
-  uCompany;
+  uTenant;
 
 {$R *.dfm}
 
@@ -57,45 +57,45 @@ begin
   if not DirectoryExists(FPath) then ForceDirectories(FPath);
 end;
 
-procedure TBaseReport.LoadCompany;
+procedure TBaseReport.LoadTenant;
 begin
-  const LCompany = TRepositoryFactory.Make.Company.Show(1);
-  if not Assigned(LCompany) then
+  const LTenant = TRepositoryFactory.Make.Tenant.Show(1);
+  if not Assigned(LTenant) then
     Exit;
 
   // Fantasia, CNPJ e Razão
-  memCompanyAliasName.Lines.Text := lCompany.alias_name.ToUpper;
-  lblCompanyEin.Caption          := ValidateCpfCnpj(lCompany.legal_entity_number);
-  memCompanyMoreInfo.Lines.Add(lCompany.name.ToUpper);
+  memTenantAliasName.Lines.Text := lTenant.alias_name.ToUpper;
+  lblTenantEin.Caption          := ValidateCpfCnpj(lTenant.legal_entity_number);
+  memTenantMoreInfo.Lines.Add(lTenant.name.ToUpper);
 
   // Endereço
-  memCompanyMoreInfo.Lines.Clear;
+  memTenantMoreInfo.Lines.Clear;
   var LInfo := EmptyStr;
-  if not lCompany.address.Trim.IsEmpty        then LInfo := LInfo + lCompany.address + ', ';
-  if not lCompany.address_number.Trim.IsEmpty then LInfo := LInfo + lCompany.address_number + ', ';
-  if not lCompany.complement.Trim.IsEmpty     then LInfo := LInfo + lCompany.complement + ' | ';
-  if not lCompany.district.Trim.IsEmpty       then LInfo := LInfo + lCompany.district;
+  if not lTenant.address.Trim.IsEmpty        then LInfo := LInfo + lTenant.address + ', ';
+  if not lTenant.address_number.Trim.IsEmpty then LInfo := LInfo + lTenant.address_number + ', ';
+  if not lTenant.complement.Trim.IsEmpty     then LInfo := LInfo + lTenant.complement + ' | ';
+  if not lTenant.district.Trim.IsEmpty       then LInfo := LInfo + lTenant.district;
   if not LInfo.Trim.IsEmpty then
-    memCompanyMoreInfo.Lines.Add(LInfo);
+    memTenantMoreInfo.Lines.Add(LInfo);
 
   LInfo := EmptyStr;
-  if not lCompany.city.name.Trim.IsEmpty  then LInfo := LInfo + lCompany.city.name + ' - ';
-  if not lCompany.city.state.Trim.IsEmpty then LInfo := LInfo + lCompany.city.state + ', Cep: ';
-  if not lCompany.zipcode.Trim.IsEmpty    then LInfo := LInfo + FormatZipCode(lCompany.zipcode);
+  if not lTenant.city.name.Trim.IsEmpty  then LInfo := LInfo + lTenant.city.name + ' - ';
+  if not lTenant.city.state.Trim.IsEmpty then LInfo := LInfo + lTenant.city.state + ', Cep: ';
+  if not lTenant.zipcode.Trim.IsEmpty    then LInfo := LInfo + FormatZipCode(lTenant.zipcode);
   if not LInfo.Trim.IsEmpty then
-    memCompanyMoreInfo.Lines.Add(LInfo);
+    memTenantMoreInfo.Lines.Add(LInfo);
 
   // Contatos
   LInfo := EmptyStr;
-  if not lCompany.phone_1.Trim.IsEmpty       then LInfo := LInfo + FormatPhone(lCompany.phone_1) + ' | ';
-  if not lCompany.phone_2.Trim.IsEmpty       then LInfo := LInfo + FormatPhone(lCompany.phone_2) + ' | ';
-  if not lCompany.company_email.Trim.IsEmpty then LInfo := LInfo + lCompany.company_email + ' | ';
-  memCompanyContacts.Lines.Clear;
+  if not lTenant.phone_1.Trim.IsEmpty       then LInfo := LInfo + FormatPhone(lTenant.phone_1) + ' | ';
+  if not lTenant.phone_2.Trim.IsEmpty       then LInfo := LInfo + FormatPhone(lTenant.phone_2) + ' | ';
+  if not lTenant.company_email.Trim.IsEmpty then LInfo := LInfo + lTenant.company_email + ' | ';
+  memTenantContacts.Lines.Clear;
   if not LInfo.Trim.IsEmpty then
-    memCompanyContacts.Lines.Add(LInfo);
+    memTenantContacts.Lines.Add(LInfo);
 
-  if Assigned(LCompany) then
-    FreeAndNil(LCompany);
+  if Assigned(LTenant) then
+    FreeAndNil(LTenant);
 end;
 
 end.

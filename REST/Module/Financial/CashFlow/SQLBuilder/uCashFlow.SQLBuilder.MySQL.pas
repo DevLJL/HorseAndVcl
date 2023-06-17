@@ -14,8 +14,6 @@ type
   TCashFlowSQLBuilderMySQL = class(TInterfacedObject, ICashFlowSQLBuilder)
   public
     class function Make: ICashFlowSQLBuilder;
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function DeleteById(AId: Int64): String;
     function DeleteByIdRange(AId: String): String;
     function SelectAll: String;
@@ -117,57 +115,7 @@ end;
 
 function TCashFlowSQLBuilderMySQL.ScriptCashFlowTransactionTable: String;
 begin
-  Result := ' CREATE TABLE `cash_flow_transaction` ( '+
-            ' `id` bigint NOT NULL AUTO_INCREMENT, '+
-            ' `cash_flow_id` bigint NOT NULL, '+
-            ' `flg_manual_transaction` tinyint DEFAULT NULL, '+
-            ' `transaction_date` datetime NOT NULL, '+
-            ' `history` varchar(80) NOT NULL, '+
-            ' `type` tinyint DEFAULT NULL COMMENT ''[0-Debito, 1-Credito]'', '+
-            ' `amount` decimal(18,4) DEFAULT NULL, '+
-            ' `payment_id` bigint NOT NULL, '+
-            ' `note` text, '+
-            ' `sale_id` bigint DEFAULT NULL, '+
-            ' `person_id` bigint DEFAULT NULL, '+
-            ' PRIMARY KEY (`id`), '+
-            ' KEY `cash_flow_transaction_fk_cash_flow_id` (`cash_flow_id`), '+
-            ' KEY `cash_flow_transaction_fk_payment_id` (`payment_id`), '+
-            ' KEY `cash_flow_transaction_fk_sale_id` (`sale_id`), '+
-            ' KEY `cash_flow_transaction_fk_person_id` (`person_id`), '+
-            ' CONSTRAINT `cash_flow_transaction_fk_cash_flow_id` FOREIGN KEY (`cash_flow_id`) REFERENCES `cash_flow` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, '+
-            ' CONSTRAINT `cash_flow_transaction_fk_payment_id` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`), '+
-            ' CONSTRAINT `cash_flow_transaction_fk_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`), '+
-            ' CONSTRAINT `cash_flow_transaction_fk_sale_id` FOREIGN KEY (`sale_id`) REFERENCES `sale` (`id`) '+
-            ' ) ';
-end;
-
-function TCashFlowSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result := ' CREATE TABLE `cash_flow` ( '+
-            ' `id` bigint NOT NULL AUTO_INCREMENT, '+
-            ' `station_id` bigint NOT NULL, '+
-            ' `opening_balance_amount` decimal(18,4) DEFAULT NULL, '+
-            ' `final_balance_amount` decimal(18,4) DEFAULT NULL, '+
-            ' `opening_date` datetime NOT NULL, '+
-            ' `closing_date` datetime DEFAULT NULL, '+
-            ' `closing_note` text, '+
-            ' `created_at` datetime DEFAULT NULL, '+
-            ' `updated_at` datetime DEFAULT NULL, '+
-            ' `created_by_acl_user_id` bigint DEFAULT NULL, '+
-            ' `updated_by_acl_user_id` bigint DEFAULT NULL, '+
-            ' PRIMARY KEY (`id`), '+
-            ' KEY `cash_flow_idx_created_at` (`created_at`), '+
-            ' KEY `cash_flow_fk_created_by_acl_user_id` (`created_by_acl_user_id`), '+
-            ' KEY `cash_flow_fk_updated_by_cash_flow_id` (`updated_by_acl_user_id`), '+
-            ' KEY `cash_flow_fk_station_id` (`station_id`), '+
-            ' CONSTRAINT `cash_flow_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`), '+
-            ' CONSTRAINT `cash_flow_fk_station_id` FOREIGN KEY (`station_id`) REFERENCES `station` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION, '+
-            ' CONSTRAINT `cash_flow_fk_updated_by_cash_flow_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`) '+
-            ' ) ';
-end;
-
-function TCashFlowSQLBuilderMySQL.ScriptSeedTable: String;
-begin
+  Result := '';
 end;
 
 function TCashFlowSQLBuilderMySQL.SelectAll: String;

@@ -3,7 +3,10 @@ unit u2023_02_13_12_33_Unit.Seeder;
 interface
 
 uses
-  uBase.Migration;
+  uBase.Migration,
+  uConnMigration,
+  uEnv.Rest,
+  uZLConnection.Types;
 
 type
   TSeeder = class(TBaseMigration)
@@ -12,20 +15,18 @@ type
 
 implementation
 
-uses
-  uConnMigration,
-  uSQLBuilder.Factory,
-  uEnv.Rest,
-  System.SysUtils;
-
 { TSeeder }
-
 class function TSeeder.&Register: TSeeder;
+const
+  LMYSQL_SCRIPT = ' insert into unit (name, description) values (''UN'', ''Unidade'');    '+
+                  ' insert into unit (name, description) values (''PC'', ''Peça'');       '+
+                  ' insert into unit (name, description) values (''LT'', ''Litro'');      '+
+                  ' insert into unit (name, description) values (''KG'', ''Quilograma''); ';
+
 begin
-  ConnMigration.AddSeeder(
-    Self.UnitName,
-    TSQLBuilderFactory.Make(ENV_REST.DriverDB).&Unit.ScriptSeedTable
-  );
+  case ENV_REST.DriverDB of
+    ddMySql: ConnMigration.AddSeeder(Self.UnitName, LMYSQL_SCRIPT);
+  end;
 end;
 
 initialization

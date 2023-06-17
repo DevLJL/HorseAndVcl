@@ -7,7 +7,7 @@ uses
 
 type
   ICashFlowFilter = Interface(IFilter)
-    ['{FC7D8908-F296-4367-AAC0-3ABE1AEDE45A}']
+    ['{38B24D5E-E677-408E-9353-643DF949C5CA}']
   End;
 
   TCashFlowFilter = class(TFilter, ICashFlowFilter)

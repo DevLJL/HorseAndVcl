@@ -3,7 +3,10 @@ unit u2023_02_07_10_00_CreateStationTable.Migration;
 interface
 
 uses
-  uBase.Migration;
+  uBase.Migration,
+  uConnMigration,
+  uEnv.Rest,
+  uZLConnection.Types;
 
 type
   TMigration = class(TBaseMigration)
@@ -12,20 +15,18 @@ type
 
 implementation
 
-uses
-  uConnMigration,
-  uSQLBuilder.Factory,
-  uEnv.Rest,
-  System.SysUtils;
-
 { TMigration }
-
 class function TMigration.&Register: TMigration;
+const
+  LMYSQL_SCRIPT = ' CREATE TABLE `station` ( '+
+                  '   `id` bigint NOT NULL AUTO_INCREMENT, '+
+                  '   `name` varchar(255) NOT NULL, '+
+                  '   PRIMARY KEY (`id`) '+
+                  ' ) ';
 begin
-  ConnMigration.AddMigration(
-    Self.UnitName,
-    TSQLBuilderFactory.Make(ENV_REST.DriverDB).Station.ScriptCreateTable
-  );
+  case ENV_REST.DriverDB of
+    ddMySql: ConnMigration.AddMigration(Self.UnitName, LMYSQL_SCRIPT);
+  end;
 end;
 
 initialization

@@ -9,7 +9,7 @@ uses
 
 type
   IPaymentRepository = interface(IBaseRepository)
-    ['{6E84641E-BB4D-4202-ADC1-6DA0F4CFF670}']
+    ['{476166E8-C700-4643-A698-F0E478D4BABA}']
     function Show(AId: Int64): TPayment;
     function ListPaymentTerms(APaymentId: Int64): IZLMemTable;
   end;

@@ -12,7 +12,7 @@ uses
 
 type
   ICategoryPersistenceUseCase = Interface
-    ['{91333632-9B3C-4993-BC89-8D5456496867}']
+    ['{D3771CA0-140F-41D8-B923-A186B841A5EA}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TCategoryFilterDTO): IIndexResult overload;

@@ -13,7 +13,7 @@ uses
 
 type
   IBaseRepository = Interface
-    ['{71886351-AAA9-478B-A8FA-BD695DCC2251}']
+    ['{DF8FA88E-A8C3-4D32-891D-A903B1DC12C3}']
 
     function Conn: IZLConnection;
     function SetManageTransaction(AValue: Boolean): IBaseRepository;

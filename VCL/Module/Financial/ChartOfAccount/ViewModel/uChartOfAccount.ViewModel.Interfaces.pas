@@ -10,7 +10,7 @@ uses
 
 type
   IChartOfAccountViewModel = Interface(IBaseViewModel)
-    ['{7AB49534-A5F6-43ED-B1F2-1B6EB242425F}']
+    ['{7C3C4ACF-7F59-4561-BF84-CAD1CC9EDF4C}']
     function  FromShowDTO(AInput: TChartOfAccountShowDTO): IChartOfAccountViewModel;
     function  ToInputDTO: TChartOfAccountInputDTO;
     function  EmptyDataSets: IChartOfAccountViewModel;

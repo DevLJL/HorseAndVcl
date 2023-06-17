@@ -68,16 +68,19 @@ type
     procedure btnLocateCloseClick(Sender: TObject);
     procedure imgOptionsClick(Sender: TObject);
     procedure cbxFilterIndexSelect(Sender: TObject);
+    procedure FormShow(Sender: TObject); override;
   private
     FIndexResult: IIndexResult;
     FFilterOrderBy: String;
     FLayoutLocate: Boolean;
     FLocateResult: Integer;
+    FInitialSearchContent: String;
     procedure CleanFilter;
     procedure DoSearch(ACurrentPage: Integer = 1; ATryLocateId: Int64 = 0);
     procedure SetLocateResult(const Value: Integer);
   public
     class function HandleLocate: Int64;
+    function AShowModal(AInitialSearchContent: String = ''): Integer;
     property  LocateResult: Integer read FLocateResult write SetLocateResult;
     procedure SetLayoutLocate(ABackgroundTransparent: Boolean = True);
   end;
@@ -91,7 +94,7 @@ uses
   uHlp,
   System.StrUtils,
   uProduct.Input.View,
-  uNotificationView,
+  uToast.View,
   uDTM,
   uYesOrNo.View,
   uAlert.View,
@@ -127,7 +130,7 @@ begin
   pnlBackground.BorderWidth  := 1;
   pnlBackground.Color        := $00857950;
   if ABackgroundTransparent then
-    createTransparentBackground(Self);
+    CreateDarkBackground(Self);
 
   // Varrer dbgrid e esconder botoes
   for var lI := 0 to DBGrid1.Columns.Count-1 do
@@ -140,6 +143,12 @@ end;
 procedure TProductIndexView.SetLocateResult(const Value: Integer);
 begin
   FLocateResult := Value;
+end;
+
+function TProductIndexView.AShowModal(AInitialSearchContent: String): Integer;
+begin
+  FInitialSearchContent := AInitialSearchContent;
+  Result := ShowModal;
 end;
 
 procedure TProductIndexView.btnAppendClick(Sender: TObject);
@@ -183,7 +192,7 @@ begin
     end;
 
     dtsIndex.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
     if edtSearchValue.CanFocus then edtSearchValue.SetFocus;
@@ -603,6 +612,22 @@ begin
   end;
 end;
 
+procedure TProductIndexView.FormShow(Sender: TObject);
+begin
+  inherited;
+  if not FInitialSearchContent.Trim.IsEmpty then
+  begin
+    edtSearchValue.OnChange := nil;
+    try
+      edtSearchValue.Text     := FInitialSearchContent.Trim;
+      edtSearchValue.SelStart := String(edtSearchValue.Text).Length;
+      DoSearch;
+    finally
+      edtSearchValue.OnChange := edtSearchValueChange;
+    end;
+  end;
+end;
+
 class function TProductIndexView.HandleLocate: Int64;
 begin
   Result := -1;
@@ -645,7 +670,7 @@ begin
   inherited;
   // Excluir Grid
   dbgridDeleteConfig(DBGrid1, '');
-  NotificationView.Execute('Feche e abra a janela para carregar a nova configura��o.');
+  ToastView.Execute('Feche e abra a janela para carregar a nova configura��o.');
 end;
 
 procedure TProductIndexView.mniSaveGridConfigClick(Sender: TObject);
@@ -653,7 +678,7 @@ begin
   inherited;
   // Salvar Config do Grid
   dbgridSaveConfig(DBGrid1, '');
-  NotificationView.Execute('Grade Salva');
+  ToastView.Execute('Grade Salva');
 end;
 
 procedure TProductIndexView.tmrDoSearchTimer(Sender: TObject);

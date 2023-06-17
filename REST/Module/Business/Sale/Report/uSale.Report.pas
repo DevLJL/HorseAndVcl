@@ -102,7 +102,7 @@ class function TSaleReport.Execute(AData: TDataForReportOutput): IOutPutFileStre
 begin
   // Preparar Relatório
   const LView: SH<TSaleReport> = TSaleReport.Create(nil);
-  LView.Value.LoadCompany;
+  LView.Value.LoadTenant;
   LView.Value.Prepare(AData);
 
   // Gerar PDF

@@ -11,7 +11,7 @@ uses
 
 type
   IPersonDataFactory = Interface
-    ['{6ED1E619-351A-4A15-8C26-ABDC010A4964}']
+    ['{4AC6770F-A06E-44C4-A322-73E6306329A9}']
     function GenerateInsert(AIsSeller: Boolean = False; AIsSupplier: Boolean = False; AIsCarrier: Boolean = False): TPersonShowDTO;
     function GenerateInput(AIsSeller: Boolean = False; AIsSupplier: Boolean = False; AIsCarrier: Boolean = False): TPersonInputDTO;
   End;

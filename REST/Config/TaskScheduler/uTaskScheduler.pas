@@ -15,6 +15,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Start;
+    function Tasks: TScheduledTasks;
   end;
 
 var
@@ -24,10 +25,12 @@ implementation
 
 uses
   System.SysUtils,
+  uConnMigration,
+  Vcl.Forms,
   uAutomaticPingInConsole.Task,
   uSendEmails.Task,
-  uConnMigration,
-  Vcl.Forms;
+  uPrintContentListAtPosPrinter.Task,
+  uEnv.Rest;
 
 { TTaskScheduler }
 constructor TTaskScheduler.Create;
@@ -36,9 +39,9 @@ begin
   FScheduledTasks.RemoveTaskAfterExpiration := True;
   FScheduledTasks.FaultPolicy.MaxRetries    := 5;
 
-  // Tasks
   TAutomaticPingInConsoleTask.HangOn(FScheduledTasks);
-  TSendEmailsTask.HangOn(FScheduledTasks);
+  if ENV_REST.SendEmailsTask then TSendEmailsTask.HangOn(FScheduledTasks);
+  if ENV_REST.PosPrinterTask then TPrintContentListAtPosPrinterTask.HangOn(FScheduledTasks);
 end;
 
 destructor TTaskScheduler.Destroy;
@@ -50,6 +53,11 @@ end;
 procedure TTaskScheduler.Start;
 begin
   FScheduledTasks.Start;
+end;
+
+function TTaskScheduler.Tasks: TScheduledTasks;
+begin
+  Result := FScheduledTasks;
 end;
 
 initialization

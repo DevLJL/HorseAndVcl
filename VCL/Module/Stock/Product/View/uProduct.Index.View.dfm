@@ -213,6 +213,10 @@ inherited ProductIndexView: TProductIndexView
                 inherited imgDoSearch: TImage
                   OnClick = imgDoSearchClick
                 end
+                inherited IndicatorLoadButtonDoSearch: TActivityIndicator
+                  ExplicitWidth = 24
+                  ExplicitHeight = 24
+                end
               end
             end
           end

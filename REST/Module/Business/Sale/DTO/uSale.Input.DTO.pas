@@ -37,6 +37,9 @@ type
     Fdelivery_status: TSaleDeliveryStatus;
     Ffreight: Double;
     Finternal_note: String;
+    Fservice_charge: Double;
+    Fcover_charge: Double;
+    Fsale_check_name: String;
 
     // OneToMany
     Fsale_items: TObjectList<TSaleItemInputDTO>;
@@ -93,8 +96,16 @@ type
     property increase: Double read Fincrease write Fincrease;
 
     [SwagNumber]
-    [SwagProp('increase', 'Frete', false)]
+    [SwagProp('freight', 'Frete', false)]
     property freight: Double read Ffreight write Ffreight;
+
+    [SwagNumber]
+    [SwagProp('service_charge', 'Taxa de Serviço (R$)', false)]
+    property service_charge: Double read Fservice_charge write Fservice_charge;
+
+    [SwagNumber]
+    [SwagProp('cover_charge', 'Taxa de Cover (R$)', false)]
+    property cover_charge: Double read Fcover_charge write Fcover_charge;
 
     [SwagNumber]
     [SwagProp('money_received', 'Valor recebido', false)]
@@ -115,6 +126,10 @@ type
     [SwagNumber]
     [SwagProp('consumption_number', 'Número de Consumo', false)]
     property consumption_number: Int64 read Fconsumption_number write Fconsumption_number;
+
+    [SwagString(255)]
+    [SwagProp('sale_check_name', 'Nome de checagem', false)]
+    property sale_check_name: String read Fsale_check_name write Fsale_check_name;
 
     [SwagIgnore]
     [DISABLE]
@@ -157,7 +172,7 @@ begin
     raise Exception.Create('Nenhum JSON informado!');
 
   Result             := TSaleInputDTO.FromJSON(AReq.Body);
-  Result.acl_user_id := StrInt(AReq.Session<TMyClaims>.Id);
+  Result.acl_user_id := AReq.Session<TMyClaims>.IdToInt64;
 end;
 {$ENDIF}
 

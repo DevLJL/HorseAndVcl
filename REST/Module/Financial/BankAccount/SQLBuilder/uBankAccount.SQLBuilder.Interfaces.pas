@@ -9,9 +9,8 @@ uses
 
 type
   IBankAccountSQLBuilder = interface(IBaseSQLBuilder)
-    ['{95853A62-3683-4555-9A56-54C1EA882C61}']
+    ['{4DB30553-4AA4-40F1-9AE0-69859475B033}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

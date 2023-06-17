@@ -13,7 +13,9 @@ uses
   uCategory,
   uSize,
   uBrand,
-  uProduct.Types;
+  uProduct.Types,
+  uProductPriceList,
+  System.Generics.Collections;
 
 type
   TProduct = class(TBaseEntity)
@@ -35,6 +37,7 @@ type
     Fsku_code: String;
     Fmaximum_quantity: Double;
     Fflg_product_for_scales: SmallInt;
+    Fflg_additional: SmallInt;
     Fean_code: String;
     Ftype: TProductType;
     Fcomplement_note: String;
@@ -51,6 +54,7 @@ type
     Fupdated_at: TDateTime;
     Fupdated_by_acl_user_id: Int64;
     Fcreated_by_acl_user_id: Int64;
+    Fcheck_value_before_insert: TProductCheckValueBeforeInsert;
 
     // OneToOne
     Funit: TUnit;
@@ -61,6 +65,10 @@ type
     Fbrand: TBrand;
     Fupdated_by_acl_user: TAclUser;
     Fcreated_by_acl_user: TAclUser;
+
+    // OneToMany
+    Fproduct_price_lists: TObjectList<TProductPriceList>;
+
     procedure Initialize;
   public
     constructor Create; overload;
@@ -85,6 +93,7 @@ type
     property packing_weight: Double read Fpacking_weight write Fpacking_weight;
     property flg_to_move_the_stock: SmallInt read Fflg_to_move_the_stock write Fflg_to_move_the_stock;
     property flg_product_for_scales: SmallInt read Fflg_product_for_scales write Fflg_product_for_scales;
+    property flg_additional: SmallInt read Fflg_additional write Fflg_additional;
     property internal_note: String read Finternal_note write Finternal_note;
     property complement_note: String read Fcomplement_note write Fcomplement_note;
     property flg_discontinued: SmallInt read Fflg_discontinued write Fflg_discontinued;
@@ -95,6 +104,7 @@ type
     property size_id: Int64 read Fsize_id write Fsize_id;
     property storage_location_id: Int64 read Fstorage_location_id write Fstorage_location_id;
     property genre: TProductGenre read Fgenre write Fgenre;
+    property check_value_before_insert: TProductCheckValueBeforeInsert read Fcheck_value_before_insert write Fcheck_value_before_insert;
     property created_at: TDateTime read Fcreated_at write Fcreated_at;
     property updated_at: TDateTime read Fupdated_at write Fupdated_at;
     property created_by_acl_user_id: Int64 read Fcreated_by_acl_user_id write Fcreated_by_acl_user_id;
@@ -110,6 +120,9 @@ type
     property created_by_acl_user: TAclUser read Fcreated_by_acl_user write Fcreated_by_acl_user;
     property updated_by_acl_user: TAclUser read Fupdated_by_acl_user write Fupdated_by_acl_user;
 
+    // OneToMany
+    property product_price_lists: TObjectList<TProductPriceList> read Fproduct_price_lists write Fproduct_price_lists;
+
     function Validate: String; override;
     procedure BeforeSave(AState: TEntityState);
     function BeforeSaveAndValidate(AState: TEntityState): String;
@@ -119,7 +132,9 @@ implementation
 
 uses
   System.SysUtils,
-  uProduct.BeforeSave, uTrans;
+  uProduct.BeforeSave,
+  uTrans,
+  uHlp;
 
 { TProduct }
 
@@ -150,6 +165,7 @@ begin
   if Assigned(Fstorage_location)    then Fstorage_location.Free;
   if Assigned(Fcreated_by_acl_user) then Fcreated_by_acl_user.Free;
   if Assigned(Fupdated_by_acl_user) then Fupdated_by_acl_user.Free;
+  if Assigned(Fproduct_price_lists)     then Fproduct_price_lists.Free;
   inherited;
 end;
 
@@ -164,6 +180,7 @@ begin
   Fstorage_location    := TStorageLocation.Create;
   Fcreated_by_acl_user := TAclUser.Create;
   Fupdated_by_acl_user := TAclUser.Create;
+  Fproduct_price_lists     := TObjectList<TProductPriceList>.Create;
 end;
 
 function TProduct.Validate: String;
@@ -182,6 +199,14 @@ begin
 
   if Fsku_code.Trim.IsEmpty then
     Result := Result + Trans.FieldWasNotInformed('Referência');
+
+  // ProductPriceList
+  for var lI := 0 to Pred(Fproduct_price_lists.Count) do
+  begin
+    const LCurrentError = Fproduct_price_lists.Items[lI].Validate;
+    if not LCurrentError.Trim.IsEmpty then
+      Result := Result + '   Lista de Preço > Item ' + StrZero((lI+1).ToString,3) + ': ' + LCurrentError;
+  end;
 end;
 
 end.

@@ -103,10 +103,10 @@ begin
           Exit;
         end;
 
-        // Carregar dados do usuário
+        // Carregar dados do usuário, Configuração Global e Dados da Empresa
         const LAclUser = TAclUser.FromJSON(SO(lResponse.Content).O['data']);
         LAclUser.login_password := edtLoginPassword.Text;
-        UserLogged.Current(LAclUser);
+        UserLogged.Current(LAclUser, True);
 
         ModalResult := mrOK;
       finally

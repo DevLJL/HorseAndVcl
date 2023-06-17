@@ -13,6 +13,7 @@ type
   TProductViewModel = class(TInterfacedObject, IProductViewModel)
   private
     FProduct: IZLMemTable;
+    FProductPriceListsViewModel: IProductPriceListsViewModel;
     constructor Create;
   public
     class function Make: IProductViewModel;
@@ -21,6 +22,7 @@ type
     function  EmptyDataSets: IProductViewModel;
 
     function  Product: IZLMemTable;
+    function  ProductPriceLists: IZLMemTable;
 
     function  SetEvents: IProductViewModel;
     procedure AfterInsert(DataSet: TDataSet);
@@ -55,7 +57,10 @@ uses
   uNcm.Show.DTO,
   uNcm.Service,
   uUnit.Show.DTO,
-  uUnit.Service;
+  uUnit.Service,
+  uProduct.Types,
+  uProductPriceLists.ViewModel,
+  uProductPriceList.Input.DTO;
 
 constructor TProductViewModel.Create;
 begin
@@ -79,11 +84,12 @@ begin
     .AddField('gross_weight',             ftFloat)
     .AddField('net_weight',               ftFloat)
     .AddField('packing_weight',           ftFloat)
-    .AddField('flg_to_move_the_stock',     ftSmallint)
-    .AddField('flg_product_for_scales',    ftSmallint)
+    .AddField('flg_to_move_the_stock',    ftSmallint)
+    .AddField('flg_product_for_scales',   ftSmallint)
+    .AddField('flg_additional',           ftSmallint)
     .AddField('internal_note',            ftString, 5000)
     .AddField('complement_note',          ftString, 5000)
-    .AddField('flg_discontinued',          ftSmallint)
+    .AddField('flg_discontinued',         ftSmallint)
     .AddField('unit_id',                  ftInteger)
     .AddField('ncm_id',                   ftLargeint)
     .AddField('category_id',              ftLargeint)
@@ -91,6 +97,7 @@ begin
     .AddField('size_id',                  ftLargeint)
     .AddField('storage_location_id',      ftLargeint)
     .AddField('genre',                    ftSmallint)
+    .AddField('check_value_before_insert', ftSmallint)
     .AddField('created_at',               ftDateTime)
     .AddField('updated_at',               ftDateTime)
     .AddField('created_by_acl_user_id',   ftLargeint)
@@ -110,6 +117,8 @@ begin
   // Formatação padrão e configurar eventos do DataSet
   FormatDataSet(FProduct.DataSet);
   SetEvents;
+
+  FProductPriceListsViewModel := TProductPriceListsViewModel.Make(Self);
 end;
 
 procedure TProductViewModel.BrandIdSetText(Sender: TField; const Text: string);
@@ -259,6 +268,12 @@ function TProductViewModel.EmptyDataSets: IProductViewModel;
 begin
   Result := Self;
   FProduct.EmptyDataSet;
+  ProductPriceLists.EmptyDataSet;
+end;
+
+function TProductViewModel.ProductPriceLists: IZLMemTable;
+begin
+  Result := FProductPriceListsViewModel.ProductPriceLists;
 end;
 
 function TProductViewModel.Product: IZLMemTable;
@@ -269,20 +284,31 @@ end;
 procedure TProductViewModel.AfterInsert(DataSet: TDataSet);
 begin
   FillDataSetWithZero(DataSet);
-  DataSet.FieldByName('unit_id').AsInteger               := 1;
-  DataSet.FieldByName('unit_name').AsString              := 'UN';
-  DataSet.FieldByName('ncm_id').AsInteger                := 1;
-  DataSet.FieldByName('ncm_code').AsString               := '99';
-  DataSet.FieldByName('ncm_name').AsString               := 'Não Informado';
-  DataSet.FieldByName('flg_to_move_the_stock').AsInteger  := 1;
+  DataSet.FieldByName('unit_id').AsInteger                   := 1;
+  DataSet.FieldByName('unit_name').AsString                  := 'UN';
+  DataSet.FieldByName('ncm_id').AsInteger                    := 1;
+  DataSet.FieldByName('ncm_code').AsString                   := '99';
+  DataSet.FieldByName('ncm_name').AsString                   := 'Não Informado';
+  DataSet.FieldByName('flg_to_move_the_stock').AsInteger     := 1;
+  DataSet.FieldByName('check_value_before_insert').AsInteger := Ord(TProductCheckValueBeforeInsert.Yes);
 end;
 
 function TProductViewModel.FromShowDTO(AInput: TProductShowDTO): IProductViewModel;
 begin
   Result := Self;
 
-  FProduct.UnsignEvents.FromJson(AInput.AsJSON);
+  FProduct.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
+
+  // ProductPriceLists
+  ProductPriceLists.UnsignEvents;
+  for var LProductProductPriceList in AInput.product_price_lists do
+  begin
+    MergeDataSet(LProductProductPriceList.AsJSON, ProductPriceLists.DataSet, true);
+    Application.ProcessMessages;
+  end;
+  ProductPriceLists.First;
+  FProductPriceListsViewModel.SetEvents;
 end;
 
 class function TProductViewModel.Make: IProductViewModel;
@@ -324,10 +350,26 @@ end;
 function TProductViewModel.ToInputDTO: TProductInputDTO;
 begin
   FProduct.UnsignEvents;
+  ProductPriceLists.UnsignEvents;
   try
     Result := TProductInputDTO.FromJSON(Product.ToJson);
+
+    // ProductPriceLists
+    const LProductPriceLists = TMemTableFactory.Make.FromDataSet(ProductPriceLists.DataSet);
+    LProductPriceLists.First;
+    while not LProductPriceLists.Eof do
+    begin
+      Result.product_price_lists.Add(TProductPriceListInputDTO.Create);
+      With Result.product_price_lists.Last do
+        FromJSON(LProductPriceLists.ToJson);
+
+      LProductPriceLists.Next;
+      Application.ProcessMessages;
+    end;
+
   finally
     SetEvents;
+    FProductPriceListsViewModel.SetEvents;
   end;
 end;
 

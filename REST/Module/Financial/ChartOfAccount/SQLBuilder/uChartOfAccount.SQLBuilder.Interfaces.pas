@@ -9,9 +9,8 @@ uses
 
 type
   IChartOfAccountSQLBuilder = interface(IBaseSQLBuilder)
-    ['{C042284E-E0E8-4FB5-BBA7-DE645C2CDE7C}']
+    ['{A1AB41C2-1B1D-4F35-8599-874CE8AD63C2}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

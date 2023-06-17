@@ -14,7 +14,7 @@ type
   TReqType = (Get, Post, Put, Delete, Patch);
 
   IRes = interface
-    ['{C98B8DC1-FE04-4FB6-B8D5-5831D86476CD}']
+    ['{37E374F1-B7FD-42B5-BF9A-A25B6659116B}']
     function Content: string;
     function ContentLength: Cardinal;
     function ContentType: string;
@@ -52,7 +52,7 @@ type
   end;
 
   IReq = Interface
-    ['{8A335135-0710-414F-837A-2CE1B1452A97}']
+    ['{CFB5BF58-D31E-423B-8451-356F2A2A39FF}']
     function Execute(AReqType: TReqType = TReqType.Get): IRes;
     function AddHeader(AName, AValue: string): IReq;
     function AddETag(AValue: string): IReq;
@@ -61,14 +61,14 @@ type
   TReq = class(TInterfacedObject, IReq)
   private
     FRequest: IRequest;
-    constructor Create(AEndPoint, ABody: String);
+    constructor Create(AEndPoint, ABody: String; ABaseURI: String = '');
   public
     function Execute(AReqType: TReqType = TReqType.Get): IRes;
     function AddHeader(AName, AValue: string): IReq;
     function AddETag(AValue: string): IReq;
   end;
 
-  function Req(AEndPoint: String; ABody: String = ''): IReq;
+  function Req(AEndPoint: String; ABody: String = ''; ABaseURI: String = ''): IReq;
 
 implementation
 
@@ -84,9 +84,9 @@ uses
 
 { TReq }
 
-function Req(AEndPoint, ABody: String): IReq;
+function Req(AEndPoint, ABody, ABaseURI: String): IReq;
 begin
-  Result := TReq.Create(AEndPoint, ABody);
+  Result := TReq.Create(AEndPoint, ABody, ABaseURI);
 end;
 
 function TReq.AddETag(AValue: string): IReq;
@@ -101,12 +101,17 @@ begin
   FRequest.AddHeader(AName, AValue);
 end;
 
-constructor TReq.Create(AEndPoint, ABody: String);
+constructor TReq.Create(AEndPoint, ABody, ABaseURI: String);
+var
+  LEndPoint: String;
 begin
   inherited Create;
 
   // Evitar erro de URI
-  var LEndPoint := ENV_VCL.BaseURI;
+  case ABaseURI.Trim.IsEmpty of
+    True:  LEndPoint := ENV_VCL.BaseURI;
+    False: LEndPoint := ABaseURI;
+  end;
   if not AEndPoint.Trim.IsEmpty then
   begin
     if (Copy(LEndPoint, LEndPoint.Length, 1) = '/') then LEndPoint := Copy(LEndPoint, 1, LEndPoint.Length-1);

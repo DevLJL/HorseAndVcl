@@ -43,7 +43,10 @@ uses
   DataSet.Serialize,
   System.SysUtils,
   uZLQry.Interfaces,
-  Vcl.Forms;
+  Vcl.Forms,
+  uApplication.Exception,
+  uQuotedStr,
+  uTrans;
 
 { TSaleRepositorySQL }
 
@@ -202,6 +205,17 @@ begin
       LQry.ExecSQL(FSaleSQLBuilder.InsertSalePayment(LSalePayment))
     end;
 
+    {TODO -oOwner -cGeneral : Refatorar esse código, levar sql para SQLBuilder}
+    // SaleCheckId
+    const LSaleCheckId = LQry
+      .ExecSQL (FSaleSQLBuilder.NextSaleCheckId)
+      .Open    (FSaleSQLBuilder.LastInsertId)
+      .DataSet.Fields[0].AsLargeInt;
+    LQry.ExecSQL(Format('update sale set sale_check_id = %s where id = %s', [
+      Q(LSaleCheckId),
+      Q(LStoredId)
+    ]));
+
     if FManageTransaction then
       FConn.CommitTransaction;
   except on E: Exception do
@@ -259,7 +273,31 @@ end;
 
 procedure TSaleRepositorySQL.Validate(AEntity: TBaseEntity);
 begin
-//
+  var LErrors := EmptyStr;
+  const LSale = AEntity as TSale;
+
+  // Verificar se Número de Consumo está disponível
+  if (LSale.consumption_number > 0) then
+  begin
+    {TODO -oOwner -cGeneral : Refatorar, levar esse sql para sqlbuilder}
+    var LSQL := ' select * from sale '+
+                '  where status = %s '+
+                '    and type = %s '+
+                '    and consumption_number = %s '+
+                '    and id <> %s ';
+    LSQL := Format(LSQL, [
+      Q(Ord(TSaleStatus.Pending)),
+      Q(Ord(TSaleType.Consumption)),
+      Q(LSale.consumption_number),
+      Q(LSale.id)
+    ]);
+    const LConsumptionNumberIsBusy = not FConn.MakeQry.Open(LSQL).IsEmpty;
+    if LConsumptionNumberIsBusy then
+      LErrors := LErrors + Trans.FieldWithValueIsInUse('Número de Consumo', LSale.consumption_number.ToString) + #13;
+  end;
+
+  if not LErrors.Trim.IsEmpty then
+    raise EEntityValidationException.Create(LErrors);
 end;
 
 end.

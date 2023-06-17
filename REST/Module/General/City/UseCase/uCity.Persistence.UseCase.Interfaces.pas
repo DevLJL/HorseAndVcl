@@ -12,7 +12,7 @@ uses
 
 type
   ICityPersistenceUseCase = Interface
-    ['{913BB65A-336B-4A8C-AB2E-771460A544A8}']
+    ['{17BBD409-6EFB-4DCE-9572-59597AAEDA14}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TCityFilterDTO): IIndexResult overload;

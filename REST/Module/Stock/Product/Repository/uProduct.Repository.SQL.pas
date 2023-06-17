@@ -12,7 +12,8 @@ uses
   uFilter,
   uSelectWithFilter,
   uProduct,
-  uProduct.Types;
+  uProduct.Types,
+  uProductPriceList;
 
 type
   TProductRepositorySQL = class(TBaseRepository, IProductRepository)
@@ -20,6 +21,7 @@ type
     FProductSQLBuilder: IProductSQLBuilder;
     constructor Create(AConn: IZLConnection; ASQLBuilder: IProductSQLBuilder);
     function DataSetToEntity(ADtsProduct: TDataSet): TBaseEntity; override;
+    function DataSetToProductPriceList(ADtsProductPriceList: TDataSet): TProductPriceList;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter; override;
     procedure Validate(AEntity: TBaseEntity); override;
     function FieldExists(AColumName, AColumnValue: String; AId: Int64): Boolean;
@@ -28,6 +30,8 @@ type
     function Show(AId: Int64): TProduct;
     function ShowByEanOrSkuCode(AValue: String): TProduct;
     function MoveProduct(AProductId: Int64; AIncOrDecQuantity: Double; AMovType: TProductMovStock): IProductRepository;
+    function Update(AId: Int64; AEntity: TBaseEntity): Int64; override;
+    function Store(AEntity: TBaseEntity): Int64; override;
  end;
 
 implementation
@@ -37,7 +41,8 @@ uses
   DataSet.Serialize,
   System.SysUtils,
   uAppRest.Types,
-  uApplication.Exception, uTrans;
+  uApplication.Exception,
+  uTrans;
 
 { TProductRepositorySQL }
 
@@ -79,9 +84,10 @@ end;
 constructor TProductRepositorySQL.Create(AConn: IZLConnection; ASQLBuilder: IProductSQLBuilder);
 begin
   inherited Create;
-  FConn            := AConn;
-  FSQLBuilder      := ASQLBuilder;
+  FConn              := AConn;
+  FSQLBuilder        := ASQLBuilder;
   FProductSQLBuilder := ASQLBuilder;
+  FManageTransaction := True;
 end;
 
 function TProductRepositorySQL.DataSetToEntity(ADtsProduct: TDataSet): TBaseEntity;
@@ -110,6 +116,15 @@ begin
   Result := LProduct;
 end;
 
+function TProductRepositorySQL.DataSetToProductPriceList(ADtsProductPriceList: TDataSet): TProductPriceList;
+begin
+  Result := TProductPriceList.FromJSON(ADtsProductPriceList.ToJSONObjectString);
+
+  // Tratar especificidades
+  Result.price_list.id   := ADtsProductPriceList.FieldByName('price_list_id').AsLargeInt;
+  Result.price_list.name := ADtsProductPriceList.FieldByName('price_list_name').AsString;
+end;
+
 function TProductRepositorySQL.FieldExists(AColumName, AColumnValue: String; AId: Int64): Boolean;
 begin
   Result := not FConn.MakeQry.Open(
@@ -124,7 +139,24 @@ end;
 
 function TProductRepositorySQL.Show(AId: Int64): TProduct;
 begin
-  Result := ShowById(AId) as TProduct;
+  Result := nil;
+  const LQry = FConn.MakeQry;
+
+  // Product
+  const LProduct = inherited ShowById(AId) as TProduct;
+  if not assigned(LProduct) then
+    Exit;
+
+  // ProductPriceList
+  LQry.Open(FProductSQLBuilder.SelectProductPriceListsByProductId(AId));
+  LQry.First;
+  while not LQry.Eof do
+  begin
+    LProduct.product_price_lists.Add(DataSetToProductPriceList(LQry.DataSet));
+    LQry.Next;
+  end;
+
+  Result := LProduct;
 end;
 
 function TProductRepositorySQL.ShowByEanOrSkuCode(AValue: String): TProduct;
@@ -135,6 +167,75 @@ begin
     if DataSet.IsEmpty then Exit;
     Result := DataSetToEntity(DataSet) as TProduct;
   end;
+end;
+
+function TProductRepositorySQL.Store(AEntity: TBaseEntity): Int64;
+var
+  LStoredId: Int64;
+begin
+  Try
+    if FManageTransaction then
+      FConn.StartTransaction;
+
+    // Instanciar Qry
+    const LQry = FConn.MakeQry;
+
+    // Product
+    LStoredId := inherited Store(AEntity);
+    const LProduct = AEntity as TProduct;
+
+    // ProductPriceLists
+    for var LProductPriceList in LProduct.product_price_lists do
+    begin
+      LProductPriceList.product_id := LStoredId;
+      LQry.ExecSQL(FProductSQLBuilder.InsertProductPriceList(LProductPriceList))
+    end;
+
+    if FManageTransaction then
+      FConn.CommitTransaction;
+  except on E: Exception do
+    Begin
+      if FManageTransaction then
+        FConn.RollBackTransaction;
+      raise;
+    End;
+  end;
+
+  Result := LStoredId;
+end;
+
+function TProductRepositorySQL.Update(AId: Int64; AEntity: TBaseEntity): Int64;
+begin
+  Try
+    if FManageTransaction then
+      FConn.StartTransaction;
+
+    // Instanciar Qry
+    const LQry = FConn.MakeQry;
+
+    // Product
+    inherited Update(AId, AEntity);
+    const LProduct = AEntity as TProduct;
+
+    // ProductPriceLists
+    LQry.ExecSQL(FProductSQLBuilder.DeleteProductPriceListsByProductId(AId));
+    for var LProductPriceList in LProduct.product_price_lists do
+    begin
+      LProductPriceList.product_id := AId;
+      LQry.ExecSQL(FProductSQLBuilder.InsertProductPriceList(LProductPriceList))
+    end;
+
+    if FManageTransaction then
+      FConn.CommitTransaction;
+  except on E: Exception do
+    Begin
+      if FManageTransaction then
+        FConn.RollBackTransaction;
+      raise;
+    End;
+  end;
+
+  Result := AId;
 end;
 
 procedure TProductRepositorySQL.Validate(AEntity: TBaseEntity);

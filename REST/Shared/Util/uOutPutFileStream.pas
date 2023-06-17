@@ -7,7 +7,7 @@ uses
 
 type
   IOutPutFileStream = Interface
-    ['{6089C5F9-6EEA-426B-9E81-4B446D774472}']
+    ['{943ED5B7-DEF4-49D7-83D1-A411BC987CCE}']
     function Value: TFileStream;
     function FilePath: String;
     function ContentType: String;

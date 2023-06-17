@@ -11,7 +11,7 @@ uses
 
 type
   IBrandDataFactory = Interface
-    ['{711003F6-6201-4489-B922-E859AAEC304F}']
+    ['{01BA6DE1-D81C-4D0A-85E6-E720765AAB70}']
     function GenerateInsert: TBrandShowDTO;
     function GenerateInput: TBrandInputDTO;
   End;

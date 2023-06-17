@@ -7,9 +7,8 @@ uses
 
 type
   IBaseSQLBuilder = interface
-    ['{A1ED4673-7815-4273-82A6-7579CF30E55A}']
+    ['{5E58A4CA-2060-4DF0-A7C0-C43E0DE4CF0A}']
 
-    function ScriptCreateTable: String;
     function DeleteById(AId: Int64): String;
     function DeleteByIdRange(AId: String): String;
     function SelectById(AId: Int64): String;

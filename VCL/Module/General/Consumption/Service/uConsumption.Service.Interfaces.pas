@@ -8,13 +8,16 @@ uses
   uIndexResult,
   uConsumption.Show.DTO,
   uConsumption.Input.DTO,
-  uEither;
+  uEither,
+  uConsumptionSale.Filter.DTO,
+  uZLMemTable.Interfaces;
 
 type
   IConsumptionService = Interface(IBaseService)
-    ['{32133C5C-1CE2-4221-8FBC-5C0B01DD0E0C}']
+    ['{E6504979-E661-409F-A9DE-9E22FCDF4B21}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TConsumptionFilterDTO = nil): Either<String, IIndexResult>;
+    function IndexWithSale(AFilter: TConsumptionSaleFilterDTO = nil): Either<String, IZLMemTable>;
     function Show(AId: Int64): TConsumptionShowDTO;
     function StoreAndShow(AInput: TConsumptionInputDTO): Either<String, TConsumptionShowDTO>;
     function UpdateAndShow(AId: Int64; AInput: TConsumptionInputDTO): Either<String, TConsumptionShowDTO>;

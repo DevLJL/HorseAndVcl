@@ -37,9 +37,9 @@ type
     Image4: TImage;
     lblDate: TLabel;
     lblNameOfTheWeek: TLabel;
-    lblCompanyAliasName: TLabel;
+    lblTenantAliasName: TLabel;
     imgDadosEmpLogo: TImage;
-    lblCompanyEin: TLabel;
+    lblTenantEin: TLabel;
     imgNetConnected: TImage;
     imgNetDisconnected: TImage;
     SplitView1: TSplitView;
@@ -97,10 +97,8 @@ type
     actNCM: TAction;
     actBusinessProposal: TAction;
     actSale: TAction;
-    actMyCompany: TAction;
+    actMyTenant: TAction;
     actPosPrinter: TAction;
-    actAppParamConfig: TAction;
-    actAppParamConfigSat: TAction;
     actOperationType: TAction;
     actCFOP: TAction;
     actTaxRule: TAction;
@@ -114,6 +112,10 @@ type
     mniCloseAllTabs: TMenuItem;
     tmrCheckInternet: TTimer;
     actStation: TAction;
+    actGlobalAndLocalConfig: TAction;
+    actLocalConfig: TAction;
+    actPriceList: TAction;
+    actAdditional: TAction;
     procedure FormShow(Sender: TObject);
     procedure tmrCheckInternetTimer(Sender: TObject);
     procedure actBrandExecute(Sender: TObject);
@@ -135,7 +137,7 @@ type
     procedure actStorageLocationExecute(Sender: TObject);
     procedure actUnidExecute(Sender: TObject);
     procedure actProductExecute(Sender: TObject);
-    procedure actMyCompanyExecute(Sender: TObject);
+    procedure actMyTenantExecute(Sender: TObject);
     procedure actConsumptionExecute(Sender: TObject);
     procedure actStationExecute(Sender: TObject);
     procedure actBankExecute(Sender: TObject);
@@ -146,6 +148,11 @@ type
     procedure actCashFlowExecute(Sender: TObject);
     procedure actBillPayReceiveExecute(Sender: TObject);
     procedure actSaleExecute(Sender: TObject);
+    procedure actPosPrinterExecute(Sender: TObject);
+    procedure actPdvExecute(Sender: TObject);
+    procedure actGlobalAndLocalConfigExecute(Sender: TObject);
+    procedure actPriceListExecute(Sender: TObject);
+    procedure actAdditionalExecute(Sender: TObject);
   private
     FTabSheetTag: Integer;
     FNetConnectedLog: ISH<TStringList>;
@@ -169,7 +176,7 @@ uses
   uLogin.View,
   uHlp,
   System.Threading,
-  uNotificationView,
+  uToast.View,
   uBrand.Index.View,
   uCity.Index.View,
   uPerson.Index.View,
@@ -179,8 +186,8 @@ uses
   uStorageLocation.Index.View,
   uUnit.Index.View,
   uProduct.Index.View,
-  uCompany.Show.DTO,
-  uCompany.Input.View,
+  uTenant.Show.DTO,
+  uTenant.Input.View,
   uAppVcl.Types,
   uConsumption.Index.View,
   uStation.Index.View,
@@ -191,7 +198,19 @@ uses
   uPayment.Index.View,
   uCashFlow.Index.View,
   uBillPayReceive.Index.View,
-  uSale.Index.View;
+  uSale.Index.View,
+  uPosPrinter.Index.View,
+  uPdv.View,
+  uGlobalConfig.Show.DTO,
+  uUserLogged,
+  uGlobalAndLocalConfig.Input,
+  uPriceList.Index.View,
+  uAdditional.Index.View;
+
+procedure TMainVclView.actAdditionalExecute(Sender: TObject);
+begin
+  ShowForm(TAdditionalIndexView, TAction(Sender).Caption);
+end;
 
 procedure TMainVclView.actBankAccountExecute(Sender: TObject);
 begin
@@ -243,12 +262,26 @@ begin
   ShowForm(TCostCenterIndexView, TAction(Sender).Caption);
 end;
 
-procedure TMainVclView.actMyCompanyExecute(Sender: TObject);
+procedure TMainVclView.actGlobalAndLocalConfigExecute(Sender: TObject);
+begin
+  // Configuração Global
+  const LUpdated = TGlobalAndLocalConfigInputView.Handle(TEntityState.Update, 1);
+  if not Assigned(LUpdated) then
+    Exit;
+
+  // Atualizar Configuração Global do Usuário Logado
+  UserLogged.GlobalConfig(LUpdated);
+end;
+
+procedure TMainVclView.actMyTenantExecute(Sender: TObject);
 begin
   // Minha Empresa
-  const LUpdated: SH<TCompanyShowDTO> = TCompanyInputView.Handle(TEntityState.Update, 1);
-  if not Assigned(LUpdated.Value) then
+  const LUpdated = TTenantInputView.Handle(TEntityState.Update, 1);
+  if not Assigned(LUpdated) then
     Exit;
+
+  // Atualizar Dados da Empresa do Usuário Logado
+  UserLogged.Tenant(LUpdated);
 end;
 
 procedure TMainVclView.actNCMExecute(Sender: TObject);
@@ -261,9 +294,25 @@ begin
   ShowForm(TPaymentIndexView, TAction(Sender).Caption);
 end;
 
+procedure TMainVclView.actPdvExecute(Sender: TObject);
+begin
+  const LView: SH<TPdvIndexView> = TPdvIndexView.Create(nil);
+  LView.Value.ShowModal;
+end;
+
 procedure TMainVclView.actPersonExecute(Sender: TObject);
 begin
   ShowForm(TPersonIndexView, TAction(Sender).Caption);
+end;
+
+procedure TMainVclView.actPosPrinterExecute(Sender: TObject);
+begin
+  ShowForm(TPosPrinterIndexView, TAction(Sender).Caption);
+end;
+
+procedure TMainVclView.actPriceListExecute(Sender: TObject);
+begin
+  ShowForm(TPriceListIndexView, TAction(Sender).Caption);
 end;
 
 procedure TMainVclView.actProductExecute(Sender: TObject);
@@ -378,7 +427,7 @@ begin
   // Limite de abas abertas (10)
   if (pgcActiveForms.PageCount > 10) then
   begin
-    NotificationView.Execute('Limite(10) de páginas foi atingido. Encerre alguma página e tente novamente.', tneError);
+    ToastView.Execute('Limite(10) de páginas foi atingido. Encerre alguma página e tente novamente.', tneError);
     Abort;
   end;
 
@@ -401,8 +450,8 @@ end;
 
 procedure TMainVclView.LoadUserLoggedOnMainScreen;
 begin
-  lblCompanyAliasName.Caption := 'Nenhuma';
-  lblCompanyEin.Caption       := '000.000.000-00';
+  lblTenantAliasName.Caption := 'Nenhuma';
+  lblTenantEin.Caption       := '000.000.000-00';
   lblDate.Caption             := FormatDateTime('DD/MM', now);
   lblNameOfTheWeek.Caption    := DayOfWeekStr(now);
   //lblUserLoggedLogin.Caption  := Copy(LoggedInUser.Current.login,1,12);

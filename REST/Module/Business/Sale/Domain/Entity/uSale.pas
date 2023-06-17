@@ -30,6 +30,8 @@ type
     Fmoney_received: double;
     Fseller_id: Int64;
     Ffreight: double;
+    Fservice_charge: double;
+    Fcover_charge: double;
     Finternal_note: String;
     Fstatus: TSaleStatus;
     Ftype: TSaleType;
@@ -39,6 +41,8 @@ type
     Fupdated_at: TDateTime;
     Fupdated_by_acl_user_id: Int64;
     Fcreated_by_acl_user_id: Int64;
+    Fsale_check_id: Int64;
+    Fsale_check_name: String;
 
     // OneToOne
     Fperson: TPerson;
@@ -70,12 +74,16 @@ type
     property discount: double read Fdiscount write Fdiscount;
     property increase: double read Fincrease write Fincrease;
     property freight: double read Ffreight write Ffreight;
+    property service_charge: double read Fservice_charge write Fservice_charge;
+    property cover_charge: double read Fcover_charge write Fcover_charge;
     function total: double;
     property money_received: double read Fmoney_received write Fmoney_received;
     property money_change: double read Fmoney_change write Fmoney_change;
     property amount_of_people: SmallInt read Famount_of_people write Famount_of_people;
     property informed_legal_entity_number: String read Finformed_legal_entity_number write Finformed_legal_entity_number;
     property consumption_number: SmallInt read Fconsumption_number write Fconsumption_number;
+    property sale_check_id: Int64 read Fsale_check_id write Fsale_check_id;
+    property sale_check_name: String read Fsale_check_name write Fsale_check_name;
     property created_at: TDateTime read Fcreated_at write Fcreated_at;
     property updated_at: TDateTime read Fupdated_at write Fupdated_at;
     property created_by_acl_user_id: Int64 read Fcreated_by_acl_user_id write Fcreated_by_acl_user_id;
@@ -137,8 +145,8 @@ begin
   if Assigned(Fperson)              then Fperson.Free;
   if Assigned(Fseller)              then Fseller.Free;
   if Assigned(Fcarrier)             then Fcarrier.Free;
-  if Assigned(Fsale_items)      then Fsale_items.Free;
-  if Assigned(Fsale_payments)   then Fsale_payments.Free;
+  if Assigned(Fsale_items)          then Fsale_items.Free;
+  if Assigned(Fsale_payments)       then Fsale_payments.Free;
   if Assigned(Fcreated_by_acl_user) then Fcreated_by_acl_user.Free;
   if Assigned(Fupdated_by_acl_user) then Fupdated_by_acl_user.Free;
 
@@ -203,7 +211,7 @@ begin
   for var LSaleItem in Fsale_items do
     lSumSaleItemTotal := lSumSaleItemTotal + LSaleItem.total;
 
-  Result := (lSumSaleItemTotal + Fincrease + Ffreight) - Fdiscount;
+  Result := (lSumSaleItemTotal + Fincrease + Ffreight + Fservice_charge + Fcover_charge) - Fdiscount;
 end;
 
 function TSale.Validate: String;

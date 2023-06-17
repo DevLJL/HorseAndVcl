@@ -47,7 +47,8 @@ begin
     .LimitPerPage (AInput.limit_per_page)
     .Columns      (AInput.columns)
     .OrderBy      (AInput.order_by)
-    .WherePkIn    (AInput.where_pk_in);
+    .WherePkIn    (AInput.where_pk_in)
+    .AclUserId    (AInput.acl_user_id);
 
   // Pesquisa Customizada
   if not AInput.custom_search_content.Trim.IsEmpty then

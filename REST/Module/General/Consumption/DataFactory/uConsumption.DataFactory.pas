@@ -11,7 +11,7 @@ uses
 
 type
   IConsumptionDataFactory = Interface
-    ['{C2A35872-591B-42A4-80A4-6D97AC44982D}']
+    ['{3C51F73C-7B97-4FAC-92F5-CF8450CCC961}']
     function GenerateInsert: TConsumptionShowDTO;
     function GenerateInput: TConsumptionInputDTO;
   End;

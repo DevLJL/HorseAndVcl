@@ -8,7 +8,7 @@ uses
 
 type
   IPersonRepository = interface(IBaseRepository)
-    ['{2973D75F-34B3-440F-A6B2-1242A24211B7}']
+    ['{45FD0EE2-C9DB-4FB4-9CE0-C204A3973286}']
     function Show(AId: Int64): TPerson;
   end;
 

@@ -10,7 +10,7 @@ uses
 
 type
   ISaleViewModel = Interface(IBaseViewModel)
-    ['{DFFE2945-2496-4373-B50B-4ED3D293B2A0}']
+    ['{EA4AEF75-D617-468E-9E0E-E9605DFFAE94}']
     function  FromShowDTO(AInput: TSaleShowDTO): ISaleViewModel;
     function  ToInputDTO: TSaleInputDTO;
     function  EmptyDataSets: ISaleViewModel;
@@ -23,13 +23,13 @@ type
   end;
 
   ISaleItemsViewModel = Interface
-    ['{A22A23BD-BBAD-461F-9BDB-E46E3CE68CF3}']
+    ['{2D90578A-4BC3-41BC-81F0-D65314B18FC9}']
     function  SaleItems: IZLMemTable;
     function  SetEvents: ISaleItemsViewModel;
   End;
 
   ISalePaymentsViewModel = Interface
-    ['{A22A23BD-BBAD-461F-9BDB-E46E3CE68CF3}']
+    ['{9DBE7594-A1AC-4DA3-834C-A252CBFBD69A}']
     function  SalePayments: IZLMemTable;
     function  SetEvents: ISalePaymentsViewModel;
   End;

@@ -9,7 +9,7 @@ uses
 
 type
   ISaleGenerateBillReceivesBySale = Interface
-    ['{E7E93E98-7E34-4C89-B667-8AED38697A77}']
+    ['{0DED83DA-B40E-418B-B53E-2D16BE12F944}']
     function Execute(ASale: TSale): TObjectList<TBillPayReceive>;
   End;
 

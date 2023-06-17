@@ -102,7 +102,7 @@ function TUnitViewModel.FromShowDTO(AInput: TUnitShowDTO): IUnitViewModel;
 begin
   Result := Self;
 
-  FUnit.UnsignEvents.FromJson(AInput.AsJSON);
+  FUnit.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

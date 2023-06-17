@@ -9,9 +9,8 @@ uses
 
 type
   INcmSQLBuilder = interface(IBaseSQLBuilder)
-    ['{AAD879E3-63D2-4A50-998E-7F062B6104A8}']
+    ['{41374177-ACB7-4DEA-B51A-55BF7F60ED26}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function RegisteredFields(AColumName, AColumnValue: String; AId: Int64): String;

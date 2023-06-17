@@ -1,3 +1,4 @@
+
 unit uConsumption.Persistence.UseCase;
 
 interface
@@ -10,7 +11,9 @@ uses
   uIndexResult,
   uEither,
   uConsumption.Filter.DTO,
-  uFilter;
+  uFilter,
+  uConsumptionSale.Filter.DTO,
+  uZLMemTable.Interfaces;
 
 type
   TConsumptionPersistenceUseCase = class(TInterfacedObject, IConsumptionPersistenceUseCase)
@@ -23,6 +26,7 @@ type
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TConsumptionFilterDTO): IIndexResult overload;
     function Index(AFilterEntity: IFilter): IIndexResult; overload;
+    function IndexWithSale(AFilterSaleDTO: TConsumptionSaleFilterDTO): IZLMemTable overload;
     function Show(APK: Int64): TConsumptionShowDTO;
     function StoreAndShow(AInput: TConsumptionInputDTO): Either<String, TConsumptionShowDTO>;
     function Store(AInput: TConsumptionInputDTO): Int64;
@@ -130,6 +134,12 @@ end;
 function TConsumptionPersistenceUseCase.Index(AFilterEntity: IFilter): IIndexResult;
 begin
   Result := FRepository.Index(AFilterEntity);
+end;
+
+function TConsumptionPersistenceUseCase.IndexWithSale(AFilterSaleDTO: TConsumptionSaleFilterDTO): IZLMemTable;
+begin
+  const LFilter = TConsumptionMapper.FilterSaleToEntity(AFilterSaleDTO);
+  Result := FRepository.IndexWithSale(LFilter);
 end;
 
 function TConsumptionPersistenceUseCase.Index(AFilterDTO: TConsumptionFilterDTO): IIndexResult;

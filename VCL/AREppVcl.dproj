@@ -72,7 +72,7 @@
         <DCC_DcpOutput>.\Output\Dcu</DCC_DcpOutput>
         <DCC_DcuOutput>.\Output\Dcu</DCC_DcuOutput>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
-        <DCC_UnitSearchPath>..\Vendor\SmartPointer\src;..\Vendor\DataSetSerialize\src;..\Vendor\Either\src;..\Vendor\QuickLib;..\Vendor\QuotedStr\src;..\Vendor\RESTRequest4D\src;..\Vendor\XSuperObject;..\Vendor\ZLConnection;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\Vendor\SmartPointer\src;..\Vendor\DataSetSerialize\src;..\Vendor\Either\src;..\Vendor\QuickLib;..\Vendor\QuotedStr\src;..\Vendor\RESTRequest4D\src;..\Vendor\XSuperObject;..\Vendor\ZLConnection;..\Vendor\GenericSocket\src;..\Vendor\PosPrinterLib\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_Define>APPVCL;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
@@ -119,8 +119,8 @@
             <Form>ApplicationErrorView</Form>
         </DCCReference>
         <DCCReference Include="Shared\View\uHandle.Exception.pas"/>
-        <DCCReference Include="Shared\View\uNotificationView.pas">
-            <Form>NotificationView</Form>
+        <DCCReference Include="Shared\View\uToast.View.pas">
+            <Form>ToastView</Form>
         </DCCReference>
         <DCCReference Include="Shared\View\uBase.Index.View.pas">
             <Form>BaseIndexView</Form>
@@ -281,19 +281,19 @@
         <DCCReference Include="..\REST\Module\Stock\Product\DTO\uProduct.Input.DTO.pas"/>
         <DCCReference Include="..\REST\Module\Stock\Product\DTO\uProduct.Show.DTO.pas"/>
         <DCCReference Include="..\REST\Module\Stock\Product\Domain\Types\uProduct.Types.pas"/>
-        <DCCReference Include="Module\General\Company\View\uCompany.Input.View.pas">
-            <Form>CompanyInputView</Form>
+        <DCCReference Include="Module\General\Tenant\View\uTenant.Input.View.pas">
+            <Form>TenantInputView</Form>
         </DCCReference>
-        <DCCReference Include="Module\General\Company\View\uCompany.Index.View.pas">
-            <Form>CompanyIndexView</Form>
+        <DCCReference Include="Module\General\Tenant\View\uTenant.Index.View.pas">
+            <Form>TenantIndexView</Form>
         </DCCReference>
-        <DCCReference Include="Module\General\Company\ViewModel\uCompany.ViewModel.pas"/>
-        <DCCReference Include="Module\General\Company\ViewModel\uCompany.ViewModel.Interfaces.pas"/>
-        <DCCReference Include="Module\General\Company\Service\uCompany.Service.pas"/>
-        <DCCReference Include="Module\General\Company\Service\uCompany.Service.Interfaces.pas"/>
-        <DCCReference Include="..\REST\Module\General\Company\DTO\uCompany.Filter.DTO.pas"/>
-        <DCCReference Include="..\REST\Module\General\Company\DTO\uCompany.Input.DTO.pas"/>
-        <DCCReference Include="..\REST\Module\General\Company\DTO\uCompany.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\Tenant\ViewModel\uTenant.ViewModel.pas"/>
+        <DCCReference Include="Module\General\Tenant\ViewModel\uTenant.ViewModel.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Tenant\Service\uTenant.Service.pas"/>
+        <DCCReference Include="Module\General\Tenant\Service\uTenant.Service.Interfaces.pas"/>
+        <DCCReference Include="..\REST\Module\General\Tenant\DTO\uTenant.Filter.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\Tenant\DTO\uTenant.Input.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\Tenant\DTO\uTenant.Show.DTO.pas"/>
         <DCCReference Include="Module\General\Consumption\View\uConsumption.Index.View.pas">
             <Form>ConsumptionIndexView</Form>
         </DCCReference>
@@ -431,9 +431,6 @@
         <DCCReference Include="Module\Business\Sale\ViewModel\uSaleItems.ViewModel.pas"/>
         <DCCReference Include="Module\Business\Sale\ViewModel\uSale.ViewModel.pas"/>
         <DCCReference Include="Module\Business\Sale\ViewModel\uSale.ViewModel.Interfaces.pas"/>
-        <DCCReference Include="Module\Business\Sale\View\uSaleItem.Input.View.pas">
-            <Form>SaleItemInputView</Form>
-        </DCCReference>
         <DCCReference Include="Module\Business\Sale\View\uSale.Input.View.pas">
             <Form>SaleInputView</Form>
         </DCCReference>
@@ -454,6 +451,110 @@
         <DCCReference Include="Module\Business\Sale\View\uSalePayment.Input.View.pas">
             <Form>SalePaymentInputView</Form>
         </DCCReference>
+        <DCCReference Include="Config\uClientSocket.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\View\uPosPrinter.Index.View.pas">
+            <Form>PosPrinterIndexView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\General\PosPrinter\ViewModel\uPosPrinter.ViewModel.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\ViewModel\uPosPrinter.ViewModel.Interfaces.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\View\uPosPrinter.Input.View.pas">
+            <Form>PosPrinterInputView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\General\PosPrinter\Service\uPosPrinter.Service.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Service\uPosPrinter.Service.Interfaces.pas"/>
+        <DCCReference Include="..\REST\Module\General\PosPrinter\DTO\uPosPrinter.Filter.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\PosPrinter\DTO\uPosPrinter.Input.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\PosPrinter\DTO\uPosPrinter.Show.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\PosPrinter\Domain\Types\uPosPrinter.Types.pas">
+            <Form>$R *.res</Form>
+        </DCCReference>
+        <DCCReference Include="Module\Business\Sale\View\uPdv.View.pas">
+            <Form>PdvIndexView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\Business\Sale\View\uOpenCashier.View.pas">
+            <Form>OpenCashierView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\Business\Sale\View\uSaleItem.Input.View.pas">
+            <Form>SaleItemInputView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\REST\Module\General\GlobalConfig\DTO\uGlobalConfig.Input.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\GlobalConfig\DTO\uGlobalConfig.Show.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\GlobalConfig\DTO\uGlobalConfig.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\ViewModel\uGlobalConfig.ViewModel.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\ViewModel\uGlobalConfig.ViewModel.Interfaces.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\View\uGlobalAndLocalConfig.Input.pas">
+            <Form>GlobalAndLocalConfigInputView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\General\GlobalConfig\Service\uGlobalConfig.Service.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\Service\uGlobalConfig.Service.Interfaces.pas"/>
+        <DCCReference Include="..\REST\Module\General\GlobalConfig\Domain\Entity\uGlobalConfig.pas"/>
+        <DCCReference Include="Module\Business\Sale\View\uConsumptionMap.View.pas">
+            <Form>ConsumptionMapView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\REST\Module\General\Consumption\DTO\uConsumptionSale.Filter.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\General\Consumption\Domain\Types\uConsumption.Types.pas"/>
+        <DCCReference Include="Module\General\Consumption\ViewModel\uConsumptionSale.ViewModel.pas"/>
+        <DCCReference Include="Module\General\Consumption\ViewModel\uConsumptionSale.ViewModel.Interfaces.pas"/>
+        <DCCReference Include="Module\Business\Sale\View\uSaleCheckName.View.pas">
+            <Form>SaleCheckNameView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\Business\Sale\View\uSalesOnHold.View.pas">
+            <Form>SalesOnHoldView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\General\Person\View\uCustomerForDelivery.Index.View.pas">
+            <Form>CustomerForDeliveryIndexView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Shared\View\uInfo.View.pas">
+            <Form>InfoView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\REST\Module\Stock\Product\DTO\uProductPriceList.Input.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\Product\DTO\uProductPriceList.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Product\ViewModel\uProductPriceLists.ViewModel.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\ViewModel\uPriceList.ViewModel.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\View\uPriceList.Input.View.pas">
+            <Form>PriceListInputView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\Stock\PriceList\ViewModel\uPriceList.ViewModel.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\View\uPriceList.Index.View.pas">
+            <Form>PriceListIndexView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\Stock\PriceList\Service\uPriceList.Service.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\Service\uPriceList.Service.Interfaces.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\PriceList\DTO\uPriceList.Filter.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\PriceList\DTO\uPriceList.Input.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\PriceList\DTO\uPriceList.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Additional\View\uAdditional.Index.View.pas">
+            <Form>AdditionalIndexView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\Stock\Additional\View\uAdditional.Input.View.pas">
+            <Form>AdditionalInputView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module\Stock\Additional\ViewModel\uAdditional.ViewModel.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Additional\ViewModel\uAdditional.ViewModel.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Service\uAdditional.Service.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Service\uAdditional.Service.Interfaces.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\Additional\DTO\uAdditional.Filter.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\Additional\DTO\uAdditional.Input.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\Additional\DTO\uAdditional.Show.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\Additional\Domain\Types\uAdditional.Types.pas"/>
+        <DCCReference Include="Module\Stock\Additional\ViewModel\uAdditionalProducts.ViewModel.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\Additional\DTO\uAdditionalProduct.Input.DTO.pas"/>
+        <DCCReference Include="..\REST\Module\Stock\Additional\DTO\uAdditionalProduct.Show.DTO.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

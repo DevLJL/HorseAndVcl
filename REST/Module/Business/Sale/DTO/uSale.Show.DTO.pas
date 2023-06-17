@@ -34,6 +34,7 @@ type
     Fsum_sale_item_quantity: double;
     Fperc_increase: double;
     Fcarrier_name: String;
+    Fsale_check_id: Int64;
 
     // OneToMany
     Fsale_items: TObjectList<TSaleItemShowDTO>;
@@ -101,6 +102,10 @@ type
     [SwagNumber]
     [SwagProp('sum_sale_item_quantity', 'Quantidade Total dos Itens')]
     property sum_sale_item_quantity: double read Fsum_sale_item_quantity write Fsum_sale_item_quantity;
+
+    [SwagNumber]
+    [SwagProp('sale_check_id', 'Venda (Número de checagem)', true)]
+    property sale_check_id: Int64 read Fsale_check_id write Fsale_check_id;
 
     // OneToMany
     property sale_items: TObjectList<TSaleItemShowDTO> read Fsale_items write Fsale_items;

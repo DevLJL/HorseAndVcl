@@ -14,8 +14,6 @@ type
   public
     class function Make: IAclRoleSQLBuilder;
 
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
     function Insert(AEntity: TBaseEntity): String;
@@ -72,26 +70,6 @@ end;
 class function TAclRoleSQLBuilderMySQL.Make: IAclRoleSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TAclRoleSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result :=
-    ' CREATE TABLE `acl_role` ( '+
-    '   `id` bigint NOT NULL AUTO_INCREMENT, '+
-    '   `name` varchar(100) NOT NULL, '+
-    '   `created_at` datetime DEFAULT NULL, '+
-    '   `updated_at` datetime DEFAULT NULL, '+
-    '   `general_search_method` tinyint(4) DEFAULT NULL COMMENT ''[0..1] 0-Início, 1-QualquerParte'', '+
-    '   PRIMARY KEY (`id`), '+
-    '   KEY `acl_role_idx_created_at` (`created_at`) '+
-    ' ) ';
-end;
-
-function TAclRoleSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := ' insert into acl_role (name) values (''Administrador''); '+
-            ' insert into acl_role (name) values (''Colaborador'');   ';
 end;
 
 function TAclRoleSQLBuilderMySQL.SelectAll: String;

@@ -12,7 +12,7 @@ uses
 
 type
   IBillPayReceivePersistenceUseCase = Interface
-    ['{6298D5C9-A26A-4436-A58B-C4FB4C510121}']
+    ['{1B6FD610-907B-490B-9B40-7D86FA71392B}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TBillPayReceiveFilterDTO): IIndexResult; overload;

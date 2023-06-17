@@ -12,7 +12,7 @@ uses
 
 type
   ISizePersistenceUseCase = Interface
-    ['{3479C1CA-49A3-45A6-91BC-91A70DB440E3}']
+    ['{7C8A650C-CC9D-4DE3-A5BD-5A269322669C}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TSizeFilterDTO): IIndexResult; overload;

@@ -34,67 +34,13 @@ uses
   uSmartPointer,
   uSale.Show.DTO,
   uProduct.Show.DTO,
-  uZLMemTable.Interfaces;
+  uZLMemTable.Interfaces,
+  uProduct.Index.View;  
 
 type
   TSaleInputView = class(TBaseInputView)
     dtsSale: TDataSource;
     dtsSaleItems: TDataSource;
-    Label22: TLabel;
-    Label37: TLabel;
-    Label10: TLabel;
-    Label4: TLabel;
-    Label2: TLabel;
-    Panel5: TPanel;
-    edtId: TDBEdit;
-    edtperson_name: TDBEdit;
-    Panel41: TPanel;
-    Panel42: TPanel;
-    imgLocaPerson: TImage;
-    edtperson_id: TDBEdit;
-    edtseller_name: TDBEdit;
-    Panel4: TPanel;
-    Panel1: TPanel;
-    imgLocaSeller: TImage;
-    edtseller_id: TDBEdit;
-    pgcNote: TPageControl;
-    TabSheet1: TTabSheet;
-    Panel12: TPanel;
-    DBMemo1: TDBMemo;
-    TabSheet2: TTabSheet;
-    Panel13: TPanel;
-    DBMemo2: TDBMemo;
-    Panel2: TPanel;
-    Panel6: TPanel;
-    dbgSaleItems: TDBGrid;
-    Panel9: TPanel;
-    Label8: TLabel;
-    Label15: TLabel;
-    Label23: TLabel;
-    Label24: TLabel;
-    Label25: TLabel;
-    Label27: TLabel;
-    Label28: TLabel;
-    imgsale_item_append: TImage;
-    Label1: TLabel;
-    Panel10: TPanel;
-    Panel11: TPanel;
-    imgsale_item_loca_product: TImage;
-    edtsale_item_id: TEdit;
-    edtsale_item_name: TEdit;
-    edtsale_item_price: TNumberBox;
-    edtsale_item_quantity: TNumberBox;
-    edtsale_item_total: TNumberBox;
-    Panel15: TPanel;
-    Image1: TImage;
-    Panel25: TPanel;
-    Panel26: TPanel;
-    Label17: TLabel;
-    edtsum_sale_item_quantity: TDBEdit;
-    Panel29: TPanel;
-    Panel30: TPanel;
-    Label6: TLabel;
-    edtsum_sale_item_total: TDBEdit;
     dtsSalePayments: TDataSource;
     TabSheet3: TTabSheet;
     Panel3: TPanel;
@@ -114,7 +60,6 @@ type
     edtperc_increase: TDBEdit;
     Panel8: TPanel;
     Panel16: TPanel;
-    edttotal: TDBEdit;
     Panel14: TPanel;
     Panel17: TPanel;
     Panel20: TPanel;
@@ -139,6 +84,68 @@ type
     btnDeleteAllSalePayments: TSpeedButton;
     Panel31: TPanel;
     Image2: TImage;
+    Panel32: TPanel;
+    Label22: TLabel;
+    Label37: TLabel;
+    Label10: TLabel;
+    Label4: TLabel;
+    Panel5: TPanel;
+    edtId: TDBEdit;
+    edtperson_name: TDBEdit;
+    Panel41: TPanel;
+    Panel42: TPanel;
+    imgLocaPerson: TImage;
+    edtperson_id: TDBEdit;
+    edtseller_name: TDBEdit;
+    Panel4: TPanel;
+    Panel1: TPanel;
+    imgLocaSeller: TImage;
+    edtseller_id: TDBEdit;
+    pgcNote: TPageControl;
+    TabSheet1: TTabSheet;
+    Panel12: TPanel;
+    DBMemo1: TDBMemo;
+    TabSheet2: TTabSheet;
+    Panel13: TPanel;
+    DBMemo2: TDBMemo;
+    Panel33: TPanel;
+    Label2: TLabel;
+    Panel9: TPanel;
+    Label13: TLabel;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    Label18: TLabel;
+    Label19: TLabel;
+    DBEdit3: TDBEdit;
+    edttotal: TDBEdit;
+    Panel11: TPanel;
+    Panel38: TPanel;
+    Label1: TLabel;
+    edtsale_item_quantity: TNumberBox;
+    Panel39: TPanel;
+    Panel40: TPanel;
+    Label8: TLabel;
+    Panel43: TPanel;
+    imgsale_item_append: TImage;
+    edtsale_item_id: TEdit;
+    Panel6: TPanel;
+    imgsale_item_loca_product: TImage;
+    Panel10: TPanel;
+    Panel36: TPanel;
+    Label15: TLabel;
+    Panel25: TPanel;
+    Panel26: TPanel;
+    Panel15: TPanel;
+    edtsum_sale_item_quantity: TDBEdit;
+    Panel29: TPanel;
+    edtsum_sale_item_total: TDBEdit;
+    Label6: TLabel;
+    Panel30: TPanel;
+    Label17: TLabel;
+    Image3: TImage;
+    imgFinalValueInfo: TImage;
+    Panel2: TPanel;
+    dbgSaleItems: TDBGrid;
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -164,6 +171,13 @@ type
     procedure btnSalePaymentsEditClick(Sender: TObject);
     procedure btnSalePaymentsDeleteClick(Sender: TObject);
     procedure dbgSalePaymentsDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure dbgSaleItemsKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure TabSheet3Show(Sender: TObject);
+    procedure tabMainShow(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtsale_item_idKeyPress(Sender: TObject; var Key: Char);
+    procedure Image3Click(Sender: TObject);
+    procedure imgFinalValueInfoClick(Sender: TObject);
   private
     FViewModel: ISaleViewModel;
     FHandleResult: TSaleShowDTO;
@@ -171,6 +185,8 @@ type
     FEditPK: Int64;
     FProductShowDTOSelected: SH<TProductShowDTO>;
     FPayments: IZLMemTable;
+    FProductIndexView: TProductIndexView;
+    FProductInitialSearchContent: String;
     procedure BeforeShow;
     procedure SetState(const Value: TEntityState);
     property  State: TEntityState read FState write SetState;
@@ -189,7 +205,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uNotificationView,
+  uToast.View,
   Quick.Threads,
   Vcl.Dialogs,
   uHandle.Exception,
@@ -210,11 +226,12 @@ uses
   System.Math,
   uSale.Types,
   uProduct.Service,
-  uProduct.Index.View,
   uPayment.Show.DTO,
   uPayment.Service,
   uPaymentTerm.Locate.View,
-  System.DateUtils, uSalePayment.Input.View, uPayment.Filter.DTO;
+  System.DateUtils,
+  uSalePayment.Input.View,
+  uPayment.Filter.DTO, uProduct.Types, uInfo.View;
 
 { TSaleInputView }
 procedure TSaleInputView.BeforeShow;
@@ -292,7 +309,7 @@ begin
     while not dtsSalePayments.DataSet.Eof do
       dtsSalePayments.DataSet.Delete;
 
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
   End;
@@ -308,7 +325,7 @@ begin
     LockControl(pnlBackground);
 
     dtsSaleItems.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
   End;
@@ -340,7 +357,7 @@ begin
     LockControl(pnlBackground);
 
     dtsSalePayments.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
   End;
@@ -375,6 +392,13 @@ begin
   if LoadingSave or LoadingForm then
     Exit;
 
+  // Lançar pagamento posicionado se não tiver nenhum informado
+  if (dtsSalePayments.DataSet.RecordCount <= 0) and (dtsSale.DataSet.FieldByName('total').AsFloat > 0) then
+  begin
+    edtpayment_term_amount.ValueFloat := dtsSale.DataSet.FieldByName('total').AsFloat;
+    imgsale_payment_appendClick(imgsale_payment_append);
+  end;
+
   // Sempre salvar dataset para evitar erros
   if FViewModel.Sale.State in [dsInsert, dsEdit] then
   begin
@@ -403,12 +427,9 @@ begin
       case FState of
         TEntityState.Store:  LSaved := TSaleService.Make.StoreAndGenerateBilling(LSaleInputDTO);
         TEntityState.Update: Begin
-          LSaved := TSaleService.Make.UpdateAndShow(FEditPK, LSaleInputDTO);
+          LSaved := TSaleService.Make.UpdateAndShow(FEditPK, LSaleInputDTO, False);
           if LSaved.Match and LGenerateBillingAtTheEnd then
-          begin
-            LSaved.Right.Free; // Evitar MemoryLeak
             LSaved := TSaleService.Make.GenerateBilling(FEditPK, TSaleGenerateBillingOperation.Approve);
-          end;
         End;
       end;
     end)
@@ -429,12 +450,12 @@ begin
             TAlertView.Handle(LSaved.Left);
 
           FViewModel.Sale.Edit;
-          NotificationView.Execute(Trans.RecordValidationFailed, tneError);
+          ToastView.Execute(Trans.RecordValidationFailed, tneError);
           Exit;
         end;
 
         // Retornar registro inserido/atualizado
-        NotificationView.Execute(Trans.RecordSaved, tneSuccess);
+        ToastView.Execute(Trans.RecordSaved, tneSuccess);
         FHandleResult := LSaved.Right;
         ModalResult   := MrOK;
       finally
@@ -488,6 +509,19 @@ begin
     TDBGrid(Sender).Canvas.FillRect(Rect);
     DTM.imgListGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left +1,Rect.Top + 1, 1);
   end;
+end;
+
+procedure TSaleInputView.dbgSaleItemsKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+
+  // Focus em ID do Produto
+  If (Shift = [ssShift]) and (Key = VK_TAB) then
+  Begin
+    if edtsale_item_id.CanFocus then
+      edtsale_item_id.SetFocus;
+    Key := 0;
+  End;
 end;
 
 procedure TSaleInputView.dbgSalePaymentsCellClick(Column: TColumn);
@@ -555,39 +589,12 @@ end;
 
 procedure TSaleInputView.EdtFieldExit(Sender: TObject);
 begin
-  inherited;
-
-  // Produto
-  if (Sender = edtsale_item_id) then
+  if ((Sender = edtsale_item_id) or (Sender = edtsale_item_quantity)) then
   begin
-    FProductShowDTOSelected := TProductService.Make.Show(StrInt(edtsale_item_id.Text));
-    if not Assigned(FProductShowDTOSelected.Value) then
-    begin
-      edtsale_item_id.Text          := EmptyStr;
-      edtsale_item_name.Text        := EmptyStr;
-      edtsale_item_quantity.ValueFloat := 0;
-      edtsale_item_price.ValueFloat    := 0;
-      edtsale_item_total.ValueFloat    := 0;
-      Exit;
-    end;
-
-    // Carregar com dados encontrados
-    With FProductShowDTOSelected.Value do
-    begin
-      edtsale_item_id.Text          := id.ToString;
-      edtsale_item_name.Text        := name;
-      edtsale_item_quantity.ValueFloat := 1;
-      edtsale_item_price.ValueFloat    := price;
-      edtsale_item_total.ValueFloat    := price;
-    end;
-    Exit;
-  end;
-
-  // Calcular valor do produto
-  if (Sender = edtsale_item_quantity) or (Sender = edtsale_item_price) then
-  begin
-    edtsale_item_total.ValueFloat := edtsale_item_quantity.ValueFloat * edtsale_item_price.ValueFloat;
-  end;
+    if (Sender is TEdit)      then TEdit(Sender).Color := $00FCFBF8;  
+    if (Sender is TNumberbox) then TNumberbox(Sender).Color := $00FCFBF8;  
+  end else
+    inherited;
 end;
 
 procedure TSaleInputView.edtpayment_term_amountKeyPress(Sender: TObject; var Key: Char);
@@ -602,6 +609,12 @@ begin
   end;
 end;
 
+procedure TSaleInputView.edtsale_item_idKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key = #13) then
+    imgsale_item_appendClick(imgsale_item_append);
+end;
+
 procedure TSaleInputView.edtsale_item_totalKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
@@ -613,10 +626,21 @@ procedure TSaleInputView.FormCreate(Sender: TObject);
 begin
   inherited;
   FitFormToScreen(Self);
-  pgc.ActivePageIndex           := 0;
-  tmrAllowSave.Enabled          := True;
+  pgc.ActivePageIndex  := 0;
+  tmrAllowSave.Enabled := True;
   tmrAllowSaveTimer(tmrAllowSave);
   LoadPayments;
+
+  // Instanciar uma única vez pesquisa de itens
+  FProductIndexView := TProductIndexView.Create(nil);
+  FProductIndexView.SetLayoutLocate(False);  
+end;
+
+procedure TSaleInputView.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  if Assigned(FProductIndexView) then
+    FProductIndexView.Free;
 end;
 
 procedure TSaleInputView.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -630,22 +654,44 @@ begin
     Exit;
   end;
 
+  // F1 - Alterar Quantidade
+  if (Key = VK_F1) and (pgc.ActivePageIndex = 0) and edtsale_item_quantity.CanFocus then
+  begin
+    edtsale_item_quantity.SetFocus;
+    edtsale_item_quantity.SelectAll;
+    Exit;
+  end;  
+
+  // F2 - Localizar Item
+  if ((Key = VK_F2) and (pgc.ActivePageIndex = 0)) then
+  begin
+    imgsale_item_loca_productClick(imgsale_item_loca_product);
+    Exit;
+  end;
+
+  // F6 - Pagamento
+  if ((Key = VK_F6) and (pgc.ActivePageIndex = 0)) then
+  begin
+    pgc.ActivePageIndex := 1;
+    Exit;
+  end;
+
   // F6 - Salvar
-  if ((Key = VK_F6) and pnlSave.Visible) then
+  if ((Key = VK_F6) and pnlSave.Visible and FormIsValid) then
   begin
     btnSaveClick(btnSave);
     Exit;
   end;
 
-  // F1 - Localizar Vendedor
-  if (Key = VK_F1) and (edtseller_id.Focused or edtseller_name.Focused) then
+  // F4 - Localizar Vendedor
+  if (Key = VK_F4) and (pgc.ActivePageIndex = 0) then
   begin
     imgLocaSellerClick(imgLocaSeller);
     Exit;
   end;
 
-  // F1 - Localizar Cliente
-  if (Key = VK_F1) and (edtperson_id.Focused or edtperson_name.Focused) then
+  // F5 - Localizar Cliente
+  if (Key = VK_F5) and (pgc.ActivePageIndex = 0) then
   begin
     imgLocaPersonClick(imgLocaPerson);
     Exit;
@@ -670,77 +716,136 @@ begin
   Result := LView.Value.FHandleResult;
 end;
 
+procedure TSaleInputView.Image3Click(Sender: TObject);
+begin
+  TInfoView.Handle(
+    'Você pode verificar os valores do item antes da inserção, independentemente da configuração realizada anteriormente.'+#13+
+    'Para realizar esse processo: Pressione [SHIFT] + [ENTER] com o código do item já informado.'
+  ); 
+end;
+
+procedure TSaleInputView.imgFinalValueInfoClick(Sender: TObject);
+begin
+  inherited;
+  TInfoView.Handle(
+    'O campo "TOTAL DOS ITENS" não contempla valores como acréscimos, descontos, fretes e outros. '+
+    'Na aba de Pagamento, esses valores serão destacados individualmente, permitindo uma compreensão clara e facilitando a análise de cada campo calculado.'
+  );
+end;
+
 procedure TSaleInputView.imgLocaPersonClick(Sender: TObject);
+var
+  LFilter: TPersonFormFilter;
 begin
   if edtperson_name.CanFocus then edtperson_name.SetFocus;
-  const LPk = TPersonIndexView.HandleLocate({TPersonFormFilter.fpCustomer});
+  LFilter.flg_customer := TPersonFormFilterValue.Yes;
+  const LPk = TPersonIndexView.HandleLocate(LFilter);
   if (LPk > 0) then
     dtsSale.DataSet.FieldByName('person_id').Text := LPk.ToString;
 end;
 
 procedure TSaleInputView.imgLocaSellerClick(Sender: TObject);
+var
+  LFilter: TPersonFormFilter;
 begin
   if edtseller_name.CanFocus then edtseller_name.SetFocus;
-  const LPk = TPersonIndexView.HandleLocate({TPersonFormFilter.fpSelle^});
+  LFilter.flg_seller := TPersonFormFilterValue.Yes;
+  const LPk = TPersonIndexView.HandleLocate(LFilter);
   if (LPk > 0) then
     dtsSale.DataSet.FieldByName('seller_id').Text := LPk.ToString
 end;
 
 procedure TSaleInputView.imgsale_item_appendClick(Sender: TObject);
 begin
-  const LKeepGoing = Assigned(dtsSale.DataSet) and dtsSale.DataSet.Active and Assigned(dtsSaleItems.DataSet) and dtsSaleItems.DataSet.Active;
-  if not LKeepGoing then
+  const LShiftIsPressed = GetKeyState(VK_SHIFT) < 0;
+  const LKeepGoing = Assigned(dtsSale.DataSet) and dtsSale.DataSet.Active and Assigned(dtsSaleItems.DataSet) and
+                     dtsSaleItems.DataSet.Active and (String(edtsale_item_id.Text).Trim > '');
+  if not lKeepGoing then
     Exit;
-
   try
     LockControl(pnlBackground);
 
-    var LErrors := EmptyStr;
-    if not Assigned(FProductShowDTOSelected.Value) then
-      LErrors := LErrors + 'Produto/Servi�o n�o foi selecionado.' + #13;
-    if String(edtsale_item_id.Text).Trim.IsEmpty then
-      LErrors := LErrors + 'Campo [ID] � obrigat�rio.' + #13;
     if (edtsale_item_quantity.ValueFloat <= 0) then
-      LErrors := LErrors + 'Campo [Quantidade] � obrigat�rio.' + #13;
-    if not LErrors.Trim.IsEmpty then
+      edtsale_item_quantity.ValueFloat := 1;
+
+    var LQuantity: Double := edtsale_item_quantity.ValueFloat;
+    var LEanOrSkuCode := edtsale_item_id.Text;
+    var LAsteriskPos  := Pos('*', LEanOrSkuCode);
+    if (LAsteriskPos > 0) then
     begin
-      TAlertView.Handle(LErrors);
+      LQuantity     := StrFloat(Copy(LEanOrSkuCode, 1, Pred(LAsteriskPos)));
+      LEanOrSkuCode := Trim(Copy(LEanOrSkuCode, LAsteriskPos+1));
+    end;
+
+    // Tentar localizar item por EAN ou SkuCode
+    if Trim(LEanOrSkuCode).IsEmpty then Exit;
+    const LProductShowDTOSelected: SH<TProductShowDTO> = TProductService.Make.ShowByEanOrSkuCode(LEanOrSkuCode);
+    if not Assigned(LProductShowDTOSelected.Value) then
+    begin
+      // Se não encontrar o item e os 3 primeiros caracteres forem letras, deve abrir a pesquisa por descrição
+      const LContent = String(edtsale_item_id.Text).Trim;
+      const LOpenSearchByDescription = (LContent.Length >= 3) and (OnlyDifNumbers(LContent).Length = LContent.Length);
+      if LOpenSearchByDescription then
+      begin
+        FProductInitialSearchContent := edtsale_item_id.Text;
+        edtsale_item_id.Clear;
+        imgsale_item_loca_productClick(imgsale_item_loca_product);
+        Exit;
+      end;
+
+      TAlertView.Handle(Format('Item com o código informado "%s" não foi encontrado.',[LEanOrSkuCode]));
+      edtsale_item_id.Text := EmptyStr;
       Exit;
     end;
 
     With dtsSaleItems.DataSet do
     begin
       Append;
-      FieldByName('product_id').AsLargeInt      := StrInt64(edtsale_item_id.Text);
-      FieldByName('quantity').AsFloat           := edtsale_item_quantity.ValueFloat;
-      FieldByName('price').AsFloat              := edtsale_item_price.ValueFloat;
+      FieldByName('product_id').AsLargeInt      := LProductShowDTOSelected.Value.id;
+      FieldByName('quantity').AsFloat           := LQuantity;
+      FieldByName('price').AsFloat              := LProductShowDTOSelected.Value.price;
       FieldByName('unit_discount').AsFloat      := 0;
-      FieldByName('seller_id').AsLargeInt       := StrInt64(edtseller_id.Text);
+      FieldByName('seller_id').AsLargeInt       := FViewModel.Sale.FieldByName('seller_id').AsLargeInt;
       FieldByName('note').AsString              := EmptyStr;
-      FieldByName('product_name').AsString      := FProductShowDTOSelected.Value.name; {virtual}
-      FieldByName('product_unit_name').AsString := FProductShowDTOSelected.Value.unit_name; {virtual}
+      FieldByName('product_name').AsString      := LProductShowDTOSelected.Value.name;      {virtual}
+      FieldByName('product_unit_name').AsString := LProductShowDTOSelected.Value.unit_name; {virtual}
       Post;
     end;
+
+    // Editar produto que acabou de lançar
+    if (LProductShowDTOSelected.Value.check_value_before_insert = TProductCheckValueBeforeInsert.Yes) or LShiftIsPressed then
+      if not (TSaleItemInputView.Handle(TEntityState.Update, FViewModel) = mrOK) then
+        dtsSaleItems.DataSet.Delete;
   finally
     edtsale_item_id.Text             := EmptyStr;
-    edtsale_item_name.Text           := EmptyStr;
     edtsale_item_quantity.ValueFloat := 1;
-    edtsale_item_price.ValueFloat    := 0;
-    edtsale_item_total.ValueFloat    := 0;
-    UnLockControl(pnlBackground);
+    UnlockControl(pnlBackground);
     if edtsale_item_id.CanFocus then
+    begin
       edtsale_item_id.SetFocus;
+      edtsale_item_id.SelectAll;
+    end;
   end;
 end;
 
 procedure TSaleInputView.imgsale_item_loca_productClick(Sender: TObject);
 begin
-  if edtsale_item_name.CanFocus then edtsale_item_name.SetFocus;
-  const LPk = TProductIndexView.HandleLocate;
-  if (LPk > 0) then
-  Begin
-    edtsale_item_id.Text := LPk.ToString;
-    EdtFieldExit(edtsale_item_id);
+  try
+    // Criar fundo transparente
+    const LDarkBackground: SH<TForm> = TForm.Create(nil);
+    CreateDarkBackground(LDarkBackground.Value);
+
+    // Instanciar uma única vez
+    if not (FProductIndexView.AShowModal(FProductInitialSearchContent) = mrOK) then Exit;
+    if not (FProductIndexView.LocateResult > 0) then Exit;
+
+    // Localizar Item
+    const LProductShowDTO: SH<TProductShowDTO> = TProductService.Make.Show(FProductIndexView.LocateResult);
+    edtsale_item_id.Text := edtsale_item_id.Text + lProductShowDTO.Value.sku_code;
+    imgsale_item_appendClick(imgsale_item_append);
+  finally
+    // Evitar Erros
+    FProductInitialSearchContent := EmptyStr;
   end;
 end;
 
@@ -881,6 +986,26 @@ begin
       pnlSave.Visible         := False;
       pnlCancel.Margins.Right := 0;
     end;
+  end;
+end;
+
+procedure TSaleInputView.tabMainShow(Sender: TObject);
+begin
+  inherited;
+  pnlBottomButtons.Visible := False;
+end;
+
+procedure TSaleInputView.TabSheet3Show(Sender: TObject);
+begin
+  inherited;
+  pnlBottomButtons.Visible := True;
+  EdtFieldEnter(edtpayment_term_amount);
+
+  if cbxPayment.CanFocus then cbxPayment.SetFocus;
+  if (dtsSalePayments.DataSet.RecordCount <= 0) then
+  begin
+    cbxPayment.ItemIndex   := 0;
+    cbxPayment.DroppedDown := true;
   end;
 end;
 

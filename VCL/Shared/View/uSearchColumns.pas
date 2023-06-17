@@ -27,7 +27,7 @@ type
   end;
 
   ISearchColumns = interface
-    ['{2A79DF44-4BA1-4700-A921-3CA55A97FF38}']
+    ['{48F1AA7E-87E2-48F7-8C9F-8C7ADB5BC6BF}']
 
     function Columns: TObjectList<TSearchColumn>;
     function AddColumn(AFieldName: String; ADisplayName: String; ACustomSearch: Boolean): ISearchColumns;

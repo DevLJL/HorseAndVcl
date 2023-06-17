@@ -10,7 +10,7 @@ uses
 
 type
   ISizeViewModel = Interface(IBaseViewModel)
-    ['{3C5D4ECC-84FA-4531-875A-987531B8BE58}']
+    ['{7AEC24EA-E5B6-4DD3-9393-CF40D50E3A05}']
     function  FromShowDTO(AInput: TSizeShowDTO): ISizeViewModel;
     function  ToInputDTO: TSizeInputDTO;
     function  EmptyDataSets: ISizeViewModel;

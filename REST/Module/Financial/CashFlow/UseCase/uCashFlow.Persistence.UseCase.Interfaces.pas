@@ -12,7 +12,7 @@ uses
 
 type
   ICashFlowPersistenceUseCase = Interface
-    ['{4636F89A-2098-4CC3-9319-32B85ABAA9CD}']
+    ['{CFBA1E0F-F668-4AD1-ADF0-9036BF25C14C}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TCashFlowFilterDTO): IIndexResult overload;

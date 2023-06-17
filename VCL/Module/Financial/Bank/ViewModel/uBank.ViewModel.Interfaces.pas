@@ -10,7 +10,7 @@ uses
 
 type
   IBankViewModel = Interface(IBaseViewModel)
-    ['{7AB49534-A5F6-43ED-B1F2-1B6EB242425F}']
+    ['{C516B9E4-F443-49AC-80C8-779247290F4A}']
     function  FromShowDTO(AInput: TBankShowDTO): IBankViewModel;
     function  ToInputDTO: TBankInputDTO;
     function  EmptyDataSets: IBankViewModel;

@@ -9,9 +9,8 @@ uses
 
 type
   ICategorySQLBuilder = interface(IBaseSQLBuilder)
-    ['{6424342B-6274-446E-93C5-A4F7041EF30C}']
+    ['{0C4398AE-FDDB-45F4-AE65-D830D6A71C37}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

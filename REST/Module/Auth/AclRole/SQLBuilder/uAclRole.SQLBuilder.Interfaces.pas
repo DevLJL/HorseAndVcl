@@ -10,10 +10,9 @@ uses
 
 type
   IAclRoleSQLBuilder = interface(IBaseSQLBuilder)
-    ['{1459C04C-5F0A-4C0B-9627-4CB03467A1F9}']
+    ['{4B0E40B0-B045-4707-B47F-3470BD1948CB}']
 
     // AclRole
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

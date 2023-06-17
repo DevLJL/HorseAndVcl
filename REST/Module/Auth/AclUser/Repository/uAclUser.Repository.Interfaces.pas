@@ -8,7 +8,7 @@ uses
 
 type
   IAclUserRepository = interface(IBaseRepository)
-    ['{2F49C0ED-1D79-4C6A-AA40-AA7B807F2CC0}']
+    ['{4C2B0991-FB8D-482E-9E0D-FF5D25FFD7B8}']
     function Show(AId: Int64): TAclUser;
   end;
 

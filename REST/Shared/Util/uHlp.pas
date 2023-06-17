@@ -13,6 +13,7 @@ uses
 type
   TSide = (sdLeft, sdRight, sdCenter);
 
+  procedure MessageDlgInfo(AMessage: String);
   function  Base64ToMemoryStream(ABase64: String): TMemoryStream;
   function  FilePathToBase64(AFilePath: String): String;
   function  Encrypt(const AKey, AText: String): String;
@@ -32,7 +33,7 @@ type
   function  DBGridLoadConfig(DBGridPar: TDBGrid; FormName: String): Boolean; // carrega configuração do DBGrid
   procedure DBGridDeleteConfig(DBGridPar: TDBGrid; FormName: String); // deleta configuracao do DBGrid
   procedure DBGridSaveConfig(DBGridPar: TDBGrid; FormName: String);
-  function  CreateTransparentBackground(AOwner: TForm; AlphaBlendValue: Integer = 200): TForm;
+  function  CreateDarkBackground(AOwner: TForm; AlphaBlendValue: Integer = 200): TForm;
   function  StateList: TArray<String>; // Lista de Estados
   function  CpfOrCnpjIsValid(AValue: string): boolean;
   function  CpfIsValid(AValue: string): boolean;
@@ -51,6 +52,7 @@ type
   function  FormatPhone(pFone: String): String; // Formatar número de telefone
   function  RemoveDots(Str: String): String; // Remover Pontos da String
   function  OnlyNumbers(fField: String): String; // Retornar apenas números de uma string
+  function  OnlyDifNumbers(fField: String): String; // Retornar apenas caracteres diferente de números de uma string
   function  ValidateCpfCnpj(Dado: string): String; // Validar CNPJ/CNPJ
   function  ValidateCnpj(Dado: string): Boolean; // Validar CNPJ
   function  ValidateCpf(Dado: string): Boolean; // Validar CPF
@@ -88,6 +90,17 @@ uses
   Winapi.Messages;
 
 { THlp }
+
+procedure MessageDlgInfo(AMessage: String);
+begin
+  const LForm = TForm.Create(Nil);
+  try
+    CreateDarkBackground(LForm);
+    Application.MessageBox(PWideChar(AMessage), 'Informação!', MB_OK+MB_ICONINFORMATION);
+  finally
+    LForm.Free;
+  end;
+end;
 
 function Base64ToMemoryStream(ABase64: String): TMemoryStream;
 var
@@ -422,7 +435,7 @@ begin
     Result := StringReplace(Result, L_CHARS_TO_REMOVE[lI], '', [rfReplaceAll]);
 end;
 
-function CreateTransparentBackground(AOwner: TForm; AlphaBlendValue: Integer): TForm;
+function CreateDarkBackground(AOwner: TForm; AlphaBlendValue: Integer): TForm;
 begin
   // Configurar Fundo Transparente
   Result := TForm.Create(AOwner);
@@ -691,6 +704,18 @@ begin
       Result := Result + fField [I];
 end;
 
+function OnlyDifNumbers(fField: String): String;
+begin
+  Result := '';
+
+  if (fField = '') then
+    EXIT;
+
+  for var I := 1 To Length(fField) do
+    if not (fField [I] In ['0'..'9']) Then
+      Result := Result + fField [I];
+end;
+
 procedure ParseDelimited(const sl: TStrings; const value, delimiter: string);
 var
   dx : integer;
@@ -827,7 +852,6 @@ end;
 
 function StrFloat(AValue: String; ADefaultValue: Double): Double;
 begin
-  // Tratar campo Price
   AValue := StringReplace(AValue, '.', '', [rfReplaceAll]);
   Result := StrToFloatDef(AValue, ADefaultValue);
 end;

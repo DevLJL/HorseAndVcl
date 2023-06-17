@@ -11,7 +11,7 @@ uses
 
 type
   IProductDataFactory = Interface
-    ['{3B85F4A1-1B6C-42FF-90CB-0073B4DB898B}']
+    ['{4B733838-A95D-4DC9-B858-F3609D3D62F0}']
     function GenerateInsert: TProductShowDTO;
     function GenerateInput: TProductInputDTO;
   End;

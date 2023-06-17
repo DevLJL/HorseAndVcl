@@ -10,9 +10,8 @@ uses
 
 type
   ICashFlowSQLBuilder = interface(IBaseSQLBuilder)
-    ['{EF54429D-5BFE-4EDF-B5CB-ADF86B846003}']
+    ['{4341A8E1-217D-4BB3-80E9-FA182AA56868}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function StationInUse(AStationId: Int64; ADiffCashFlowId: Int64 = 0): String;

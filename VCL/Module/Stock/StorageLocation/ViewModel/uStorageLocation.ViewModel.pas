@@ -101,7 +101,7 @@ function TStorageLocationViewModel.FromShowDTO(AInput: TStorageLocationShowDTO):
 begin
   Result := Self;
 
-  FStorageLocation.UnsignEvents.FromJson(AInput.AsJSON);
+  FStorageLocation.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

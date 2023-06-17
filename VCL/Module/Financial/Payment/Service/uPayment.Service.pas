@@ -11,7 +11,8 @@ uses
   uIndexResult,
   uBase.Service,
   uAppVcl.Types,
-  uPayment.Service.Interfaces;
+  uPayment.Service.Interfaces,
+  uZLMemTable.Interfaces;
 
 type
   TPaymentService = class(TBaseService, IPaymentService)
@@ -20,6 +21,7 @@ type
     class function Make: IPaymentService;
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TPaymentFilterDTO = nil): Either<String, IIndexResult>;
+    function ListPaymentTerms(AId: Int64): IZLMemTable;
     function Show(AId: Int64): TPaymentShowDTO;
     function StoreAndShow(AInput: TPaymentInputDTO): Either<String, TPaymentShowDTO>;
     function UpdateAndShow(AId: Int64; AInput: TPaymentInputDTO): Either<String, TPaymentShowDTO>;
@@ -34,7 +36,9 @@ uses
   uPayment.ViewModel,
   uReq,
   uTrans,
-  uHlp;
+  uHlp,
+  uSmartPointer,
+  uMemTable.Factory;
 
 const
   RESOURCE = '/Payments';
@@ -95,6 +99,21 @@ begin
   const LIndexResult = TIndexResult.FromResponse(LResponse.Content, LViewModel.Payment, LResponse.ETag);
   LViewModel.SetEvents;
   Result := LIndexResult;
+end;
+
+function TPaymentService.ListPaymentTerms(AId: Int64): IZLMemTable;
+begin
+  const LPaymentShowDTO = Show(AId);
+  if not Assigned(LPaymentShowDTO) then
+    raise Exception.Create(Format('Não foram encontrados termos de pagamento para o Pagamento (ID): %d',[AId]));
+
+  try
+    const LJsonArray = LPaymentShowDTO.payment_terms.AsJSONObject.A['List'].AsJSON;
+    Result := TPaymentViewModel.Make.PaymentTerms;
+    Result.FromJson(LJsonArray);
+  finally
+    LPaymentShowDTO.Free;
+  end;
 end;
 
 class function TPaymentService.Make: IPaymentService;

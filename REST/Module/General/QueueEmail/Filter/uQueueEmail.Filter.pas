@@ -7,7 +7,7 @@ uses
 
 type
   IQueueEmailFilter = Interface(IFilter)
-    ['{0ACD7CD8-3320-403E-98E8-D27DAFB09769}']
+    ['{01F21979-25F0-41E9-9D03-67E0C346C329}']
   End;
 
   TQueueEmailFilter = class(TFilter, IQueueEmailFilter)

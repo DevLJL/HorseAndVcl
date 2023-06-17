@@ -12,7 +12,7 @@ uses
 
 type
   IBankPersistenceUseCase = Interface
-    ['{F735087B-CB79-489D-BFA6-8E007CB2DFB7}']
+    ['{CC85D95F-2903-469F-974E-3E51F91CBD4E}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TBankFilterDTO): IIndexResult overload;

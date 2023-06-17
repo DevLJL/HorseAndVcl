@@ -12,7 +12,7 @@ uses
 
 type
   IBillPayReceiveService = Interface(IBaseService)
-    ['{32133C5C-1CE2-4221-8FBC-5C0B01DD0E0C}']
+    ['{2B48E9D5-D4A1-4542-8D3F-1C8CB5C93426}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TBillPayReceiveFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TBillPayReceiveShowDTO;

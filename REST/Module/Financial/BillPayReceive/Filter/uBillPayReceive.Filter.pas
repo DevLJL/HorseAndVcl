@@ -7,7 +7,7 @@ uses
 
 type
   IBillPayReceiveFilter = Interface(IFilter)
-    ['{AFA71D35-9CE7-49DC-A79C-2A293B5FD47B}']
+    ['{4858A049-8973-45D5-A5B9-FAAB977B3182}']
   End;
 
   TBillPayReceiveFilter = class(TFilter, IBillPayReceiveFilter)

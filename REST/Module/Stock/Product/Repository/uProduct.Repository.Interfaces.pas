@@ -9,7 +9,7 @@ uses
 
 type
   IProductRepository = interface(IBaseRepository)
-    ['{ED041641-24CE-4AB5-B463-E0A964928866}']
+    ['{6FBF62B4-5ECA-45C6-A050-958C2EB023AC}']
     function Show(AId: Int64): TProduct;
     function MoveProduct(AProductId: Int64; AIncOrDecQuantity: Double; AMovType: TProductMovStock): IProductRepository;
     function ShowByEanOrSkuCode(AValue: String): TProduct;

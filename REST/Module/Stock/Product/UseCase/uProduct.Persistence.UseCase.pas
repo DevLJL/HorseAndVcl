@@ -24,6 +24,7 @@ type
     function Index(AFilterDTO: TProductFilterDTO): IIndexResult; overload;
     function Index(AFilterEntity: IFilter): IIndexResult; overload;
     function Show(APK: Int64): TProductShowDTO;
+    function ShowByEanOrSkuCode(AValue: String): TProductShowDTO;
     function StoreAndShow(AInput: TProductInputDTO): Either<String, TProductShowDTO>;
     function Store(AInput: TProductInputDTO): Int64;
     function Update(APK: Int64; AInput: TProductInputDTO): Int64;
@@ -55,6 +56,19 @@ begin
 
   // Localizar Registro
   const LProductFound: SH<TProduct> = FRepository.Show(APK);
+  if not Assigned(LProductFound.Value) then
+    Exit;
+
+  // Retornar DTO
+  Result := TProductMapper.EntityToShow(LProductFound.Value);
+end;
+
+function TProductPersistenceUseCase.ShowByEanOrSkuCode(AValue: String): TProductShowDTO;
+begin
+  Result := Nil;
+
+  // Localizar Registro
+  const LProductFound: SH<TProduct> = FRepository.ShowByEanOrSkuCode(AValue);
   if not Assigned(LProductFound.Value) then
     Exit;
 

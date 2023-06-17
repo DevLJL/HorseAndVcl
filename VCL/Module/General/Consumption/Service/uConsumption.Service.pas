@@ -11,7 +11,9 @@ uses
   uIndexResult,
   uBase.Service,
   uAppVcl.Types,
-  uConsumption.Service.Interfaces;
+  uConsumption.Service.Interfaces,
+  uConsumptionSale.Filter.DTO,
+  uZLMemTable.Interfaces;
 
 type
   TConsumptionService = class(TBaseService, IConsumptionService)
@@ -20,6 +22,7 @@ type
     class function Make: IConsumptionService;
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TConsumptionFilterDTO = nil): Either<String, IIndexResult>;
+    function IndexWithSale(AFilter: TConsumptionSaleFilterDTO = nil): Either<String, IZLMemTable>;
     function Show(AId: Int64): TConsumptionShowDTO;
     function StoreAndShow(AInput: TConsumptionInputDTO): Either<String, TConsumptionShowDTO>;
     function UpdateAndShow(AId: Int64; AInput: TConsumptionInputDTO): Either<String, TConsumptionShowDTO>;
@@ -33,7 +36,8 @@ uses
   System.SysUtils,
   uConsumption.ViewModel,
   uReq,
-  uTrans;
+  uTrans,
+  uConsumptionSale.ViewModel;
 
 const
   RESOURCE = '/Consumption';
@@ -94,6 +98,40 @@ begin
   const LIndexResult = TIndexResult.FromResponse(LResponse.Content, LViewModel.Consumption, LResponse.ETag);
   LViewModel.SetEvents;
   Result := LIndexResult;
+end;
+
+function TConsumptionService.IndexWithSale(AFilter: TConsumptionSaleFilterDTO): Either<String, IZLMemTable>;
+begin
+  // Criar filtro se não informado
+  const LInformedFilter = Assigned(AFilter);
+  if not LInformedFilter then
+    AFilter := TConsumptionSaleFilterDTO.Create;
+
+  // Efetuar Requisição
+  const LEndPoint = RESOURCE+'/IndexWithSale';
+  const LResponse = Req(LEndPoint, AFilter.AsJSON)
+    .Execute(TReqType.Post);
+
+  // Retornar erro se for diferente de 200
+  if not (LResponse.StatusCode = 200) then
+  begin
+    case (Pos('"message":', LResponse.Content) > 0) of
+      True:  Result := SO(LResponse.Content).S['message'];
+      False: Result := LResponse.Content;
+    end;
+    Exit;
+  end;
+
+  // Destruir filtro se não informado e criado neste escopo
+  if not LInformedFilter and Assigned(AFilter) then
+    AFilter.Free;
+
+  // Retornar Listagem de dados
+  const LViewModel = TConsumptionSaleViewModel.Make;
+  const LSO = SO(LResponse.Content).O['data'].A['result'];
+  LViewModel.ConsumptionSale.FromJson(LSO.AsJSON);
+  LViewModel.SetEvents;
+  Result := LViewModel.ConsumptionSale;
 end;
 
 class function TConsumptionService.Make: IConsumptionService;

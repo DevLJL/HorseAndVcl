@@ -9,9 +9,8 @@ uses
 
 type
   ISizeSQLBuilder = interface(IBaseSQLBuilder)
-    ['{842BB107-B2EB-4593-BC87-ED16419EE815}']
+    ['{8423BA18-FC26-4514-BDDF-DB8CAAF627F1}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

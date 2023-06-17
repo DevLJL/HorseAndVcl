@@ -26,7 +26,8 @@ uses
   XSuperObject,
   uTrans,
   uFilter.Types,
-  uSale.Filter;
+  uSale.Filter,
+  uHlp, uSale.Types;
 
 { TSaleMapper }
 
@@ -85,6 +86,28 @@ begin
   // Pesquisa por ID
   if (AInput.id_search_content > 0) then
     Result.Where(TParentheses.OpenAndClose, 'sale.id', TCondition.Equal, AInput.id_search_content.ToString);
+
+  // Pesquisa Customizada para Vendas em Espera
+  if not AInput.custom_search_for_sale_on_hold.Trim.IsEmpty then
+  begin
+    Result
+      .Where (TParentheses.Open,  'sale.sale_check_id',   TCondition.LikeInitial, AInput.custom_search_for_sale_on_hold.Trim)
+      .&Or   (TParentheses.Close, 'sale.sale_check_name', TCondition.LikeInitial, AInput.custom_search_for_sale_on_hold.Trim);
+  end;
+
+  // Status da Venda
+  if not AInput.status.Trim.IsEmpty then
+  begin
+    const LSaleStatus = TSaleStatus(StrInt(AInput.status.Trim));
+    Result.Where(TParentheses.OpenAndClose, 'sale.status', TCondition.Equal, Ord(LSaleStatus).ToString);
+  end;
+
+  // Tipo de Venda
+  if not AInput.&type.Trim.IsEmpty then
+  begin
+    const LSaleType = TSaleType(StrInt(AInput.&type.Trim));
+    Result.Where(TParentheses.OpenAndClose, 'sale.type', TCondition.Equal, Ord(LSaleType).ToString);
+  end;
 end;
 
 class function TSaleMapper.InputToEntity(AInput: TSaleInputDTO): TSale;

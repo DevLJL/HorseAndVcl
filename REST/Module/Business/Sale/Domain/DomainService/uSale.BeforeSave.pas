@@ -8,7 +8,7 @@ uses
 
 type
   ISaleBeforeSave = Interface
-    ['{582F3604-7F89-4BBE-B542-5011E1A689DE}']
+    ['{FA6D8CBE-CE93-4EAA-939C-415C3EBB778E}']
     function Execute: ISaleBeforeSave;
   end;
 
@@ -56,7 +56,7 @@ function TSaleBeforeSave.HandleSale: ISaleBeforeSave;
 begin
   Result := Self;
 
-  // Valores Padrão para inserção
+  // Valor Padrão para inserção
   if (FState = TEntityState.Store) then
   begin
     FEntity.status                := TSaleStatus.Pending;

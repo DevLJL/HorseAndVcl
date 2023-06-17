@@ -7,7 +7,7 @@ uses
 
 type
   IProductFilter = Interface(IFilter)
-    ['{59367E8E-5E56-44EA-8891-9CFDA13CD550}']
+    ['{748B93C2-C2D1-404E-B704-0F6ADA4999D9}']
   End;
 
   TProductFilter = class(TFilter, IProductFilter)

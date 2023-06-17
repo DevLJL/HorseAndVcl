@@ -10,7 +10,7 @@ uses
 
 type
   IStorageLocationViewModel = Interface(IBaseViewModel)
-    ['{B3409560-44CE-41E7-B496-0E01FA95E245}']
+    ['{5428BB3D-0086-48BF-B7E7-EAD8D17FD0DB}']
     function  FromShowDTO(AInput: TStorageLocationShowDTO): IStorageLocationViewModel;
     function  ToInputDTO: TStorageLocationInputDTO;
     function  EmptyDataSets: IStorageLocationViewModel;

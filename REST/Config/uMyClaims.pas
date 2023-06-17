@@ -4,7 +4,8 @@ interface
 
 uses
   JOSE.Core.JWT,
-  JOSE.Types.JSON;
+  JOSE.Types.JSON,
+  System.SysUtils;
 
 type
   TMyClaims = class(TJWTClaims)
@@ -30,6 +31,7 @@ type
     property Login: string read GetLogin write SetLogin;
     property AclRoleId: string read GetAclRoleId write SetAclRoleId;
     property IsSuperuser: string read GetIsSuperuser write SetIsSuperuser;
+    function IdToInt64: Int64;
   end;
 
 implementation
@@ -79,6 +81,11 @@ end;
 function TMyClaims.GetTenantInfo: string;
 begin
   Result := TJSONUtils.GetJSONValue('tenant_info', FJSON).AsString;
+end;
+
+function TMyClaims.IdToInt64: Int64;
+begin
+  Result := StrToInt64Def(Id,0);
 end;
 
 procedure TMyClaims.SetName(const Value: string);

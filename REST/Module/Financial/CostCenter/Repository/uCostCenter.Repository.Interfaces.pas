@@ -8,7 +8,7 @@ uses
 
 type
   ICostCenterRepository = interface(IBaseRepository)
-    ['{E9951113-2905-4FF6-9DD8-F87FBC435779}']
+    ['{ADB69843-F719-4E93-9D3F-E630AD7AC6C3}']
     function Show(AId: Int64): TCostCenter;
   end;
 

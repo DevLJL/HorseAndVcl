@@ -10,7 +10,7 @@ uses
 
 type
   IBrandViewModel = Interface(IBaseViewModel)
-    ['{7AB49534-A5F6-43ED-B1F2-1B6EB242425F}']
+    ['{5F4FFF81-1CE8-4D00-93DA-FC6222D1741E}']
     function  FromShowDTO(AInput: TBrandShowDTO): IBrandViewModel;
     function  ToInputDTO: TBrandInputDTO;
     function  EmptyDataSets: IBrandViewModel;

@@ -13,8 +13,6 @@ type
   TUnitSQLBuilderMySQL = class(TInterfacedObject, IUnitSQLBuilder)
   public
     class function Make: IUnitSQLBuilder;
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function DeleteById(AId: Int64): String;
     function DeleteByIdRange(AId: String): String;
     function SelectAll: String;
@@ -72,35 +70,6 @@ end;
 class function TUnitSQLBuilderMySQL.Make: IUnitSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TUnitSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result :=
-    ' CREATE TABLE `unit` (                                                                                               '+
-    '   `id` bigint NOT NULL AUTO_INCREMENT,                                                                              '+
-    '   `name` varchar(10) NOT NULL,                                                                                      '+
-    '   `description` varchar(100) NOT NULL,                                                                              '+
-    '   `created_at` datetime DEFAULT NULL,                                                                               '+
-    '   `updated_at` datetime DEFAULT NULL,                                                                               '+
-    '   `created_by_acl_user_id` bigint DEFAULT NULL,                                                                     '+
-    '   `updated_by_acl_user_id` bigint DEFAULT NULL,                                                                     '+
-    '   PRIMARY KEY (`id`),                                                                                               '+
-    '   KEY `unit_idx_created_at` (`created_at`), '+
-    '   KEY `unit_fk_created_by_acl_user_id` (`created_by_acl_user_id`),                                                  '+
-    '   KEY `unit_fk_updated_by_unit_id` (`updated_by_acl_user_id`),                                                      '+
-    '   CONSTRAINT `unit_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`),  '+
-    '   CONSTRAINT `unit_fk_updated_by_unit_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`)       '+
-    ' )                                                                                                                   ';
-end;
-
-function TUnitSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result :=
-    ' insert into unit (name, description) values (''UN'', ''Unidade'');    '+
-    ' insert into unit (name, description) values (''PC'', ''Peça'');       '+
-    ' insert into unit (name, description) values (''LT'', ''Litro'');      '+
-    ' insert into unit (name, description) values (''KG'', ''Quilograma''); ';
 end;
 
 function TUnitSQLBuilderMySQL.SelectAll: String;

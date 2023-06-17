@@ -27,7 +27,7 @@ type
   end;
 
   ISearchLegalEntityNumberLib = interface
-    ['{4969AC2E-F546-4658-9FB5-C005023A84D6}']
+    ['{44BCD4C7-29E8-48B2-A9F3-00A696470A13}']
 
     function Execute: ISearchLegalEntityNumberLib;
     function ResponseData: TResponseData;

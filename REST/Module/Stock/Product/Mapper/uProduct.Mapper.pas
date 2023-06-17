@@ -45,6 +45,12 @@ begin
   Result.brand_name               := AEntity.brand.name;
   Result.size_name                := AEntity.size.name;
   Result.storage_location_name    := AEntity.storage_location.name;
+
+  // ProductPriceList - Tratar especificidades
+  for var lI := 0 to Pred(AEntity.product_price_lists.Count) do
+  begin
+    Result.product_price_lists.Items[lI].price_list_name := AEntity.product_price_lists.Items[lI].price_list.name;
+  end;
 end;
 
 class function TProductMapper.FilterToEntity(AInput: TProductFilterDTO): IFilter;

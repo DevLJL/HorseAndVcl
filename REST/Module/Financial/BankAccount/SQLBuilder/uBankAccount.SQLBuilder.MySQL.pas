@@ -14,8 +14,6 @@ type
   public
     class function Make: IBankAccountSQLBuilder;
 
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
@@ -75,33 +73,6 @@ end;
 class function TBankAccountSQLBuilderMySQL.Make: IBankAccountSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TBankAccountSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result := ' CREATE TABLE `bank_account` ( '+
-            '   `id` bigint NOT NULL AUTO_INCREMENT, '+
-            '   `name` varchar(255) NOT NULL, '+
-            '   `bank_id` bigint NOT NULL, '+
-            '   `note` text, '+
-            '   `created_at` datetime DEFAULT NULL, '+
-            '   `updated_at` datetime DEFAULT NULL, '+
-            '   `created_by_acl_user_id` bigint DEFAULT NULL, '+
-            '   `updated_by_acl_user_id` bigint DEFAULT NULL, '+
-            '   PRIMARY KEY (`id`), '+
-            '   KEY `bank_account_idx_created_at` (`created_at`), '+
-            '   KEY `bank_account_fk_created_by_acl_user_id` (`created_by_acl_user_id`), '+
-            '   KEY `bank_account_fk_updated_by_acl_role_id` (`updated_by_acl_user_id`), '+
-            '   KEY `bank_account_fk_bank_id` (`bank_id`), '+
-            '   CONSTRAINT `bank_account_fk_bank_id` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`), '+
-            '   CONSTRAINT `bank_account_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`), '+
-            '   CONSTRAINT `bank_account_fk_updated_by_acl_role_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`)  '+
-            ' ) ';
-end;
-
-function TBankAccountSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := 'INSERT INTO `bank_account` (`name`,`bank_id`) VALUES (''CAIXA FUNDO FIXO'',''1'');';
 end;
 
 function TBankAccountSQLBuilderMySQL.SelectAll: String;

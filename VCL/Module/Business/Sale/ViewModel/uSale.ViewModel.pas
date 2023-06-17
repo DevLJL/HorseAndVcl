@@ -31,8 +31,10 @@ type
     procedure AfterInsert(DataSet: TDataSet);
     procedure AfterEdit(DataSet: TDataSet);
     procedure DateTimeGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure AmountOfPeopleGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure DiscountSetText(Sender: TField; const Text: string);
     procedure IncreaseSetText(Sender: TField; const Text: string);
+    procedure FreightServiceCoverSetText(Sender: TField; const Text: string);
     procedure PercDiscountSetText(Sender: TField; const Text: string);
     procedure PercIncreaseSetText(Sender: TField; const Text: string);
     procedure PersonIdSetText(Sender: TField; const Text: string);
@@ -60,7 +62,70 @@ uses
   uPerson.Show.DTO,
   uPerson.Service,
   uSalePayments.ViewModel,
-  uSalePayment.Input.DTO;
+  uSalePayment.Input.DTO,
+  System.Classes;
+
+constructor TSaleViewModel.Create;
+begin
+  inherited Create;
+
+  FSale := TMemTableFactory.Make
+    .AddField('id', ftLargeint)
+    .AddField('person_id', ftLargeint)
+    .AddField('seller_id', ftLargeInt)
+    .AddField('carrier_id', ftLargeInt)
+    .AddField('note', ftString, 5000)
+    .AddField('internal_note', ftString, 5000)
+    .AddField('status', ftSmallInt)
+    .AddField('delivery_status', ftSmallInt)
+    .AddField('type', ftSmallInt)
+    .AddField('flg_payment_requested', ftSmallInt)
+    .AddField('discount', ftFloat)
+    .AddField('increase', ftFloat)
+    .AddField('freight', ftFloat)
+    .AddField('service_charge', ftFloat)
+    .AddField('cover_charge', ftFloat)
+    .AddField('total', ftFloat)
+    .AddField('money_received', ftFloat)
+    .AddField('money_change', ftFloat)
+    .AddField('amount_of_people', ftSmallInt)
+    .AddField('informed_legal_entity_number', ftString, 20)
+    .AddField('consumption_number', ftSmallInt)
+    .AddField('sale_check_id', ftLargeint)
+    .AddField('sale_check_name', ftString, 255)
+    .AddField('created_at', ftDateTime)
+    .AddField('updated_at', ftDateTime)
+    .AddField('created_by_acl_user_id', ftLargeInt)
+    .AddField('updated_by_acl_user_id', ftLargeInt)
+    .AddField('created_by_acl_user_name', ftString, 100) {virtual}
+    .AddField('updated_by_acl_user_name', ftString, 100) {virtual}
+    .AddField('person_name', ftString, 255) {virtual}
+    .AddField('person_address', ftString, 255) {Virtual}
+    .AddField('person_address_number', ftString, 15) {Virtual}
+    .AddField('person_complement', ftString, 255) {Virtual}
+    .AddField('person_district', ftString, 255) {Virtual}
+    .AddField('person_reference_point', ftString, 255) {Virtual}
+    .AddField('person_city_name', ftString, 100) {virtual}
+    .AddField('person_city_state', ftString, 100) {virtual}
+    .AddField('seller_name', ftString, 255) {virtual}
+    .AddField('carrier_name', ftString, 255) {virtual}
+    .AddField('perc_discount', ftFloat) {virtual}
+    .AddField('perc_increase', ftFloat) {virtual}
+    .AddField('sum_sale_item_total', ftFloat) {virtual}
+    .AddField('sum_sale_item_quantity', ftFloat) {virtual}
+    .AddField('sum_sale_payment_amount', ftFloat) {virtual}
+    .AddField('remaining_change', ftFloat) {virtual}
+    .CreateDataSet
+  .Active(True);
+
+  // Formata��o padr�o e configurar eventos do DataSet
+  FormatDataSet(FSale.DataSet);
+  FSale.FieldByName('amount_of_people').Alignment := taCenter;
+  SetEvents;
+
+  FSaleItemsViewModel    := TSaleItemsViewModel.Make(Self);
+  FSalePaymentsViewModel := TSalePaymentsViewModel.Make(Self);
+end;
 
 function TSaleViewModel.CalcFields: ISaleViewModel;
 begin
@@ -104,7 +169,12 @@ begin
     FieldByName('sum_sale_item_quantity').AsFloat  := LSumSaleItemQuantity;
     FieldByName('discount').AsFloat                := PercentageOfValue(FieldByName('perc_discount').AsFloat, LSumSaleItemTotal);
     FieldByName('increase').AsFloat                := PercentageOfValue(FieldByName('perc_increase').AsFloat, LSumSaleItemTotal);
-    FieldByName('total').AsFloat                   := LSumSaleItemTotal - FieldByName('discount').AsFloat + FieldByName('increase').AsFloat;
+    FieldByName('total').AsFloat                   := LSumSaleItemTotal -
+                                                      FieldByName('discount').AsFloat +
+                                                      FieldByName('increase').AsFloat +
+                                                      FieldByName('freight').AsFloat +
+                                                      FieldByName('service_charge').AsFloat +
+                                                      FieldByName('cover_charge').AsFloat;
     FieldByName('sum_sale_payment_amount').AsFloat := LSumSalePaymentAmount;
     FieldByName('remaining_change').AsCurrency     := LSumSalePaymentAmount-FSale.FieldByName('total').AsCurrency;
   end;
@@ -138,56 +208,6 @@ begin
   finally
     UnLockControl;
   end;
-end;
-
-constructor TSaleViewModel.Create;
-begin
-  inherited Create;
-
-  FSale := TMemTableFactory.Make
-    .AddField('id', ftLargeint)
-    .AddField('person_id', ftLargeint)
-    .AddField('seller_id', ftLargeInt)
-    .AddField('carrier_id', ftLargeInt)
-    .AddField('note', ftString, 5000)
-    .AddField('internal_note', ftString, 5000)
-    .AddField('status', ftSmallInt)
-    .AddField('delivery_status', ftSmallInt)
-    .AddField('type', ftSmallInt)
-    .AddField('flg_payment_requested', ftSmallInt)
-    .AddField('discount', ftFloat)
-    .AddField('increase', ftFloat)
-    .AddField('freight', ftFloat)
-    .AddField('total', ftFloat)
-    .AddField('money_received', ftFloat)
-    .AddField('money_change', ftFloat)
-    .AddField('amount_of_people', ftSmallInt)
-    .AddField('informed_legal_entity_number', ftString, 20)
-    .AddField('consumption_number', ftSmallInt)
-    .AddField('created_at', ftDateTime)
-    .AddField('updated_at', ftDateTime)
-    .AddField('created_by_acl_user_id', ftLargeInt)
-    .AddField('updated_by_acl_user_id', ftLargeInt)
-    .AddField('created_by_acl_user_name', ftString, 100) {virtual}
-    .AddField('updated_by_acl_user_name', ftString, 100) {virtual}
-    .AddField('person_name', ftString, 255) {virtual}
-    .AddField('seller_name', ftString, 255) {virtual}
-    .AddField('carrier_name', ftString, 255) {virtual}
-    .AddField('perc_discount', ftFloat) {virtual}
-    .AddField('perc_increase', ftFloat) {virtual}
-    .AddField('sum_sale_item_total', ftFloat) {virtual}
-    .AddField('sum_sale_item_quantity', ftFloat) {virtual}
-    .AddField('sum_sale_payment_amount', ftFloat) {virtual}
-    .AddField('remaining_change', ftFloat) {virtual}
-    .CreateDataSet
-  .Active(True);
-
-  // Formata��o padr�o e configurar eventos do DataSet
-  FormatDataSet(FSale.DataSet);
-  SetEvents;
-
-  FSaleItemsViewModel    := TSaleItemsViewModel.Make(Self);
-  FSalePaymentsViewModel := TSalePaymentsViewModel.Make(Self);
 end;
 
 procedure TSaleViewModel.DateTimeGetText(Sender: TField; var Text: string; DisplayText: Boolean);
@@ -237,15 +257,19 @@ function TSaleViewModel.SetEvents: ISaleViewModel;
 begin
   Result := Self;
 
-  FSale.DataSet.AfterInsert                    := AfterInsert;
-  FSale.DataSet.AfterEdit                      := AfterEdit;
-  FSale.FieldByName('person_id').OnSetText     := PersonIdSetText;
-  FSale.FieldByName('seller_id').OnSetText     := SellerIdSetText;
-  FSale.FieldByName('carrier_id').OnSetText    := CarrierIdSetText;
-  FSale.FieldByName('discount').OnSetText      := DiscountSetText;
-  FSale.FieldByName('increase').OnSetText      := IncreaseSetText;
-  FSale.FieldByName('perc_discount').OnSetText := PercDiscountSetText;
-  FSale.FieldByName('perc_increase').OnSetText := PercIncreaseSetText;
+  FSale.DataSet.AfterInsert                       := AfterInsert;
+  FSale.DataSet.AfterEdit                         := AfterEdit;
+  FSale.FieldByName('person_id').OnSetText        := PersonIdSetText;
+  FSale.FieldByName('seller_id').OnSetText        := SellerIdSetText;
+  FSale.FieldByName('carrier_id').OnSetText       := CarrierIdSetText;
+  FSale.FieldByName('discount').OnSetText         := DiscountSetText;
+  FSale.FieldByName('increase').OnSetText         := IncreaseSetText;
+  FSale.FieldByName('perc_discount').OnSetText    := PercDiscountSetText;
+  FSale.FieldByName('perc_increase').OnSetText    := PercIncreaseSetText;
+  FSale.FieldByName('freight').OnSetText          := FreightServiceCoverSetText;
+  FSale.FieldByName('service_charge').OnSetText   := FreightServiceCoverSetText;
+  FSale.FieldByName('cover_charge').OnSetText     := FreightServiceCoverSetText;
+  FSale.FieldByName('amount_of_people').OnGetText := AmountOfPeopleGetText;
 
   // Evitar Data Inválida
   for var LField in FSale.Fields do
@@ -287,13 +311,25 @@ end;
 procedure TSaleViewModel.AfterInsert(DataSet: TDataSet);
 begin
   FillDataSetWithZero(DataSet);
+  DataSet.FieldByName('amount_of_people').AsInteger := 1;
 
   // Vendedor Padrão
   if (UserLogged.Current.seller_id > 0) then
   begin
     FSale.FieldByName('seller_id').AsInteger  := UserLogged.Current.seller_id;
-    FSale.FieldByName('seller_name').AsString := '';//UserLogged.SellerDefault.name;
+    FSale.FieldByName('seller_name').AsString := UserLogged.Current.seller_name;
   end;
+end;
+
+procedure TSaleViewModel.AmountOfPeopleGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  Text := Format('%2.2d', [Sender.AsInteger]);
+end;
+
+procedure TSaleViewModel.FreightServiceCoverSetText(Sender: TField; const Text: string);
+begin
+  Sender.AsCurrency := StrFloat(Text);
+  CalcFields;
 end;
 
 function TSaleViewModel.FromShowDTO(AInput: TSaleShowDTO): ISaleViewModel;
@@ -301,11 +337,11 @@ begin
   Result := Self;
 
   // Sale
-  FSale.UnsignEvents.FromJson(AInput.AsJSON);
+  FSale.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 
   // SaleItems
-  SaleItems.UnsignEvents;
+  SaleItems.EmptyDataSet.UnsignEvents;
   for var LSaleItem in AInput.sale_items do
   begin
     MergeDataSet(LSaleItem.AsJSON, SaleItems.DataSet, true);
@@ -315,7 +351,7 @@ begin
   FSaleItemsViewModel.SetEvents;
 
   // SalePayments
-  SalePayments.UnsignEvents;
+  SalePayments.EmptyDataSet.UnsignEvents;
   for var LSalePayment in AInput.sale_payments do
   begin
     MergeDataSet(LSalePayment.AsJSON, SalePayments.DataSet, true);
@@ -375,14 +411,28 @@ begin
     begin
       Sender.DataSet.FieldByName('person_id').Clear;
       Sender.DataSet.FieldByName('person_name').Clear;
+      Sender.DataSet.FieldByName('person_address').Clear;
+      Sender.DataSet.FieldByName('person_address_number').Clear;
+      Sender.DataSet.FieldByName('person_complement').Clear;
+      Sender.DataSet.FieldByName('person_district').Clear;
+      Sender.DataSet.FieldByName('person_reference_point').Clear;
+      Sender.DataSet.FieldByName('person_city_name').Clear;
+      Sender.DataSet.FieldByName('person_city_state').Clear;
       Exit;
     end;
 
     // Carregar com dados encontrados
     With LPersonShowDTO.Value do
     begin
-      Sender.DataSet.FieldByName('person_id').AsLargeInt := id;
-      Sender.DataSet.FieldByName('person_name').AsString := name;
+      Sender.DataSet.FieldByName('person_id').AsLargeInt            := id;
+      Sender.DataSet.FieldByName('person_name').AsString            := name;
+      Sender.DataSet.FieldByName('person_address').AsString         := address;
+      Sender.DataSet.FieldByName('person_address_number').AsString  := address_number;
+      Sender.DataSet.FieldByName('person_complement').AsString      := complement;
+      Sender.DataSet.FieldByName('person_district').AsString        := district;
+      Sender.DataSet.FieldByName('person_reference_point').AsString := reference_point;
+      Sender.DataSet.FieldByName('person_city_name').AsString       := city_name;
+      Sender.DataSet.FieldByName('person_city_state').AsString      := city_state;
     end;
   finally
     UnLockControl;

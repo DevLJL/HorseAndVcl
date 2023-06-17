@@ -12,7 +12,7 @@ uses
 
 type
   ICostCenterService = Interface(IBaseService)
-    ['{32133C5C-1CE2-4221-8FBC-5C0B01DD0E0C}']
+    ['{5F57E759-ABAF-4816-811B-47C9F4120E1B}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TCostCenterFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TCostCenterShowDTO;

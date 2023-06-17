@@ -12,7 +12,7 @@ uses
 
 type
   INcmPersistenceUseCase = Interface
-    ['{75F11084-E074-42AC-82EA-D011545133C6}']
+    ['{C1014330-050B-4534-90D7-5FAC03B8ECA9}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TNcmFilterDTO): IIndexResult; overload;

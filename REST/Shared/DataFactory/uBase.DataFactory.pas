@@ -4,7 +4,7 @@ interface
 
 type
   IBaseDataFactory = Interface
-    ['{30BD4B46-596E-4137-963B-2D694FDB95D4}']
+    ['{08C3FCE3-C9A3-4524-BFAC-AA1950C22584}']
   End;
 
   TBaseDataFactory = class(TInterfacedObject, IBaseDataFactory)

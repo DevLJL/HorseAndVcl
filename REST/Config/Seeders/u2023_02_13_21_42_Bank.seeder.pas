@@ -1,9 +1,13 @@
-unit u2023_02_13_21_42_Bank.Seeder;
+﻿unit u2023_02_13_21_42_Bank.Seeder;
 
 interface
 
 uses
-  uBase.Migration;
+  uBase.Migration,
+  uConnMigration,
+  uEnv.Rest,
+  uZLConnection.Types,
+  System.Classes;
 
 type
   TSeeder = class(TBaseMigration)
@@ -12,20 +16,273 @@ type
 
 implementation
 
-uses
-  uConnMigration,
-  uSQLBuilder.Factory,
-  uEnv.Rest,
-  System.SysUtils;
+function MySQLScript: String;
+begin
+  const LScript = TStringList.Create;
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''000 - CAIXA FUNDO FIXO'',''001'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''104 - CAIXA ECONOMICA FEDERAL'',''104'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''106 - BANCO ITABANCO S.A.'',''106'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''107 - BANCO BBM S.A'',''107'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''109 - BANCO CREDIBANCO S.A'',''109'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''116 - BANCO B.N.L DO BRASIL S.A'',''116'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''129 - UBS BRASIL BANCO DE INVESTIMENTO S.A.'',''129'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''148 - MULTI BANCO S.A'',''148'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''151 - CAIXA ECONOMICA DO ESTADO DE SAO PAULO'',''151'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''153 - CAIXA ECONOMICA DO ESTADO DO R.G.SUL'',''153'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''165 - BANCO NORCHEM S.A'',''165'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''166 - BANCO INTER-ATLANTICO S.A'',''166'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''168 - BANCO C.C.F. BRASIL S.A'',''168'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''175 - CONTINENTAL BANCO S.A'',''175'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''184 - BBA - CREDITANSTALT S.A'',''184'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''199 - BANCO FINANCIAL PORTUGUES'',''199'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''002 - BANCO CENTRAL DO BRASIL'',''2'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''020 - BANCO DO ESTADO DE ALAGOAS S.A'',''20'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''200 - BANCO FRICRISA AXELRUD S.A'',''200'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''201 - BANCO AUGUSTA INDUSTRIA E COMERCIAL S.A'',''201'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''204 - BANCO S.R.L S.A'',''204'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''205 - BANCO SUL AMERICA S.A'',''205'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''206 - BANCO MARTINELLI S.A'',''206'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''208 - BANCO PACTUAL S.A'',''208'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''021 - BANCO DO ESTADO DO ESPIRITO SANTO S.A'',''21'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''210 - DEUTSCH SUDAMERIKANICHE BANK AG'',''210'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''211 - BANCO SISTEMA S.A'',''211'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''212 - BANCO ORIGINAL S.A'',''212'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''213 - BANCO ARBI S.A'',''213'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''214 - BANCO DIBENS S.A'',''214'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''215 - BANCO AMERICA DO SUL S.A'',''215'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''216 - BANCO REGIONAL MALCON S.A'',''216'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''217 - BANCO AGROINVEST S.A'',''217'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''218 - BBS - BANCO BONSUCESSO S.A.'',''218'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''219 - BANCO DE CREDITO DE SAO PAULO S.A'',''219'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''022 - BANCO DE CREDITO REAL DE MINAS GERAIS SA'',''22'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''220 - BANCO CREFISUL'',''220'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''221 - BANCO GRAPHUS S.A'',''221'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''222 - BANCO AGF BRASIL S. A.'',''222'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''223 - BANCO INTERUNION S.A'',''223'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''224 - BANCO FIBRA S.A'',''224'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''225 - BANCO BRASCAN S.A'',''225'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''228 - BANCO ICATU S.A'',''228'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''229 - BANCO CRUZEIRO S.A'',''229'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''230 - BANCO BANDEIRANTES S.A'',''230'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''231 - BANCO BOAVISTA S.A'',''231'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''232 - BANCO INTERPART S.A'',''232'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''233 - BANCO MAPPIN S.A'',''233'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''234 - BANCO LAVRA S.A.'',''234'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''235 - BANCO LIBERAL S.A'',''235'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''236 - BANCO CAMBIAL S.A'',''236'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''237 - BANCO BRADESCO S.A'',''237'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''239 - BANCO BANCRED S.A'',''239'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''024 - BANCO DO ESTADO DE PERNAMBUCO'',''24'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''240 - BANCO DE CREDITO REAL DE MINAS GERAIS S.'',''240'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''241 - BANCO CLASSICO S.A'',''241'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''242 - BANCO EUROINVEST S.A'',''242'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''243 - BANCO STOCK S.A'',''243'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''244 - BANCO CIDADE S.A'',''244'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''245 - BANCO EMPRESARIAL S.A'',''245'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''246 - BANCO ABC ROMA S.A'',''246'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''247 - BANCO OMEGA S.A'',''247'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''249 - BANCO INVESTCRED S.A'',''249'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''025 - BANCO ALFA S/A'',''25'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''250 - BANCO SCHAHIN CURY S.A'',''250'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''251 - BANCO SAO JORGE S.A.'',''251'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''252 - BANCO FININVEST S.A'',''252'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''254 - BANCO PARANA BANCO S.A'',''254'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''255 - MILBANCO S.A.'',''255'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''256 - BANCO GULVINVEST S.A'',''256'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''258 - BANCO INDUSCRED S.A'',''258'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''026 - BANCO DO ESTADO DO ACRE S.A'',''26'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''260 - NU PAGAMENTOS S.A'',''260'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''261 - BANCO VARIG S.A'',''261'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''262 - BANCO BOREAL S.A'',''262'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''263 - BANCO CACIQUE'',''263'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''264 - BANCO PERFORMANCE S.A'',''264'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''265 - BANCO FATOR S.A'',''265'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''266 - BANCO CEDULA S.A'',''266'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''267 - BANCO BBM-COM.C.IMOB.CFI S.A.'',''267'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''027 - BANCO DO ESTADO DE SANTA CATARINA S.A'',''27'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''275 - BANCO REAL S.A'',''275'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''277 - BANCO PLANIBANC S.A'',''277'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''028 - BANCO DO ESTADO DA BAHIA S.A'',''28'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''282 - BANCO BRASILEIRO COMERCIAL'',''282'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''029 - BANCO DO ESTADO DO RIO DE JANEIRO S.A'',''29'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''291 - BANCO DE CREDITO NACIONAL S.A'',''291'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''294 - BCR - BANCO DE CREDITO REAL S.A'',''294'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''295 - BANCO CREDIPLAN S.A'',''295'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''003 - BANCO DA AMAZONIA S.A'',''3'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''030 - BANCO DO ESTADO DA PARAIBA S.A'',''30'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''300 - BANCO DE LA NACION ARGENTINA S.A'',''300'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''302 - BANCO DO PROGRESSO S.A'',''302'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''303 - BANCO HNF S.A.'',''303'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''304 - BANCO PONTUAL S.A'',''304'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''308 - BANCO COMERCIAL BANCESA S.A.'',''308'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''031 - BANCO DO ESTADO DE GOIAS S.A'',''31'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''318 - BANCO B.M.G. S.A'',''318'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''032 - BANCO DO ESTADO DO MATO GROSSO S.A.'',''32'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''320 - BANCO INDUSTRIAL E COMERCIAL'',''320'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''033 - BANCO DO ESTADO DE SAO PAULO S.A'',''33'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''034 - BANCO DO ESADO DO AMAZONAS S.A'',''34'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''341 - BANCO ITAU S.A'',''341'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''346 - BANCO FRANCES E BRASILEIRO S.A'',''346'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''347 - BANCO SUDAMERIS BRASIL S.A'',''347'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''035 - BANCO DO ESTADO DO CEARA S.A'',''35'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''351 - BANCO BOZANO SIMONSEN S.A'',''351'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''353 - BANCO GERAL DO COMERCIO S.A'',''353'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''356 - ABN AMRO S.A'',''356'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''036 - BANCO DO ESTADO DO MARANHAO S.A'',''36'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''366 - BANCO SOGERAL S.A'',''366'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''369 - PONTUAL'',''369'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''037 - BANCO DO ESTADO DO PARA S.A'',''37'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''370 - BEAL - BANCO EUROPEU PARA AMERICA LATINA'',''370'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''372 - BANCO ITAMARATI S.A'',''372'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''375 - BANCO FENICIA S.A'',''375'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''376 - CHASE MANHATTAN BANK S.A'',''376'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''038 - BANCO DO ESTADO DO PARANA S.A'',''38'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''388 - BANCO MERCANTIL DE DESCONTOS S/A'',''388'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''389 - BANCO MERCANTIL DO BRASIL S.A'',''389'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''039 - BANCO DO ESTADO DO PIAUI S.A'',''39'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''392 - BANCO MERCANTIL DE SAO PAULO S.A'',''392'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''394 - BANCO B.M.C. S.A'',''394'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''399 - HSBC BANK BRASIL S.A. � BANCO M�LTIPLO'',''399'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''004 - BANCO DO NORDESTE DO BRASIL S.A'',''4'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''409 - UNIBANCO - UNIAO DOS BANCOS BRASILEIROS'',''409'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''041 - BANCO DO ESTADO DO RIO GRANDE DO SUL S.A'',''41'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''412 - BANCO NACIONAL DA BAHIA S.A'',''412'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''415 - BANCO NACIONAL S.A'',''415'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''420 - BANCO NACIONAL DO NORTE S.A'',''420'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''422 - BANCO SAFRA S.A'',''422'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''424 - BANCO NOROESTE S.A'',''424'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''434 - BANCO FORTALEZA S.A'',''434'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''453 - BANCO RURAL S.A'',''453'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''456 - BANCO TOKIO S.A'',''456'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''464 - BANCO SUMITOMO BRASILEIRO S.A'',''464'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''466 - BANCO MITSUBISHI BRASILEIRO S.A'',''466'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''047 - BANCO DO ESTADO DE SERGIPE S.A'',''47'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''472 - LLOYDS BANK PLC'',''472'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''473 - BANCO FINANCIAL PORTUGUES S.A'',''473'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''477 - CITIBANK N.A'',''477'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''479 - BANCO DE BOSTON S.A'',''479'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''048 - BANCO DO ESTADO DE MINAS GERAIS S.A'',''48'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''480 - BANCO PORTUGUES DO ATLANTICO-BRASIL S.A'',''480'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''483 - BANCO AGRIMISA S.A.'',''483'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''487 - DEUTSCHE BANK S.A - BANCO ALEMAO'',''487'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''488 - BANCO J. P. MORGAN S.A'',''488'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''489 - BANESTO BANCO URUGAUAY S.A'',''489'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''492 - INTERNATIONALE NEDERLANDEN BANK N.V.'',''492'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''493 - BANCO UNION S.A.C.A'',''493'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''494 - BANCO LA REP. ORIENTAL DEL URUGUAY'',''494'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''495 - BANCO LA PROVINCIA DE BUENOS AIRES'',''495'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''496 - BANCO EXTERIOR DE ESPANA S.A'',''496'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''498 - CENTRO HISPANO BANCO'',''498'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''499 - BANCO IOCHPE S.A'',''499'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''501 - BANCO BRASILEIRO IRAQUIANO S.A.'',''501'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''502 - BANCO SANTANDER S.A'',''502'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''504 - BANCO MULTIPLIC S.A'',''504'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''505 - BANCO GARANTIA S.A'',''505'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''059 - BANCO DO ESTADO DE RONDONIA S.A'',''59'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''600 - BANCO LUSO BRASILEIRO S.A'',''600'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''601 - BFC BANCO S.A.'',''601'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''602 - BANCO PATENTE S.A'',''602'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''604 - BANCO INDUSTRIAL DO BRASIL S.A'',''604'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''607 - BANCO SANTOS NEVES S.A'',''607'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''608 - BANCO OPEN S.A'',''608'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''610 - BANCO V.R. S.A'',''610'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''611 - BANCO PAULISTA S.A'',''611'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''612 - BANCO GUANABARA S.A'',''612'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''613 - BANCO PECUNIA S.A'',''613'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''616 - BANCO INTERPACIFICO S.A'',''616'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''617 - BANCO INVESTOR S.A.'',''617'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''618 - BANCO TENDENCIA S.A'',''618'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''621 - BANCO APLICAP S.A.'',''621'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''622 - BANCO DRACMA S.A'',''622'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''623 - BANCO PANAMERICANO S.A'',''623'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''624 - BANCO GENERAL MOTORS S.A'',''624'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''625 - BANCO ARAUCARIA S.A'',''625'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''626 - BANCO FICSA S.A'',''626'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''627 - BANCO DESTAK S.A'',''627'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''628 - BANCO CRITERIUM S.A'',''628'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''629 - BANCORP BANCO COML. E. DE INVESTMENTO'',''629'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''630 - BANCO INTERCAP S.A'',''630'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''633 - BANCO REDIMENTO S.A'',''633'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''634 - BANCO TRIANGULO S.A'',''634'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''635 - BANCO DO ESTADO DO AMAPA S.A'',''635'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''637 - BANCO SOFISA S.A'',''637'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''638 - BANCO PROSPER S.A'',''638'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''639 - BIG S.A. - BANCO IRMAOS GUIMARAES'',''639'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''640 - BANCO DE CREDITO METROPOLITANO S.A'',''640'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''641 - BANCO EXCEL ECONOMICO S/A'',''641'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''643 - BANCO SEGMENTO S.A'',''643'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''645 - BANCO DO ESTADO DE RORAIMA S.A'',''645'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''647 - BANCO MARKA S.A'',''647'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''648 - BANCO ATLANTIS S.A'',''648'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''649 - BANCO DIMENSAO S.A'',''649'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''650 - BANCO PEBB S.A'',''650'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''652 - ITA� UNIBANCO HOLDING S.A.'',''652'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''653 - BANCO INDUSVAL S.A'',''653'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''654 - BANCO A. J. RENNER S.A'',''654'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''655 - BANCO VOTORANTIM S.A.'',''655'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''656 - BANCO MATRIX S.A'',''656'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''657 - BANCO TECNICORP S.A'',''657'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''658 - BANCO PORTO REAL S.A'',''658'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''066 - BANCO MORGAN STANLEY S.A'',''66'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''007 - BANCO NAC DESENV_REST. ECO. SOCIAL S.A'',''7'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''070 - BANCO DE BRASILIA S.A'',''70'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''702 - BANCO SANTOS S.A'',''702'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''705 - BANCO INVESTCORP S.A.'',''705'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''707 - BANCO DAYCOVAL S.A'',''707'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''711 - BANCO VETOR S.A.'',''711'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''713 - BANCO CINDAM S.A'',''713'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''715 - BANCO VEGA S.A'',''715'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''718 - BANCO OPERADOR S.A'',''718'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''719 - BANCO PRIMUS S.A'',''719'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''720 - BANCO MAXINVEST S.A'',''720'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''721 - BANCO CREDIBEL S.A'',''721'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''722 - BANCO INTERIOR DE SAO PAULO S.A'',''722'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''724 - BANCO PORTO SEGURO S.A'',''724'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''725 - BANCO FINABANCO S.A'',''725'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''726 - BANCO UNIVERSAL S.A'',''726'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''728 - BANCO FITAL S.A'',''728'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''729 - BANCO FONTE S.A'',''729'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''730 - BANCO COMERCIAL PARAGUAYO S.A'',''730'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''731 - BANCO GNPP S.A.'',''731'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''732 - BANCO PREMIER S.A.'',''732'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''733 - BANCO NACOES S.A.'',''733'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''734 - BANCO GERDAU S.A'',''734'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''735 - BACO POTENCIAL'',''735'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''736 - BANCO UNITED S.A'',''736'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''737 - THECA'',''737'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''738 - MARADA'',''738'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''739 - BGN'',''739'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''740 - BCN BARCLAYS'',''740'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''741 - BRP'',''741'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''742 - EQUATORIAL'',''742'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''743 - BANCO EMBLEMA S.A'',''743'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''744 - THE FIRST NATIONAL BANK OF BOSTON'',''744'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''745 - CITIBAN N.A.'',''745'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''746 - MODAL SA'',''746'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''747 - RAIBOBANK DO BRASIL'',''747'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''748 - SICREDI'',''748'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''749 - BRMSANTIL SA'',''749'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''750 - BANCO REPUBLIC NATIONAL OF NEW YORK (BRA'',''750'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''751 - DRESDNER BANK LATEINAMERIKA-BRASIL S/A'',''751'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''752 - BANCO BANQUE NATIONALE DE PARIS BRASIL S'',''752'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''753 - BANCO COMERCIAL URUGUAI S.A.'',''753'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''755 - BANCO MERRILL LYNCH S.A'',''755'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''756 - BANCO COOPERATIVO DO BRASIL S.A.'',''756'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''757 - BANCO KEB DO BRASIL S.A.'',''757'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''001 - BANCO DO BRASIL S/A'',''758'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''077 - BANCO DE INTER S.A'',''77'');');
+  LScript.Add('INSERT INTO `bank` (`name`,`code`) VALUES (''008 - BANCO MERIDIONAL DO BRASIL'',''8'');');
+  Result := LScript.Text;
+
+  LScript.Free;
+end;
 
 { TSeeder }
-
 class function TSeeder.&Register: TSeeder;
 begin
-  ConnMigration.AddSeeder(
-    Self.UnitName,
-    TSQLBuilderFactory.Make(ENV_REST.DriverDB).Bank.ScriptSeedTable
-  );
+  case ENV_REST.DriverDB of
+    ddMySql: ConnMigration.AddSeeder(Self.UnitName, MySQLScript);
+  end;
 end;
 
 initialization

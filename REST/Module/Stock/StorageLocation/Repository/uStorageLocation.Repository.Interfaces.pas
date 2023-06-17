@@ -8,7 +8,7 @@ uses
 
 type
   IStorageLocationRepository = interface(IBaseRepository)
-    ['{1DEB945A-88F0-46D4-981B-4768F62E7958}']
+    ['{3F033149-DAC1-4682-A0A3-3C08F2DC420C}']
     function Show(AId: Int64): TStorageLocation;
   end;
 

@@ -17,8 +17,6 @@ type
     class function Make: IQueueEmailSQLBuilder;
 
     // QueueEmail
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
@@ -29,13 +27,11 @@ type
     function Update(AId: Int64; AEntity: TBaseEntity): String;
 
     // QueueEmailAttachment
-    function ScriptCreateQueueEmailAttachmentTable: String;
     function SelectQueueEmailAttachmentsByQueueEmailId(AQueueEmailId: Int64): String;
     function DeleteQueueEmailAttachmentsByQueueEmailId(AQueueEmailId: Int64): String;
     function InsertQueueEmailAttachment(AQueueEmailAttachment: TQueueEmailAttachment): String;
 
     // QueueEmailContact
-    function ScriptCreateQueueEmailContactTable: String;
     function SelectQueueEmailContactsByQueueEmailId(AQueueEmailId: Int64): String;
     function DeleteQueueEmailContactsByQueueEmailId(AQueueEmailId: Int64): String;
     function InsertQueueEmailContact(AQueueEmailContact: TQueueEmailContact): String;
@@ -132,58 +128,6 @@ end;
 class function TQueueEmailSQLBuilderMySQL.Make: IQueueEmailSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TQueueEmailSQLBuilderMySQL.ScriptCreateQueueEmailAttachmentTable: String;
-begin
-  Result := ' CREATE TABLE `queue_email_attachment` ( '+
-            ' `id` bigint NOT NULL AUTO_INCREMENT, '+
-            ' `queue_email_id` bigint NOT NULL, '+
-            ' `file_name` varchar(255) NOT NULL, '+
-            ' `base64` text NOT NULL, '+
-            ' PRIMARY KEY (`id`), '+
-            ' KEY `queue_email_attachment_fk_queue_email_id` (`queue_email_id`), '+
-            ' CONSTRAINT `queue_email_attachment_fk_queue_email_id` FOREIGN KEY (`queue_email_id`) REFERENCES `queue_email` (`id`) ON DELETE CASCADE ON UPDATE CASCADE '+
-            ' ) ';
-end;
-
-function TQueueEmailSQLBuilderMySQL.ScriptCreateQueueEmailContactTable: String;
-begin
-  Result := ' CREATE TABLE `queue_email_contact` ( '+
-            ' `id` bigint NOT NULL AUTO_INCREMENT, '+
-            ' `queue_email_id` bigint NOT NULL, '+
-            ' `email` varchar(255) NOT NULL, '+
-            ' `name` varchar(255) NOT NULL, '+
-            ' `type` tinyint COMMENT ''[0..4] 0-Recipients, 1-ReceiptRecipients, 2-CarbonCopies, 3-BlindCarbonCopies'','+
-            ' PRIMARY KEY (`id`), '+
-            ' KEY `queue_email_contact_fk_queue_email_id` (`queue_email_id`), '+
-            ' CONSTRAINT `queue_email_contact_fk_queue_email_id` FOREIGN KEY (`queue_email_id`) REFERENCES `queue_email` (`id`) ON DELETE CASCADE ON UPDATE CASCADE '+
-            ' ) ';
-end;
-
-function TQueueEmailSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result := ' CREATE TABLE `queue_email` ('+
-            '   `id` bigint NOT NULL AUTO_INCREMENT,'+
-            '   `uuid` char(36) NOT NULL COMMENT ''Identificação'','+
-            '   `reply_to` text COMMENT ''Exemplo de preenchimento: contato1@email.com nome1; contato2@email.com nome2; contato3@email.com nome3;'','+
-            '   `priority` tinyint DEFAULT ''2'' COMMENT ''[0..4] 0-Muito Alta, 1-Alta, 2-Normal, 3-Baixa, 4-Muito Baixa'','+
-            '   `subject` varchar(255) NOT NULL,'+
-            '   `message` text,'+
-            '   `sent` tinyint DEFAULT NULL COMMENT ''[0..2] 0-Não enviado, 1-Enviado, 2-Erro'','+
-            '   `sent_error` text,'+
-            '   `current_retries` tinyint DEFAULT NULL,'+
-            '   `created_at` datetime NOT NULL,'+
-            '   `updated_at` datetime DEFAULT NULL,'+
-            '   PRIMARY KEY (`id`),'+
-            '   UNIQUE KEY `queue_email_unq_uuid` (`uuid`),'+
-            '   KEY `queue_email_idx_sent` (`sent`)'+
-            ' ) ';
-end;
-
-function TQueueEmailSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := '';
 end;
 
 function TQueueEmailSQLBuilderMySQL.SelectAll: String;

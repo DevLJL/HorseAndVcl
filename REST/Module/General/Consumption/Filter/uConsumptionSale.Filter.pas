@@ -2,10 +2,12 @@ unit uConsumptionSale.Filter;
 
 interface
 
+uses
+  uConsumption.Types;
+
 type
-  TConsumptionSaleStatus = (cssAll, cssFree, cssBusy, cssPreAccount);
   IConsumptionSaleFilter = interface
-    ['{E6D65E5C-A780-4843-9372-3AA7396964A8}']
+    ['{5F71FEEF-E19C-43F9-9BB1-7D8FF954A355}']
 
     function Status(AValue: TConsumptionSaleStatus): IConsumptionSaleFilter; overload;
     function Status: TConsumptionSaleStatus; overload;

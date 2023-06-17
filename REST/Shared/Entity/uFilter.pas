@@ -7,7 +7,7 @@ uses
 
 type
   IFilter = Interface
-    ['{71C7A4F4-8601-48BD-9A88-3D0BD1F9F4B5}']
+    ['{BE15C130-26A0-4302-AD1D-5CDB78B79145}']
     function CurrentPage: Integer; overload;
     function CurrentPage(AValue: Integer): IFilter; overload;
 
@@ -22,6 +22,9 @@ type
 
     function WherePkIn: String; overload;
     function WherePkIn(AValue: String): IFilter; overload;
+
+    function AclUserId: Int64; overload;
+    function AclUserId(AValue: Int64): IFilter; overload;
 
     function Where(AParentheses: TParentheses; AFieldName: String; ACondition: TCondition; AValue: String = ''): IFilter;
     function &And(AParentheses: TParentheses; AFieldName: String; ACondition: TCondition; AValue: String = ''): IFilter;
@@ -38,6 +41,7 @@ type
     FCurrentPage: integer;
     FExpression: String;
     FWherePkIn: String;
+    FAclUserId: Int64;
     function Condition(ACondition: TCondition; AValue: String = ''): IFilter;
   public
     function CurrentPage: Integer; overload;
@@ -54,6 +58,9 @@ type
 
     function WherePkIn: String; overload;
     function WherePkIn(AValue: String): IFilter; overload;
+
+    function AclUserId: Int64; overload;
+    function AclUserId(AValue: Int64): IFilter; overload;
 
     function Where(AParentheses: TParentheses; AFieldName: String; ACondition: TCondition; AValue: String = ''): IFilter;
     function &And(AParentheses: TParentheses; AFieldName: String; ACondition: TCondition; AValue: String = ''): IFilter;
@@ -94,6 +101,17 @@ end;
 function TFilter.WherePkIn: String;
 begin
   Result := FWherePkIn;
+end;
+
+function TFilter.AclUserId(AValue: Int64): IFilter;
+begin
+  Result := Self;
+  FAclUserId := AValue;
+end;
+
+function TFilter.AclUserId: Int64;
+begin
+  Result := FAclUserId;
 end;
 
 function TFilter.&And(AParentheses: TParentheses; AFieldName: String; ACondition: TCondition; AValue: String): IFilter;

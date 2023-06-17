@@ -9,7 +9,7 @@ uses
 
 type
   ICashFlowRepository = interface(IBaseRepository)
-    ['{FD230DC8-C449-46EA-A4C9-20D87C5150E2}']
+    ['{585D2335-994B-40F0-ABEB-C0360DBFF283}']
     function Show(AId: Int64): TCashFlow;
     /// <summary> Verificar se stacao esta em uso </summary>
     /// <param name="AStationId"> ID da Estacao </param>

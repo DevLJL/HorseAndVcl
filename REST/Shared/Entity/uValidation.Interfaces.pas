@@ -4,7 +4,7 @@ interface
 
 type
   IValidation = Interface
-    ['{5703F780-E4D9-48C2-BEB2-18A0D9FC6188}']
+    ['{8D45C5E6-B36B-4AC5-8E8A-A8AFE516F823}']
     function Validate: String;
   end;
 

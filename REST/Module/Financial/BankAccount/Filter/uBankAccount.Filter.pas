@@ -7,7 +7,7 @@ uses
 
 type
   IBankAccountFilter = Interface(IFilter)
-    ['{B3F7F9C8-5BBB-447F-8EB4-573065D1854C}']
+    ['{B9797535-C772-4F92-ACF6-CA4D5F44ACCA}']
   End;
 
   TBankAccountFilter = class(TFilter, IBankAccountFilter)

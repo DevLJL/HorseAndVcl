@@ -8,7 +8,7 @@ uses
 
 type
   IBankAccountRepository = interface(IBaseRepository)
-    ['{C7929A04-022E-4888-A7AF-48CAA7CDB3E1}']
+    ['{A234F254-364F-4C4D-9CD1-3EE5C8501278}']
     function Show(AId: Int64): TBankAccount;
   end;
 

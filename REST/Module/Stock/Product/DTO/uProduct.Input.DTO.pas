@@ -11,7 +11,9 @@ uses
   uBase.DTO,
   XSuperObject,
   uSmartPointer,
-  uProduct.Types;
+  uProduct.Types,
+  uProductPriceList.Input.DTO,
+  System.Generics.Collections;
 
 type
   TProductInputDTO = class(TBaseDTO)
@@ -22,6 +24,7 @@ type
     Fgross_weight: Double;
     Fcost: Double;
     Fgenre: TProductGenre;
+    Fcheck_value_before_insert: TProductCheckValueBeforeInsert;
     Funit_id: Int64;
     Fpacking_weight: Double;
     Fprice: Double;
@@ -35,6 +38,7 @@ type
     Fean_code: String;
     Ftype: TProductType;
     Fflg_product_for_scales: SmallInt;
+    Fflg_additional: SmallInt;
     Fcomplement_note: String;
     Fnet_weight: Double;
     Fcategory_id: Int64;
@@ -44,7 +48,12 @@ type
     Fminimum_quantity: Double;
     Finternal_note: String;
     Fidentification_code: String;
+
+    // OneToMany
+    Fproduct_price_lists: TObjectList<TProductPriceListInputDTO>;
   public
+    constructor Create;
+    destructor Destroy; override;
     {$IFDEF APPREST}
     class function FromReq(AReq: THorseRequest): TProductInputDTO;
     {$ENDIF}
@@ -117,6 +126,10 @@ type
     [SwagProp('flg_product_for_scales', '[0..1] Item de balança', false)]
     property flg_product_for_scales: SmallInt read Fflg_product_for_scales write Fflg_product_for_scales;
 
+    [SwagNumber(0,1)]
+    [SwagProp('flg_additional', '[0..1] Adicional', false)]
+    property flg_additional: SmallInt read Fflg_additional write Fflg_additional;
+
     [SwagString]
     [SwagProp('internal_note', 'Observação Interna', false)]
     property internal_note: String read Finternal_note write Finternal_note;
@@ -157,9 +170,16 @@ type
     [SwagProp('genre', 'Gênero [0..3] 0-Nenhum, 1-Masculino, 2-Geminino, 3-Unisex', false)]
     property genre: TProductGenre read Fgenre write Fgenre;
 
+    [SwagNumber]
+    [SwagProp('check_value_before_insert', 'Verificar valores antes de inserir [0..3] 0-Não, 1-Sim, 2-Quiz', false)]
+    property check_value_before_insert: TProductCheckValueBeforeInsert read Fcheck_value_before_insert write Fcheck_value_before_insert;
+
     [SwagIgnore]
     [DISABLE]
     property acl_user_id: Int64 read Facl_user_id write Facl_user_id;
+
+    // OneToMany
+    property product_price_lists: TObjectList<TProductPriceListInputDTO> read Fproduct_price_lists write Fproduct_price_lists;
   end;
 
 implementation
@@ -180,9 +200,21 @@ begin
     raise Exception.Create('Nenhum JSON informado!');
 
   Result             := TProductInputDTO.FromJSON(AReq.Body);
-  Result.acl_user_id := StrInt(AReq.Session<TMyClaims>.Id);
+  Result.acl_user_id := AReq.Session<TMyClaims>.IdToInt64;
 end;
 {$ENDIF}
+
+constructor TProductInputDTO.Create;
+begin
+  inherited Create;
+  Fproduct_price_lists := TObjectList<TProductPriceListInputDTO>.Create;
+end;
+
+destructor TProductInputDTO.Destroy;
+begin
+  if Assigned(Fproduct_price_lists) then FreeAndNil(Fproduct_price_lists);
+  inherited;
+end;
 
 end.
 

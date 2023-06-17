@@ -8,7 +8,7 @@ uses
 
 type
   IQueueEmailRepository = interface(IBaseRepository)
-    ['{D988894A-6C51-4AC9-90E1-797F31D22D90}']
+    ['{C7F453C4-F165-4094-B13C-E7C97F696DFD}']
     function Show(AId: Int64): TQueueEmail;
   end;
 

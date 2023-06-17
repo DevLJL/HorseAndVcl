@@ -7,7 +7,7 @@ uses
 
 type
   ICityFilter = Interface(IFilter)
-    ['{E1862647-20DB-46A7-83D4-B0050D4DB4E9}']
+    ['{F16816CD-2464-4921-AB05-3930FFEBA9C0}']
   End;
 
   TCityFilter = class(TFilter, ICityFilter)

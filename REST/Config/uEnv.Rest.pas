@@ -11,29 +11,38 @@ type
   TEnvRest = class(TIniFile)
   private
     FStationId: Integer;
+    // SETS
     procedure SetDatabase(const Value: String);
     procedure SetPassword(const Value: String);
     procedure SetPort(const Value: String);
     procedure SetServer(const Value: String);
     procedure SetUserName(const Value: String);
     procedure SetVendorLib(const Value: String);
+    procedure SetDriver(const Value: String);
+    procedure SetDefaultConnLibType(const Value: TZLConnLibType);
+    procedure SetDefaultRepoType(const Value: TZLRepositoryType);
+    procedure SetStationId(const Value: Integer);
+    procedure SetLanguage(const Value: String);
+    procedure SetPosPrinterTask(const Value: Boolean);
+    procedure SetSendEmailsTask(const Value: Boolean);
+    procedure SetApiPort(const Value: Integer);
+    // GETS
     function GetDatabase: String;
     function GetPassword: String;
     function GetPort: String;
     function GetServer: String;
     function GetUserName: String;
     function GetVendorLib: String;
-    procedure SetDriver(const Value: String);
     function GetDriver: String;
     function GetDefaultConnLibType: TZLConnLibType;
-    procedure SetDefaultConnLibType(const Value: TZLConnLibType);
     function GetDefaultRepoType: TZLRepositoryType;
-    procedure SetDefaultRepoType(const Value: TZLRepositoryType);
-    procedure SetStationId(const Value: Integer);
     function GetStationId: Integer;
     function GetLanguage: String;
-    procedure SetLanguage(const Value: String);
+    function GetPosPrinterTask: Boolean;
+    function GetSendEmailsTask: Boolean;
+    function GetApiPort: Integer;
   public
+    property ApiPort: Integer read GetApiPort write SetApiPort;
     property Database: String read GetDatabase write SetDatabase;
     property UserName: String read GetUserName write SetUserName;
     property Password: String read GetPassword write SetPassword;
@@ -44,8 +53,10 @@ type
     property DefaultConnLibType: TZLConnLibType read GetDefaultConnLibType write SetDefaultConnLibType;
     property DefaultRepoType: TZLRepositoryType read GetDefaultRepoType write SetDefaultRepoType;
     property StationId: Integer read GetStationId write SetStationId;
-    function DriverDB: TZLDriverDB;
     property Language: String read GetLanguage write SetLanguage;
+    property SendEmailsTask: Boolean read GetSendEmailsTask write SetSendEmailsTask;
+    property PosPrinterTask: Boolean read GetPosPrinterTask write SetPosPrinterTask;
+    function DriverDB: TZLDriverDB;
     procedure CreateFileIfNotExists;
     class function EnvName: String;
   end;
@@ -61,22 +72,28 @@ implementation
 
 { TEnvRest }
 
+uses
+  uHlp;
+
 procedure TEnvRest.CreateFileIfNotExists;
 begin
   // Criar arquivo se não existir
   if not FileExists(EnvName) then
   begin
+    SetApiPort(9123);
     SetDatabase('dbase');
     SetUserName('root');
     SetPassword('root');
     SetServer('localhost');
-    SetPort('3151');
+    SetPort('3306');
     SetVendorLib('libmysql.dll');
     SetDriver('MySQL');
     SetDefaultConnLibType(TZLConnLibType.ctFireDAC);
     SetDefaultRepoType(TZLRepositoryType.rtSQL);
     SetStationId(1);
     SetLanguage('PT-BR');
+    SetSendEmailsTask(True);
+    SetPosPrinterTask(True);
   end;
 end;
 
@@ -96,6 +113,11 @@ begin
   {$ELSE}
     Result := ENV_REST_PRODUCTION;
   {$ENDIF}
+end;
+
+function TEnvRest.GetApiPort: Integer;
+begin
+  Result := ReadInteger(SECTION_PREFIX+'CONNECTION','API_PORT',9123);
 end;
 
 function TEnvRest.GetDatabase: String;
@@ -141,6 +163,16 @@ begin
   Result := ReadString(SECTION_PREFIX+'CONNECTION','PORT','');
 end;
 
+function TEnvRest.GetPosPrinterTask: Boolean;
+begin
+  Result := ReadInteger(SECTION_PREFIX+'TASKS','POS_PRINTER',1) = 1;
+end;
+
+function TEnvRest.GetSendEmailsTask: Boolean;
+begin
+  Result := ReadInteger(SECTION_PREFIX+'TASKS','SEND_EMAILS',1) = 1;
+end;
+
 function TEnvRest.GetServer: String;
 begin
   Result := ReadString(SECTION_PREFIX+'CONNECTION','SERVER','');
@@ -159,6 +191,11 @@ end;
 function TEnvRest.GetVendorLib: String;
 begin
   Result := ReadString(SECTION_PREFIX+'CONNECTION','VENDORLIB','');
+end;
+
+procedure TEnvRest.SetApiPort(const Value: Integer);
+begin
+  WriteInteger(SECTION_PREFIX+'CONNECTION','API_PORT',Value);
 end;
 
 procedure TEnvRest.SetDatabase(const Value: String);
@@ -204,6 +241,16 @@ end;
 procedure TEnvRest.SetPort(const Value: String);
 begin
   WriteString(SECTION_PREFIX+'CONNECTION','PORT',Value);
+end;
+
+procedure TEnvRest.SetPosPrinterTask(const Value: Boolean);
+begin
+  WriteInteger(SECTION_PREFIX+'TASKS','POS_PRINTER',BoolInt(Value));
+end;
+
+procedure TEnvRest.SetSendEmailsTask(const Value: Boolean);
+begin
+  WriteInteger(SECTION_PREFIX+'TASKS','SEND_EMAILS',BoolInt(Value));
 end;
 
 procedure TEnvRest.SetServer(const Value: String);

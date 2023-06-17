@@ -7,7 +7,7 @@ uses
 
 type
   INcmFilter = Interface(IFilter)
-    ['{5DD9A01B-9744-4CDA-A72B-7561A3343CA1}']
+    ['{535C4E96-3409-4591-9BD6-B3463E3783EF}']
   End;
 
   TNcmFilter = class(TFilter, INcmFilter)

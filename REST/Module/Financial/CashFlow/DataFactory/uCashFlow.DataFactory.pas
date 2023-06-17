@@ -11,7 +11,7 @@ uses
 
 type
   ICashFlowDataFactory = Interface
-    ['{CA893AB0-22E9-460A-90B9-6B9263EB474F}']
+    ['{BAE332EF-BFC2-4D39-83E8-7EEF9B3F15A9}']
     function GenerateInsert: TCashFlowShowDTO;
     function GenerateInput: TCashFlowInputDTO;
   End;

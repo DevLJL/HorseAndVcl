@@ -12,7 +12,7 @@ uses
 
 type
   IPaymentPersistenceUseCase = Interface
-    ['{1A86DD7E-E966-4D5F-BEC3-4284D220E0C3}']
+    ['{60CBEFC5-373C-44EF-B921-CB504CBA2FFD}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TPaymentFilterDTO): IIndexResult; overload;

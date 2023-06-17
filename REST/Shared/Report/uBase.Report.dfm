@@ -29,7 +29,7 @@ object BaseReport: TBaseReport
       Height = 122
       AutoExpand = False
       BandType = btHeader
-      object memCompanyMoreInfo: TRLMemo
+      object memTenantMoreInfo: TRLMemo
         Left = 135
         Top = 29
         Width = 582
@@ -177,7 +177,7 @@ object BaseReport: TBaseReport
             490AE07F206C73C462EDD8CA0000000049454E44AE426082}
         end
       end
-      object memCompanyAliasName: TRLMemo
+      object memTenantAliasName: TRLMemo
         Left = 135
         Top = 1
         Width = 323
@@ -192,7 +192,7 @@ object BaseReport: TBaseReport
           'FANTASIA')
         ParentFont = False
       end
-      object lblCompanyEin: TRLLabel
+      object lblTenantEin: TRLLabel
         Left = 681
         Top = 1
         Width = 37
@@ -206,7 +206,7 @@ object BaseReport: TBaseReport
         Font.Style = []
         ParentFont = False
       end
-      object memCompanyContacts: TRLMemo
+      object memTenantContacts: TRLMemo
         Left = 135
         Top = 90
         Width = 582

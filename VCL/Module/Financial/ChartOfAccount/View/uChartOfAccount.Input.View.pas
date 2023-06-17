@@ -56,7 +56,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uNotificationView,
+  uToast.View,
   Quick.Threads,
   Vcl.Dialogs,
   uHandle.Exception,
@@ -162,12 +162,12 @@ begin
             TAlertView.Handle(LSaved.Left);
 
           FViewModel.ChartOfAccount.Edit;
-          NotificationView.Execute(Trans.RecordValidationFailed, tneError);
+          ToastView.Execute(Trans.RecordValidationFailed, tneError);
           Exit;
         end;
 
         // Retornar registro inserido/atualizado
-        NotificationView.Execute(Trans.RecordSaved, tneSuccess);
+        ToastView.Execute(Trans.RecordSaved, tneSuccess);
         FHandleResult := LSaved.Right;
         ModalResult   := MrOK;
       finally

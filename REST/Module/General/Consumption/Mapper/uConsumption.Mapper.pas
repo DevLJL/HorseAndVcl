@@ -8,7 +8,9 @@ uses
   uConsumption.Input.DTO,
   uConsumption.Show.DTO,
   uConsumption.Filter.DTO,
-  uFilter;
+  uFilter,
+  uConsumptionSale.Filter.DTO,
+  uConsumptionSale.Filter;
 
 type
   TConsumptionMapper = class(TInterfacedObject, IMapper)
@@ -16,6 +18,7 @@ type
     class function InputToEntity(AInput: TConsumptionInputDTO): TConsumption;
     class function EntityToShow(AEntity: TConsumption): TConsumptionShowDTO;
     class function FilterToEntity(AInput: TConsumptionFilterDTO): IFilter;
+    class function FilterSaleToEntity(AInput: TConsumptionSaleFilterDTO): IConsumptionSaleFilter;
   end;
 
 implementation
@@ -38,6 +41,13 @@ begin
   Result                          := TConsumptionShowDTO.FromJSON(AEntity.AsJSON);
   Result.created_by_acl_user_name := AEntity.created_by_acl_user.name;
   Result.updated_by_acl_user_name := AEntity.updated_by_acl_user.name;
+end;
+
+class function TConsumptionMapper.FilterSaleToEntity(AInput: TConsumptionSaleFilterDTO): IConsumptionSaleFilter;
+begin
+  Result := TConsumptionSaleFilter.Make
+    .Status(AInput.status)
+    .Number(AInput.number);
 end;
 
 class function TConsumptionMapper.FilterToEntity(AInput: TConsumptionFilterDTO): IFilter;

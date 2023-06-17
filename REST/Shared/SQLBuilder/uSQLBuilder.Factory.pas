@@ -3,12 +3,15 @@ unit uSQLBuilder.Factory;
 interface
 
 uses
+  uAdditional.SQLBuilder.Interfaces,
+  uPriceList.SQLBuilder.Interfaces,
+  uGlobalConfig.SQLBuilder.Interfaces,
   uQueueEmail.SQLBuilder.Interfaces,
   uCashFlow.SQLBuilder.Interfaces,
   uConsumption.SQLBuilder.Interfaces,
-//  uPosPrinter.SQLBuilder.Interfaces,
+  uPosPrinter.SQLBuilder.Interfaces,
   uBillPayReceive.SQLBuilder.Interfaces,
-  uCompany.SQLBuilder.Interfaces,
+  uTenant.SQLBuilder.Interfaces,
   uSale.SQLBuilder.Interfaces,
   uPayment.SQLBuilder.Interfaces,
   uChartOfAccount.SQLBuilder.Interfaces,
@@ -23,7 +26,6 @@ uses
   uUnit.SQLBuilder.Interfaces,
   uPerson.SQLBuilder.Interfaces,
   uCity.SQLBuilder.Interfaces,
-//  uAppParam.SQLBuilder.Interfaces,
   uBrand.SQLBuilder.Interfaces,
   uAclUser.SQLBuilder.Interfaces,
   uStation.SQLBuilder.Interfaces,
@@ -32,13 +34,16 @@ uses
 
 type
   ISQLBuilderFactory = interface
-    ['{9A547AAB-F026-40CA-A767-2546BCC1201C}']
+    ['{70331F0A-8240-4E68-9344-84329210019F}']
+    function Additional: IAdditionalSQLBuilder;
+    function PriceList: IPriceListSQLBuilder;
+    function GlobalConfig: IGlobalConfigSQLBuilder;
     function QueueEmail: IQueueEmailSQLBuilder;
     function CashFlow: ICashFlowSQLBuilder;
     function Consumption: IConsumptionSQLBuilder;
-//    function PosPrinter: IPosPrinterSQLBuilder;
+    function PosPrinter: IPosPrinterSQLBuilder;
     function BillPayReceive: IBillPayReceiveSQLBuilder;
-    function Company: ICompanySQLBuilder;
+    function Tenant: ITenantSQLBuilder;
     function Sale: ISaleSQLBuilder;
     function Station: IStationSQLBuilder;
     function Payment: IPaymentSQLBuilder;
@@ -54,7 +59,6 @@ type
     function &Unit: IUnitSQLBuilder;
     function Person: IPersonSQLBuilder;
     function City: ICitySQLBuilder;
-//    function AppParam: IAppParamSQLBuilder;
     function Brand: IBrandSQLBuilder;
     function AclUser: IAclUserSQLBuilder;
     function AclRole: IAclRoleSQLBuilder;
@@ -67,12 +71,15 @@ type
   public
     class function Make(ADriverDB: TZLDriverDB = ddDefault): ISQLBuilderFactory;
 
+    function Additional: IAdditionalSQLBuilder;
+    function PriceList: IPriceListSQLBuilder;
+    function GlobalConfig: IGlobalConfigSQLBuilder;
     function QueueEmail: IQueueEmailSQLBuilder;
     function CashFlow: ICashFlowSQLBuilder;
     function Consumption: IConsumptionSQLBuilder;
-//    function PosPrinter: IPosPrinterSQLBuilder;
+    function PosPrinter: IPosPrinterSQLBuilder;
     function BillPayReceive: IBillPayReceiveSQLBuilder;
-    function Company: ICompanySQLBuilder;
+    function Tenant: ITenantSQLBuilder;
     function Sale: ISaleSQLBuilder;
     function Station: IStationSQLBuilder;
     function Payment: IPaymentSQLBuilder;
@@ -88,7 +95,6 @@ type
     function &Unit: IUnitSQLBuilder;
     function Person: IPersonSQLBuilder;
     function City: ICitySQLBuilder;
-//    function AppParam: IAppParamSQLBuilder;
     function Brand: IBrandSQLBuilder;
     function AclUser: IAclUserSQLBuilder;
     function AclRole: IAclRoleSQLBuilder;
@@ -97,12 +103,15 @@ type
 implementation
 
 uses
+  uAdditional.SQLBuilder.MySQL,
+  uPriceList.SQLBuilder.MySQL,
+  uGlobalConfig.SQLBuilder.MySQL,
   uQueueEmail.SQLBuilder.MySQL,
   uCashFlow.SQLBuilder.MySQL,
   uConsumption.SQLBuilder.MySQL,
-//  uPosPrinter.SQLBuilder.MySQL,
+  uPosPrinter.SQLBuilder.MySQL,
   uBillPayReceive.SQLBuilder.MySQL,
-  uCompany.SQLBuilder.MySQL,
+  uTenant.SQLBuilder.MySQL,
   uSale.SQLBuilder.MySQL,
   uStation.SQLBuilder.MySQL,
   uPayment.SQLBuilder.MySQL,
@@ -147,13 +156,13 @@ begin
   end;
 end;
 
-//function TSQLBuilderFactory.AppParam: IAppParamSQLBuilder;
-//begin
-//  case FDriverDB of
-//    ddMySql: Result := TAppParamSQLBuilderMySQL.Make;
-//  end;
-//end;
-//
+function TSQLBuilderFactory.Additional: IAdditionalSQLBuilder;
+begin
+  case FDriverDB of
+    ddMySql: Result := TAdditionalSQLBuilderMySQL.Make;
+  end;
+end;
+
 function TSQLBuilderFactory.Bank: IBankSQLBuilder;
 begin
   case FDriverDB of
@@ -210,10 +219,10 @@ begin
   end;
 end;
 
-function TSQLBuilderFactory.Company: ICompanySQLBuilder;
+function TSQLBuilderFactory.Tenant: ITenantSQLBuilder;
 begin
   case FDriverDB of
-    ddMySql: Result := TCompanySQLBuilderMySQL.Make;
+    ddMySql: Result := TTenantSQLBuilderMySQL.Make;
   end;
 end;
 
@@ -238,6 +247,13 @@ begin
   FDriverDB := ADriverDB;
   if (FDriverDB = ddDefault) then
     FDriverDB := ENV_REST.DriverDB;
+end;
+
+function TSQLBuilderFactory.GlobalConfig: IGlobalConfigSQLBuilder;
+begin
+  case FDriverDB of
+    ddMySql: Result := TGlobalConfigSQLBuilderMySQL.Make;
+  end;
 end;
 
 function TSQLBuilderFactory.Payment: IPaymentSQLBuilder;
@@ -280,13 +296,20 @@ begin
   end;
 end;
 
-//function TSQLBuilderFactory.PosPrinter: IPosPrinterSQLBuilder;
-//begin
-//  case FDriverDB of
-//    ddMySql: Result := TPosPrinterSQLBuilderMySQL.Make;
-//  end;
-//end;
-//
+function TSQLBuilderFactory.PosPrinter: IPosPrinterSQLBuilder;
+begin
+  case FDriverDB of
+    ddMySql: Result := TPosPrinterSQLBuilderMySQL.Make;
+  end;
+end;
+
+function TSQLBuilderFactory.PriceList: IPriceListSQLBuilder;
+begin
+  case FDriverDB of
+    ddMySql: Result := TPriceListSQLBuilderMySQL.Make;
+  end;
+end;
+
 function TSQLBuilderFactory.Product: IProductSQLBuilder;
 begin
   case FDriverDB of

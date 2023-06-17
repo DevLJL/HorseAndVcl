@@ -27,6 +27,10 @@ type
     Faddress: String;
     Fphone_1: String;
     Fname: String;
+    Fflg_customer: String;
+    Fflg_supplier: String;
+    Fflg_seller: String;
+    Fflg_carrier: String;
   public
     {$IFDEF APPREST}
     class function FromReq(AReq: THorseRequest): TPersonFilterDTO;
@@ -79,6 +83,22 @@ type
     [SwagString]
     [SwagProp('financial_email', 'E-mail Financeiro', false)]
     property financial_email: String read Ffinancial_email write Ffinancial_email;
+
+    [SwagString]
+    [SwagProp('flg_customer', 'Cliente [Empty-Nenhum, 0-Não, 1-Sim]', false)]
+    property flg_customer: String read Fflg_customer write Fflg_customer;
+
+    [SwagString]
+    [SwagProp('flg_seller', 'Vendedor [Empty-Nenhum, 0-Não, 1-Sim]', false)]
+    property flg_seller: String read Fflg_seller write Fflg_seller;
+
+    [SwagString]
+    [SwagProp('flg_supplier', 'Fornecedor [Empty-Nenhum, 0-Não, 1-Sim]', false)]
+    property flg_supplier: String read Fflg_supplier write Fflg_supplier;
+
+    [SwagString]
+    [SwagProp('flg_carrier', 'Transportador [Empty-Nenhum, 0-Não, 1-Sim]', false)]
+    property flg_carrier: String read Fflg_carrier write Fflg_carrier;
   end;
 
 implementation

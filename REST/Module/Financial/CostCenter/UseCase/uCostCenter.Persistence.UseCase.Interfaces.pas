@@ -12,7 +12,7 @@ uses
 
 type
   ICostCenterPersistenceUseCase = Interface
-    ['{17655ED3-913D-4FDD-8C02-5A2AEC9855B6}']
+    ['{26A844BB-BEB9-475F-9966-432223F3D153}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TCostCenterFilterDTO): IIndexResult; overload;

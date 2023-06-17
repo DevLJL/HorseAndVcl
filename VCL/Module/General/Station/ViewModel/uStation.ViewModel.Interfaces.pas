@@ -10,7 +10,7 @@ uses
 
 type
   IStationViewModel = Interface(IBaseViewModel)
-    ['{7AB49534-A5F6-43ED-B1F2-1B6EB242425F}']
+    ['{72AEA021-8F40-4A3A-8A09-B09B0EEF4619}']
     function  FromShowDTO(AInput: TStationShowDTO): IStationViewModel;
     function  ToInputDTO: TStationInputDTO;
     function  EmptyDataSets: IStationViewModel;

@@ -12,8 +12,6 @@ type
   TAclUserSQLBuilderMySQL = class(TInterfacedObject, IAclUserSQLBuilder)
   public
     class function Make: IAclUserSQLBuilder;
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function DeleteById(AId: Int64): String;
     function DeleteByIdRange(AId: String): String;
     function SelectAll: String;
@@ -79,41 +77,6 @@ end;
 class function TAclUserSQLBuilderMySQL.Make: IAclUserSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TAclUserSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result := ' CREATE TABLE `acl_user` (                                                                       '+
-            '   `id` bigint NOT NULL AUTO_INCREMENT,                                                          '+
-            '   `name` varchar(100) NOT NULL,                                                                 '+
-            '   `login` varchar(100) NOT NULL,                                                                '+
-            '   `login_password` varchar(100) NOT NULL,                                                       '+
-            '   `acl_role_id` bigint NOT NULL,                                                                '+
-            '   `flg_superuser` tinyint(4) DEFAULT NULL,                                                      '+
-            '   `seller_id` bigint DEFAULT NULL,                                                              '+
-            '   `last_token` text,                                                                            '+
-            '   `last_expiration` datetime DEFAULT NULL,                                                      '+
-            '   PRIMARY KEY (`id`),                                                                           '+
-            '   UNIQUE KEY `login_UNIQUE` (`login`),                                                          '+
-            '   KEY `acl_user_fk_acl_role_id` (`acl_role_id`),                                                '+
-            '   CONSTRAINT `acl_user_fk_acl_role_id` FOREIGN KEY (`acl_role_id`) REFERENCES `acl_role` (`id`) '+
-            ' )                                                                                               ';
-end;
-
-function TAclUserSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  const LSQL = ' INSERT INTO acl_user '+
-               '   (name, login, login_password, acl_role_id, flg_superuser) '+
-               ' VALUES '+
-               '   (%s, %s, %s, %s, %s)';
-
-  Result := Format(LSQL, [
-    Q('lead'),
-    Q('lead'),
-    Q(Encrypt(ENCRYPTATION_KEY, 'lead321')),
-    Q(1),
-    Q(1)
-  ]);
 end;
 
 function TAclUserSQLBuilderMySQL.SelectAll: String;

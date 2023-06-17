@@ -9,9 +9,8 @@ uses
 
 type
   IStorageLocationSQLBuilder = interface(IBaseSQLBuilder)
-    ['{7175F19D-6BFB-4A67-8203-5229F1E038AD}']
+    ['{8500866D-FC90-430C-AFD3-E15B6A72A7C8}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

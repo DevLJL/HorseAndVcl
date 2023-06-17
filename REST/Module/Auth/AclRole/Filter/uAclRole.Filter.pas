@@ -7,7 +7,7 @@ uses
 
 type
   IAclRoleFilter = Interface(IFilter)
-    ['{A6B6FF9D-8E61-4BC4-AB5F-22F8344099AB}']
+    ['{D15117EE-C976-4621-B694-BC291FC440E0}']
   End;
 
   TAclRoleFilter = class(TFilter, IAclRoleFilter)

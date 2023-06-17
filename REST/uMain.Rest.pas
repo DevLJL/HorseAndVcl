@@ -2,22 +2,6 @@
 
 interface
 
-type
-  TMainRest = class
-  private
-    class procedure InitializeSwagger;
-    class procedure SetMiddlewares;
-    class procedure RunMigrationsAndSeeds;
-    class procedure SetRoutes;
-    class procedure ClearTempFolder;
-    class procedure StartTasks;
-    class procedure RunServer;
-  public
-    class function Start: TMainRest;
-  end;
-
-implementation
-
 uses
   System.SysUtils,
   System.Classes,
@@ -49,8 +33,25 @@ uses
   uRouteApi.Stock,
   uTaskScheduler;
 
+type
+  TMainRest = class
+  private
+    class procedure InitializeSwagger;
+    class procedure SetMiddlewares;
+    class procedure RunMigrationsAndSeeds;
+    class procedure SetRoutes;
+    class procedure ClearTempFolder;
+    class procedure StartTasks;
+    class procedure RunServer;
+  public
+    class function Start: TMainRest;
+  end;
+
+implementation
+
+uses uEnv.Rest;
+
 const
-  SERVER_PORT = 9123;
   SKIP_ROUTES_ON_AUTHENTICATION: TArray<String> = [
     'api/v1/Ping',
     'api/v1/AclUsers/Login',
@@ -163,7 +164,7 @@ end;
 class procedure TMainRest.RunServer;
 begin
   // Executar Servidor
-  THorse.Listen(SERVER_PORT,
+  THorse.Listen(ENV_REST.ApiPort,
     procedure
     begin
       Writeln(Format('Swagger Documentation on %s:%d%s', [THorse.Host, THorse.Port, '/swagger/doc/html']));

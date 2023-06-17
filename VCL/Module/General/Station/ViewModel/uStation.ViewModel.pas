@@ -95,7 +95,7 @@ function TStationViewModel.FromShowDTO(AInput: TStationShowDTO): IStationViewMod
 begin
   Result := Self;
 
-  FStation.UnsignEvents.FromJson(AInput.AsJSON);
+  FStation.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

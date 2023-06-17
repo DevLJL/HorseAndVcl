@@ -4,7 +4,7 @@ interface
 
 type
   IBaseService = Interface
-    ['{18AE67BD-2EE2-422A-84D2-800579C6CCBC}']
+    ['{913C6323-6292-4F07-8001-AE50BBCEF149}']
   End;
 
   TBaseService = class(TInterfacedObject, IBaseService)

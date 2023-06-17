@@ -7,7 +7,7 @@ uses
 
 type
   IUnitFilter = Interface(IFilter)
-    ['{72709D2D-21EC-4EB2-B085-3CEF18E45F11}']
+    ['{3A78DC49-617D-4FB9-B23E-0F3ADF5300A9}']
   End;
 
   TUnitFilter = class(TFilter, IUnitFilter)

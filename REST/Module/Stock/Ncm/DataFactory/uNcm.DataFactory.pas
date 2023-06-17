@@ -11,7 +11,7 @@ uses
 
 type
   INcmDataFactory = Interface
-    ['{A95D54B6-1D3F-4168-AF32-D2355A3AC15C}']
+    ['{848DED9F-E417-4EFE-8FFF-3DAA5DEC7D31}']
     function GenerateInsert: TNcmShowDTO;
     function GenerateInput: TNcmInputDTO;
   End;

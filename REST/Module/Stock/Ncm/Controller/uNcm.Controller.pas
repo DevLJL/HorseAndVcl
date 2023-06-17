@@ -74,19 +74,23 @@ uses
   uHlp,
   uResponse,
   uSmartPointer,
-  System.SysUtils, uTrans;
+  System.SysUtils,
+  uTrans,
+  uMyClaims,
+  uEither;
 
 constructor TNcmController.Create(Req: THorseRequest; Res: THorseResponse);
 begin
-  FReq                := Req;
-  FRes                := Res;
-  FRepository         := TRepositoryFactory.Make.Ncm;
+  FReq         := Req;
+  FRes         := Res;
+  FRepository  := TRepositoryFactory.Make.Ncm;
   FPersistence := TNcmPersistenceUseCase.Make(FRepository);
 end;
 
 procedure TNcmController.Delete;
 begin
   const LID = StrInt(FReq.Params['id']);
+  
   FPersistence.Delete(LID);
   Response(FRes).StatusCode(HTTP_NO_CONTENT);
 end;
@@ -94,11 +98,11 @@ end;
 procedure TNcmController.Index;
 begin
   // Obter FilterDTO
-  const LInput: SH<TNcmFilterDTO> = TNcmFilterDTO.FromReq(FReq);
-  SwaggerValidator.Validate(LInput);
+  const LFilter: SH<TNcmFilterDTO> = TNcmFilterDTO.FromReq(FReq);
+  SwaggerValidator.Validate(LFilter);
 
   // Efetuar Listagem
-  const LIndexResult = FPersistence.Index(LInput);
+  const LIndexResult = FPersistence.Index(LFilter);
 
   // Retorno
   Response(FRes).Data(LIndexResult.ToSuperObject);
@@ -110,11 +114,11 @@ begin
   const LID = StrInt(FReq.Params['id']);
 
   // Procurar por ID
-  const LOutput: SH<TNcmShowDTO> = FPersistence.Show(LID);
+  const LOutput = FPersistence.Show(LID);
 
   // Retorno
-  case Assigned(LOutput.Value) of
-    True:  Response(FRes).Data(LOutput.Value);
+  case Assigned(LOutput) of
+    True:  Response(FRes).Data(LOutput);
     False: Response(FRes).StatusCode(HTTP_NOT_FOUND);
   end;
 end;
@@ -126,7 +130,7 @@ begin
   SwaggerValidator.Validate(LInput);
 
   // Inserir
-  const LUseCaseResult = FPersistence.StoreAndShow(LInput);
+  const LUseCaseResult: Either<String, TNcmShowDTO> = FPersistence.StoreAndShow(LInput);
   if not LUseCaseResult.Match then
   begin
     Response(FRes).Error(True).Message(LUseCaseResult.Left);
@@ -134,7 +138,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TNcmShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput).StatusCode(HTTP_CREATED);
 end;
 
@@ -161,7 +165,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TNcmShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput);
 end;
 

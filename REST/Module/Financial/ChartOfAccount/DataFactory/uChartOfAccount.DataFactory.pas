@@ -11,7 +11,7 @@ uses
 
 type
   IChartOfAccountDataFactory = Interface
-    ['{5879A91C-FFA6-41D9-B64A-B022FB661D7D}']
+    ['{0F590698-9A44-492D-AD8A-21E8EE7EDB86}']
     function GenerateInsert: TChartOfAccountShowDTO;
     function GenerateInput: TChartOfAccountInputDTO;
   End;

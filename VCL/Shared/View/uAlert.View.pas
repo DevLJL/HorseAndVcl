@@ -81,7 +81,7 @@ end;
 
 procedure TAlertView.FormShow(Sender: TObject);
 begin
-  createTransparentBackground(Self);
+  CreateDarkBackground(Self);
 
   memInfo.Lines.Add('');
   memInfo.Lines.Add('Pressione a tecla [SHIFT] + [ENTER] para fechar a mensagem.');

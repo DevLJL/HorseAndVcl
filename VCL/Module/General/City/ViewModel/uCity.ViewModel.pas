@@ -106,7 +106,7 @@ function TCityViewModel.FromShowDTO(AInput: TCityShowDTO): ICityViewModel;
 begin
   Result := Self;
 
-  FCity.UnsignEvents.FromJson(AInput.AsJSON);
+  FCity.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

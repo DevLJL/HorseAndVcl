@@ -74,19 +74,23 @@ uses
   uHlp,
   uResponse,
   uSmartPointer,
-  System.SysUtils, uTrans;
+  System.SysUtils,
+  uTrans,
+  uMyClaims,
+  uEither;
 
 constructor TStationController.Create(Req: THorseRequest; Res: THorseResponse);
 begin
-  FReq                := Req;
-  FRes                := Res;
-  FRepository         := TRepositoryFactory.Make.Station;
+  FReq         := Req;
+  FRes         := Res;
+  FRepository  := TRepositoryFactory.Make.Station;
   FPersistence := TStationPersistenceUseCase.Make(FRepository);
 end;
 
 procedure TStationController.Delete;
 begin
   const LID = StrInt(FReq.Params['id']);
+  
   FPersistence.Delete(LID);
   Response(FRes).StatusCode(HTTP_NO_CONTENT);
 end;
@@ -94,11 +98,11 @@ end;
 procedure TStationController.Index;
 begin
   // Obter FilterDTO
-  const LInput: SH<TStationFilterDTO> = TStationFilterDTO.FromReq(FReq);
-  SwaggerValidator.Validate(LInput);
+  const LFilter: SH<TStationFilterDTO> = TStationFilterDTO.FromReq(FReq);
+  SwaggerValidator.Validate(LFilter);
 
   // Efetuar Listagem
-  const LIndexResult = FPersistence.Index(LInput);
+  const LIndexResult = FPersistence.Index(LFilter);
 
   // Retorno
   Response(FRes).Data(LIndexResult.ToSuperObject);
@@ -106,15 +110,13 @@ end;
 
 procedure TStationController.Show;
 begin
-  // Obter ID
+  // Obter e Procurar ID
   const LID = StrInt(FReq.Params['id']);
-
-  // Procurar por ID
-  const LOutput: SH<TStationShowDTO> = FPersistence.Show(LID);
+  const LOutput = FPersistence.Show(LID);
 
   // Retorno
-  case Assigned(LOutput.Value) of
-    True:  Response(FRes).Data(LOutput.Value);
+  case Assigned(LOutput) of
+    True:  Response(FRes).Data(LOutput);
     False: Response(FRes).StatusCode(HTTP_NOT_FOUND);
   end;
 end;
@@ -126,7 +128,7 @@ begin
   SwaggerValidator.Validate(LInput);
 
   // Inserir
-  const LUseCaseResult = FPersistence.StoreAndShow(LInput);
+  const LUseCaseResult: Either<String, TStationShowDTO> = FPersistence.StoreAndShow(LInput);
   if not LUseCaseResult.Match then
   begin
     Response(FRes).Error(True).Message(LUseCaseResult.Left);
@@ -134,7 +136,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TStationShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput).StatusCode(HTTP_CREATED);
 end;
 
@@ -161,7 +163,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TStationShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput);
 end;
 

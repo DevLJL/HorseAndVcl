@@ -9,9 +9,8 @@ uses
 
 type
   ICostCenterSQLBuilder = interface(IBaseSQLBuilder)
-    ['{68D7F091-F8D7-4119-BE9D-BADA9169D88F}']
+    ['{1E1F9798-DEC4-4E13-A81B-92674A5080BA}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
   end;

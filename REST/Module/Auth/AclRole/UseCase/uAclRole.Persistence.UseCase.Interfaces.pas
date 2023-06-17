@@ -12,7 +12,7 @@ uses
 
 type
   IAclRolePersistenceUseCase = Interface
-    ['{EEF01028-D576-4DBD-8354-FF56CB7B78AA}']
+    ['{8EBA44CA-79AE-4903-87FE-0713EF453B39}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilterDTO: TAclRoleFilterDTO): IIndexResult; overload;
     function Index(AFilterEntity: IFilter): IIndexResult; overload;

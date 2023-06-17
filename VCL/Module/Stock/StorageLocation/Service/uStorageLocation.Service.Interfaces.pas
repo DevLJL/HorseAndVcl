@@ -12,7 +12,7 @@ uses
 
 type
   IStorageLocationService = Interface(IBaseService)
-    ['{6EA019A5-885B-427D-9AE8-099D0F8A8D19}']
+    ['{19537FB3-0298-423A-B5D3-2D3A997FA84C}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TStorageLocationFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TStorageLocationShowDTO;

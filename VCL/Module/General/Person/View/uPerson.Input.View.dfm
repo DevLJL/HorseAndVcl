@@ -1,20 +1,30 @@
 inherited PersonInputView: TPersonInputView
+  ClientHeight = 672
   ClientWidth = 1024
   OnShow = FormShow
   ExplicitWidth = 1024
+  ExplicitHeight = 672
   TextHeight = 13
   inherited pnlBackground: TPanel
     Width = 1024
+    Height = 672
     ExplicitWidth = 1024
+    ExplicitHeight = 672
     inherited pnlBackground2: TPanel
       Width = 1022
+      Height = 625
       ExplicitWidth = 1022
+      ExplicitHeight = 625
       inherited imgNoSearch: TSkAnimatedImage
         Width = 922
+        Height = 475
         ExplicitWidth = 922
+        ExplicitHeight = 475
       end
       inherited pnlBottomButtons: TPanel
+        Top = 575
         Width = 1002
+        ExplicitTop = 575
         ExplicitWidth = 1002
         inherited pnlSave: TPanel
           Left = 832
@@ -56,12 +66,18 @@ inherited PersonInputView: TPersonInputView
       end
       inherited pgc: TPageControl
         Width = 1002
+        Height = 555
+        ActivePage = TabSheet2
         ExplicitWidth = 1002
+        ExplicitHeight = 555
         inherited tabMain: TTabSheet
           ExplicitWidth = 994
+          ExplicitHeight = 526
           inherited pnlMain: TPanel
             Width = 994
+            Height = 526
             ExplicitWidth = 994
+            ExplicitHeight = 526
             object Label22: TLabel
               Left = 10
               Top = 10
@@ -678,8 +694,8 @@ inherited PersonInputView: TPersonInputView
                 object imgLocaLegalNumberEntity: TImage
                   Left = 0
                   Top = 0
-                  Width = 18
-                  Height = 18
+                  Width = 24
+                  Height = 24
                   Align = alClient
                   AutoSize = True
                   Center = True
@@ -701,6 +717,8 @@ inherited PersonInputView: TPersonInputView
                   OnClick = imgLocaLegalNumberEntityClick
                   ExplicitLeft = 4
                   ExplicitTop = 16
+                  ExplicitWidth = 18
+                  ExplicitHeight = 18
                 end
               end
             end
@@ -842,8 +860,8 @@ inherited PersonInputView: TPersonInputView
                 object imgLocaZipcode: TImage
                   Left = 0
                   Top = 0
-                  Width = 18
-                  Height = 18
+                  Width = 24
+                  Height = 24
                   Align = alClient
                   AutoSize = True
                   Center = True
@@ -865,6 +883,8 @@ inherited PersonInputView: TPersonInputView
                   OnClick = imgLocaZipcodeClick
                   ExplicitLeft = 4
                   ExplicitTop = 16
+                  ExplicitWidth = 18
+                  ExplicitHeight = 18
                 end
               end
             end
@@ -967,8 +987,8 @@ inherited PersonInputView: TPersonInputView
                 object imgLocaCity: TImage
                   Left = 0
                   Top = 0
-                  Width = 18
-                  Height = 18
+                  Width = 24
+                  Height = 24
                   Align = alClient
                   AutoSize = True
                   Center = True
@@ -989,6 +1009,8 @@ inherited PersonInputView: TPersonInputView
                     BA02035FC005512468860000000049454E44AE426082}
                   OnClick = imgLocaCityClick
                   ExplicitTop = 14
+                  ExplicitWidth = 18
+                  ExplicitHeight = 18
                 end
               end
             end
@@ -1179,7 +1201,7 @@ inherited PersonInputView: TPersonInputView
             Left = 0
             Top = 0
             Width = 994
-            Height = 574
+            Height = 526
             Align = alClient
             BevelOuter = bvNone
             Color = 16579576
@@ -1425,7 +1447,7 @@ inherited PersonInputView: TPersonInputView
             Left = 0
             Top = 0
             Width = 994
-            Height = 574
+            Height = 526
             Align = alClient
             BevelOuter = bvNone
             Color = 16579576
@@ -1435,7 +1457,7 @@ inherited PersonInputView: TPersonInputView
               Left = 0
               Top = 45
               Width = 994
-              Height = 529
+              Height = 481
               Cursor = crHandPoint
               Align = alClient
               Color = clWhite
@@ -1582,6 +1604,7 @@ inherited PersonInputView: TPersonInputView
       inherited lblTitle: TLabel
         Left = 45
         Width = 73
+        Height = 40
         Caption = 'Pessoa'
         ExplicitLeft = 45
         ExplicitWidth = 73

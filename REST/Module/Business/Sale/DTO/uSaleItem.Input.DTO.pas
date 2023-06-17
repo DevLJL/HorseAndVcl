@@ -40,7 +40,7 @@ type
     property unit_discount: Double read Funit_discount write Funit_discount;
 
     [SwagNumber]
-    [SwagProp('seller_id', 'Vendedor (ID)', true)]
+    [SwagProp('seller_id', 'Vendedor (ID)', false)]
     property seller_id: Int64 read Fseller_id write Fseller_id;
 
     [SwagString]

@@ -11,7 +11,7 @@ uses
 
 type
   IPaymentDataFactory = Interface
-    ['{87DBB5D0-3343-4430-9992-71F61F71A331}']
+    ['{20A07EF7-B5DB-4699-B4D2-79E0515F3AC7}']
     function GenerateInsert: TPaymentShowDTO;
     function GenerateInput: TPaymentInputDTO;
   End;

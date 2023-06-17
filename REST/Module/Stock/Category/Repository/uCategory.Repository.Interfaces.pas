@@ -8,7 +8,7 @@ uses
 
 type
   ICategoryRepository = interface(IBaseRepository)
-    ['{16B53308-5854-4627-A71F-C994D3E0D21A}']
+    ['{12ACDE75-07A3-4953-98DD-A3F2EB04DD5F}']
     function Show(AId: Int64): TCategory;
   end;
 

@@ -12,7 +12,7 @@ uses
 
 type
   IStationPersistenceUseCase = Interface
-    ['{AA62F082-9D94-4A35-9268-020503A32C96}']
+    ['{55AF908D-321B-403F-8E68-EA65F2335A8E}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TStationFilterDTO): IIndexResult; overload;

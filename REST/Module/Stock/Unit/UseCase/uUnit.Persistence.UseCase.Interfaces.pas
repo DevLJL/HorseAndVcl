@@ -12,7 +12,7 @@ uses
 
 type
   IUnitPersistenceUseCase = Interface
-    ['{822AE30D-8C4B-4E45-9435-7CB991AAA835}']
+    ['{84F18592-BC05-4AFD-A0BF-D3E2F783B61E}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TUnitFilterDTO): IIndexResult; overload;

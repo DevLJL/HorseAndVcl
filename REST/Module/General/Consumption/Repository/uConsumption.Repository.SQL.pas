@@ -37,7 +37,9 @@ uses
   XSuperObject,
   DataSet.Serialize,
   System.SysUtils,
-  uZLQry.Interfaces, uMemTable.Factory;
+  uZLQry.Interfaces,
+  uMemTable.Factory,
+  uConsumption.Types;
 
 { TConsumptionRepositorySQL }
 
@@ -85,16 +87,17 @@ begin
 
   // Filtro do DataSet
   case AFilter.Status of
-    cssAll:        lDtsFilter := EmptyStr;
-    cssFree:       lDtsFilter := ' sale_id <= 0';
-    cssBusy:       lDtsFilter := ' sale_id > 0 and sale_flg_payment_requested <= 0';
-    cssPreAccount: lDtsFilter := ' sale_id > 0 and sale_flg_payment_requested = 1';
+    TConsumptionSaleStatus.All:        lDtsFilter := EmptyStr;
+    TConsumptionSaleStatus.Free:       lDtsFilter := ' sale_id <= 0';
+    TConsumptionSaleStatus.Busy:       lDtsFilter := ' sale_id > 0 and sale_flg_payment_requested <= 0';
+    TConsumptionSaleStatus.PreAccount: lDtsFilter := ' sale_id > 0 and sale_flg_payment_requested = 1';
   end;
 
   // Filtro do SQL
   if (AFilter.Number > 0) then
     lSqLFilter := lSqLFilter + ' and consumption.number = ' + AFilter.Number.ToString;
 
+  {TODO -oOwner -cGeneral : Refatorar! Levar esse sql para SQLBuilder}
   LQry := FConn.MakeQry.Open(
     ' select '+
     '   consumption.number, '+

@@ -18,9 +18,10 @@ type
   private
     Fid: Int64;
     Flast_token: String;
-    Flast_expiration: String;
+    Flast_expiration: TDateTime;
     Facl_role_name: String;
     Facl_role: TAclRoleShowDTO;
+    Fseller_name: String;
   public
     constructor Create;
     destructor Destroy; override;
@@ -33,13 +34,17 @@ type
     [SwagProp('acl_role_name', 'Perfil (Nome)', true)]
     property acl_role_name: String read Facl_role_name write Facl_role_name;
 
+    [SwagClass]
+    [SwagProp('seller_name', 'Vendedor (Nome)', false)]
+    property seller_name: String read Fseller_name write Fseller_name;
+
     [SwagString]
     [SwagProp('last_token', 'Último token', true)]
     property last_token: String read Flast_token write Flast_token;
 
     [SwagDate(DATETIME_DISPLAY_FORMAT)]
-    [SwagProp('last_expiration', CREATED_AT_DISPLAY, true)]
-    property last_expiration: String read Flast_expiration write Flast_expiration;
+    [SwagProp('last_expiration', DATETIME_DISPLAY_FORMAT)]
+    property last_expiration: TDateTime read Flast_expiration write Flast_expiration;
 
     [SwagIgnore]
     property acl_role: TAclRoleShowDTO read Facl_role write Facl_role;

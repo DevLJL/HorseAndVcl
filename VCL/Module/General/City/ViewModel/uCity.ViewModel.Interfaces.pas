@@ -10,7 +10,7 @@ uses
 
 type
   ICityViewModel = Interface(IBaseViewModel)
-    ['{A8E4B373-676C-45E7-BBA6-352F6632D98D}']
+    ['{8A31F6BD-8F53-451C-B59F-6C2073F1D262}']
     function  FromShowDTO(AInput: TCityShowDTO): ICityViewModel;
     function  ToInputDTO: TCityInputDTO;
     function  EmptyDataSets: ICityViewModel;

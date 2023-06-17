@@ -27,8 +27,6 @@ type
     [SwagNumber]
     [SwagProp('general_research_method', 'Geral-Método de Pesquisa', False)]
     property general_search_method: TAclRoleGeneralSearchMethod read Fgeneral_search_method write Fgeneral_search_method;
-
-
   end;
 
 implementation

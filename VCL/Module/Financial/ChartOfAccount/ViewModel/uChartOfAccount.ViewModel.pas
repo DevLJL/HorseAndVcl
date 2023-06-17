@@ -104,7 +104,7 @@ function TChartOfAccountViewModel.FromShowDTO(AInput: TChartOfAccountShowDTO): I
 begin
   Result := Self;
 
-  FChartOfAccount.UnsignEvents.FromJson(AInput.AsJSON);
+  FChartOfAccount.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

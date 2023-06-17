@@ -49,6 +49,13 @@ Type
     [SwagResponse(HTTP_INTERNAL_SERVER_ERROR)]
     procedure Show;
 
+    [SwagGET('/ShowByEanOrSkuCode/{value}', 'Localizar por Ean/SkuCode')]
+    [SwagParamPath('value', 'Ean/SkuCode')]
+    [SwagResponse(HTTP_OK, TProductShowResponseDTO)]
+    [SwagResponse(HTTP_BAD_REQUEST)]
+    [SwagResponse(HTTP_INTERNAL_SERVER_ERROR)]
+    procedure ShowByEanOrSkuCode;
+
     [SwagPOST('/', 'Incluir')]
     [SwagParamBody('body', TProductInputDTO)]
     [SwagResponse(HTTP_CREATED, TProductShowResponseDTO)]
@@ -77,7 +84,9 @@ uses
   System.SysUtils,
   uTrans,
   uCache,
-  XSuperObject;
+  XSuperObject,
+  uMyClaims,
+  uEither;
 
 constructor TProductController.Create(Req: THorseRequest; Res: THorseResponse);
 begin
@@ -90,6 +99,7 @@ end;
 procedure TProductController.Delete;
 begin
   const LID = StrInt(FReq.Params['id']);
+  
   FPersistence.Delete(LID);
   Response(FRes).StatusCode(HTTP_NO_CONTENT);
 
@@ -112,11 +122,11 @@ begin
   end;
 
   // Obter FilterDTO
-  const LInput: SH<TProductFilterDTO> = TProductFilterDTO.FromReq(FReq);
-  SwaggerValidator.Validate(LInput);
+  const LFilter: SH<TProductFilterDTO> = TProductFilterDTO.FromReq(FReq);
+  SwaggerValidator.Validate(LFilter);
 
   // Efetuar Listagem
-  const LIndexResult = FPersistence.Index(LInput);
+  const LIndexResult = FPersistence.Index(LFilter);
   Response(FRes).Data(LIndexResult.ToSuperObject);
 
   // Armazenar Cache
@@ -126,28 +136,36 @@ end;
 
 procedure TProductController.Show;
 begin
-  // Retornar Cache quando existir
-  const LCacheFound: SH<TProductShowDTO> = Cache.GetProduct(StrInt(FReq.Params['id']));
-  if Assigned(LCacheFound.Value) then
+  // Obter e Procurar por ID
+  const LID = StrInt(FReq.Params['id']);
+  const LOutput = FPersistence.Show(LID);
+
+  // Não encontrado
+  if not Assigned(LOutput) then
   begin
-    Response(FRes).Data(LCacheFound.Value);
+    Response(FRes).StatusCode(HTTP_NOT_FOUND);
     Exit;
   end;
 
-  // Obter ID
-  const LID = StrInt(FReq.Params['id']);
+  // Retornar
+  Response(FRes).Data(LOutput, False);
+end;
 
-  // Procurar por ID
-  const LOutput: SH<TProductShowDTO> = FPersistence.Show(LID);
+procedure TProductController.ShowByEanOrSkuCode;
+begin
+  // Obter e Procurar por EanCode/SkuCode
+  const LValue = FReq.Params['value'];
+  const LOutput = FPersistence.ShowByEanOrSkuCode(LValue);
 
-  // Retorno
-  case Assigned(LOutput.Value) of
-    True:  Response(FRes).Data(LOutput.Value);
-    False: Response(FRes).StatusCode(HTTP_NOT_FOUND);
+  // Não encontrado
+  if not Assigned(LOutput) then
+  begin
+    Response(FRes).StatusCode(HTTP_NOT_FOUND);
+    Exit;
   end;
 
-  // Armazenar Cache
-  Cache.PushProduct(LOutput);
+  // Retornar
+  Response(FRes).Data(LOutput, False);
 end;
 
 procedure TProductController.Store;
@@ -157,7 +175,7 @@ begin
   SwaggerValidator.Validate(LInput);
 
   // Inserir
-  const LUseCaseResult = FPersistence.StoreAndShow(LInput);
+  const LUseCaseResult: Either<String, TProductShowDTO> = FPersistence.StoreAndShow(LInput);
   if not LUseCaseResult.Match then
   begin
     Response(FRes).Error(True).Message(LUseCaseResult.Left);
@@ -165,7 +183,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TProductShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput).StatusCode(HTTP_CREATED);
 
   // Limpar Cache
@@ -195,7 +213,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TProductShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput);
 
   // Limpar Cache

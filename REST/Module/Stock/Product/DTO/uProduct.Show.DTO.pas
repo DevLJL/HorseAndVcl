@@ -12,7 +12,8 @@ uses
   uProduct.Input.DTO,
   XSuperObject,
   uSmartPointer,
-  System.Generics.Collections;
+  System.Generics.Collections,
+  uProductPriceList.Show.DTO;
 
 type
   TProductShowDTO = class(TProductInputDTO)
@@ -32,7 +33,12 @@ type
     Fbrand_name: String;
     Funit_name: String;
     Fstorage_location_name: String;
+
+    // OneToMany
+    Fproduct_price_lists: TObjectList<TProductPriceListShowDTO>;
   public
+    constructor Create;
+    Destructor Destroy; override;
     [SwagNumber]
     [SwagProp('id', 'ID', true)]
     property id: Int64 read Fid write Fid;
@@ -92,6 +98,9 @@ type
     [SwagString]
     [SwagProp('storage_location_name', 'Local de Armazenamento (Nome)', true)]
     property storage_location_name: String read Fstorage_location_name write Fstorage_location_name;
+
+    // OneToMany
+    property product_price_lists: TObjectList<TProductPriceListShowDTO> read Fproduct_price_lists write Fproduct_price_lists;
   end;
 
   {$IFDEF APPREST}
@@ -124,6 +133,20 @@ type
   {$ENDIF}
 
 implementation
+
+{ TProductShowDTO }
+
+constructor TProductShowDTO.Create;
+begin
+  inherited Create;
+  Fproduct_price_lists := TObjectList<TProductPriceListShowDTO>.Create;
+end;
+
+destructor TProductShowDTO.Destroy;
+begin
+  if Assigned(Fproduct_price_lists) then Fproduct_price_lists.Free;
+  inherited;
+end;
 
 end.
 

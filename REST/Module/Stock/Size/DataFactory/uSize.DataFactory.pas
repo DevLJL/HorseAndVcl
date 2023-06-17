@@ -11,7 +11,7 @@ uses
 
 type
   ISizeDataFactory = Interface
-    ['{E9190A7F-506D-44CE-9373-2A02D702439A}']
+    ['{912CA5A0-9D50-4BA4-B322-D15D184DACEA}']
     function GenerateInsert: TSizeShowDTO;
     function GenerateInput: TSizeInputDTO;
   End;

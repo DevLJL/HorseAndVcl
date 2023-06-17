@@ -7,7 +7,7 @@ uses
 
 type
   ISaleFilter = Interface(IFilter)
-    ['{F8EADB55-305C-4229-92E4-95375873F682}']
+    ['{89A0C098-8503-41F7-9AC5-ABAC27C738D6}']
   End;
 
   TSaleFilter = class(TFilter, ISaleFilter)

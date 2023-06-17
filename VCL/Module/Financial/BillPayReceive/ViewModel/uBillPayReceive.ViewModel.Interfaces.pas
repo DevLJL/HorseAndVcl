@@ -10,7 +10,7 @@ uses
 
 type
   IBillPayReceiveViewModel = Interface(IBaseViewModel)
-    ['{7AB49534-A5F6-43ED-B1F2-1B6EB242425F}']
+    ['{4CCABE8A-9CB6-4A96-9C79-50B21BC26486}']
     function  FromShowDTO(AInput: TBillPayReceiveShowDTO): IBillPayReceiveViewModel;
     function  ToInputDTO: TBillPayReceiveInputDTO;
     function  EmptyDataSets: IBillPayReceiveViewModel;

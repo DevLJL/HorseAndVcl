@@ -4,10 +4,10 @@ interface
 
 uses
   uRepository.Factory,
-  uCompany.Repository.Interfaces,
+  uTenant.Repository.Interfaces,
   uQueueEmail.Repository.Interfaces,
   uZLMemTable.Interfaces,
-  uCompany,
+  uTenant,
   SendEmail,
   System.Classes,
   System.Generics.Collections,
@@ -15,7 +15,7 @@ uses
 
 type
   IQueueEmailSendPendingUseCase = Interface
-    ['{A6AD7B6F-E679-43F3-8C30-8F67685130C5}']
+    ['{B1DD177F-1452-4456-9F01-7760472C752F}']
     /// <returns>
     ///   Quantidade de E-mail(s) Enviado(s) c/ Sucesso
     /// </returns>
@@ -24,11 +24,11 @@ type
 
   TQueueEmailSendPendingUseCase = class(TInterfacedObject, IQueueEmailSendPendingUseCase)
   private
-    FCompanyRepository: ICompanyRepository;
+    FTenantRepository: ITenantRepository;
     FQueueEmailRepository: IQueueEmailRepository;
     FQueueEmails: IZLMemTable;
     FCurrentQueueEmail: TQueueEmail;
-    FCompany: TCompany;
+    FTenant: TTenant;
     FSendEmailLib: TSendEmail;
     FSuccessfulSendCount: Integer;
     FMemoryStreams: TObjectList<TMemoryStream>;
@@ -74,7 +74,7 @@ end;
 constructor TQueueEmailSendPendingUseCase.Create(ARepositoryFactory: IRepositoryFactory);
 begin
   inherited Create;
-  FCompanyRepository    := ARepositoryFactory.Company;
+  FTenantRepository    := ARepositoryFactory.Tenant;
   FQueueEmailRepository := ARepositoryFactory.QueueEmail;
   FSuccessfulSendCount  := 0;
   FMemoryStreams        := TObjectList<TMemoryStream>.Create;
@@ -82,9 +82,9 @@ end;
 
 function TQueueEmailSendPendingUseCase.Execute: Integer;
 begin
-  FCompany := FCompanyRepository.Show(1); {Configuração de envio do e-mail}
-  ListEmailsPendingDelivery;              {Listar E-mails Pendentes}
-  QueueEmailsPendingDelivery;             {Enviar E-mails Pendentes}
+  FTenant := FTenantRepository.Show(1); {Configuração de envio do e-mail}
+  ListEmailsPendingDelivery;            {Listar E-mails Pendentes}
+  QueueEmailsPendingDelivery;           {Enviar E-mails Pendentes}
 
   Result := FSuccessfulSendCount;
 end;
@@ -134,14 +134,14 @@ begin
   FSendEmailLib := TSendEmail.New
     .Clear
     .ClearRecipient
-    .From(FCompany.send_email_email, FCompany.send_email_identification)
-    .Host(FCompany.send_email_smtp)
-    .Port(StrInt(FCompany.send_email_port))
+    .From(FTenant.send_email_email, FTenant.send_email_identification)
+    .Host(FTenant.send_email_smtp)
+    .Port(StrInt(FTenant.send_email_port))
     .Auth(True)
-    .UserName(FCompany.send_email_user)
-    .Password(FCompany.send_email_password)
-    .SSL(IntBool(FCompany.send_email_ssl))
-    .TLS(IntBool(FCompany.send_email_tls));
+    .UserName(FTenant.send_email_user)
+    .Password(FTenant.send_email_password)
+    .SSL(IntBool(FTenant.send_email_ssl))
+    .TLS(IntBool(FTenant.send_email_tls));
 end;
 
 function TQueueEmailSendPendingUseCase.LoadRecipients: IQueueEmailSendPendingUseCase;
@@ -249,7 +249,7 @@ end;
 
 destructor TQueueEmailSendPendingUseCase.Destroy;
 begin
-  if Assigned(FCompany)           then FreeAndNil(FCompany);
+  if Assigned(FTenant)           then FreeAndNil(FTenant);
   if Assigned(FMemoryStreams)     then FreeAndNil(FMemoryStreams);
   if Assigned(FCurrentQueueEmail) then FreeAndNil(FCurrentQueueEmail);
 

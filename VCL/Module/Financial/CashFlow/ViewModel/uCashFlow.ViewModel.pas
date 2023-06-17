@@ -156,11 +156,11 @@ begin
   Result := Self;
 
   // CashFlow
-  FCashFlow.UnsignEvents.FromJson(AInput.AsJSON);
+  FCashFlow.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 
   // CashFlowTransactions
-  CashFlowTransactions.UnsignEvents;
+  CashFlowTransactions.EmptyDataSet.UnsignEvents;
   for var LCashFlowTransaction in AInput.cash_flow_transactions do
   begin
     MergeDataSet(LCashFlowTransaction.AsJSON, CashFlowTransactions.DataSet, true);

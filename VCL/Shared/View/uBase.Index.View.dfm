@@ -2483,10 +2483,6 @@ object BaseIndexView: TBaseIndexView
               Color = 16579576
               ParentBackground = False
               TabOrder = 1
-              ExplicitLeft = 168
-              ExplicitTop = 8
-              ExplicitWidth = 648
-              ExplicitHeight = 513
               object lblNoSearch: TLabel
                 Left = 32
                 Top = 7
@@ -2537,8 +2533,6 @@ object BaseIndexView: TBaseIndexView
                 Margins.Right = 30
                 Margins.Bottom = 150
                 Align = alClient
-                ExplicitWidth = 588
-                ExplicitHeight = 333
                 Data = {
                   7B2276223A22352E352E37222C226D657461223A7B2267223A224C6F74746965
                   46696C657320414520302E312E3231222C2261223A22222C226B223A22222C22
@@ -3196,9 +3190,6 @@ object BaseIndexView: TBaseIndexView
               Color = 8747344
               ParentBackground = False
               TabOrder = 0
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 648
               object pnlSearch4: TPanel
                 Left = 0
                 Top = 25
@@ -3209,7 +3200,6 @@ object BaseIndexView: TBaseIndexView
                 Color = 16579576
                 ParentBackground = False
                 TabOrder = 0
-                ExplicitWidth = 648
               end
               object pnlSearch2: TPanel
                 Left = 0
@@ -3228,13 +3218,12 @@ object BaseIndexView: TBaseIndexView
                 ParentBackground = False
                 ParentFont = False
                 TabOrder = 1
-                ExplicitWidth = 648
                 object lblSearch: TLabel
                   AlignWithMargins = True
                   Left = 5
                   Top = 5
                   Width = 58
-                  Height = 14
+                  Height = 15
                   Margins.Left = 5
                   Margins.Top = 5
                   Margins.Right = 5
@@ -3247,6 +3236,7 @@ object BaseIndexView: TBaseIndexView
                   Font.Name = 'Tahoma'
                   Font.Style = [fsBold]
                   ParentFont = False
+                  ExplicitHeight = 14
                 end
               end
             end
@@ -3271,7 +3261,7 @@ object BaseIndexView: TBaseIndexView
             Left = 476
             Top = 7
             Width = 172
-            Height = 13
+            Height = 18
             Margins.Left = 0
             Margins.Top = 7
             Margins.Right = 0
@@ -3286,6 +3276,7 @@ object BaseIndexView: TBaseIndexView
             Font.Style = [fsBold]
             ParentColor = False
             ParentFont = False
+            ExplicitHeight = 13
           end
           object pnlNavFirst3: TPanel
             AlignWithMargins = True
@@ -3586,7 +3577,7 @@ object BaseIndexView: TBaseIndexView
                 Left = 3
                 Top = 4
                 Width = 114
-                Height = 13
+                Height = 16
                 Margins.Top = 4
                 Align = alLeft
                 Caption = 'Registros p/ p'#225'gina:'
@@ -3596,6 +3587,7 @@ object BaseIndexView: TBaseIndexView
                 Font.Name = 'Tahoma'
                 Font.Style = [fsBold]
                 ParentFont = False
+                ExplicitHeight = 13
               end
               object edtNavLimitPerPage: TNumberBox
                 AlignWithMargins = True
@@ -3655,7 +3647,7 @@ object BaseIndexView: TBaseIndexView
                 Left = 3
                 Top = 4
                 Width = 96
-                Height = 13
+                Height = 16
                 Margins.Top = 4
                 Align = alLeft
                 Caption = 'Total de p'#225'ginas:'
@@ -3665,6 +3657,7 @@ object BaseIndexView: TBaseIndexView
                 Font.Name = 'Tahoma'
                 Font.Style = [fsBold]
                 ParentFont = False
+                ExplicitHeight = 13
               end
               object edtNavLastPageNumber: TNumberBox
                 AlignWithMargins = True
@@ -4065,7 +4058,7 @@ object BaseIndexView: TBaseIndexView
                   AlignWithMargins = True
                   Left = 5
                   Top = 0
-                  Width = 75
+                  Width = 334
                   Height = 13
                   Margins.Left = 5
                   Margins.Top = 0
@@ -4081,6 +4074,7 @@ object BaseIndexView: TBaseIndexView
                   Font.Style = [fsBold]
                   ParentColor = False
                   ParentFont = False
+                  ExplicitWidth = 75
                 end
                 object edtSearchValue: TEdit
                   AlignWithMargins = True

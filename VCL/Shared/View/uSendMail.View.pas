@@ -96,7 +96,7 @@ implementation
 uses
   uHlp,
   uAlert.View,
-  uNotificationView,
+  uToast.View,
   uYesOrNo.View,
   Winapi.ShellAPI, uSession.DTM;
 
@@ -245,7 +245,7 @@ begin
     FBodyMessage,
     FAttachments
   );
-  NotificationView.Execute('Processo será realizado em segundo plano.', tneInfo);
+  ToastView.Execute('Processo será realizado em segundo plano.', tneInfo);
   ModalResult := mrOk;
 end;
 

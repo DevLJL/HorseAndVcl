@@ -14,8 +14,6 @@ type
   public
     class function Make: ISizeSQLBuilder;
 
-    function ScriptCreateTable: String;
-    function ScriptSeedTable: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function SelectAll: String;
     function SelectById(AId: Int64): String;
@@ -78,30 +76,6 @@ end;
 class function TSizeSQLBuilderMySQL.Make: ISizeSQLBuilder;
 begin
   Result := Self.Create;
-end;
-
-function TSizeSQLBuilderMySQL.ScriptCreateTable: String;
-begin
-  Result :=
-    ' CREATE TABLE `size` (                                                                                              '+
-    '   `id` bigint NOT NULL AUTO_INCREMENT,                                                                              '+
-    '   `name` varchar(255) NOT NULL,                                                                                     '+
-    '   `created_at` datetime DEFAULT NULL,                                                                               '+
-    '   `updated_at` datetime DEFAULT NULL,                                                                               '+
-    '   `created_by_acl_user_id` bigint DEFAULT NULL,                                                                     '+
-    '   `updated_by_acl_user_id` bigint DEFAULT NULL,                                                                     '+
-    '   PRIMARY KEY (`id`),                                                                                               '+
-    '   KEY `size_idx_created_at` (`created_at`),                                                                        '+
-    '   KEY `size_fk_created_by_acl_user_id` (`created_by_acl_user_id`),                                                 '+
-    '   KEY `size_fk_updated_by_size_id` (`updated_by_acl_user_id`),                                                    '+
-    '   CONSTRAINT `size_fk_created_by_acl_user_id` FOREIGN KEY (`created_by_acl_user_id`) REFERENCES `acl_user` (`id`), '+
-    '   CONSTRAINT `size_fk_updated_by_size_id` FOREIGN KEY (`updated_by_acl_user_id`) REFERENCES `acl_user` (`id`)     '+
-    ' )                                                                                                                   ';
-end;
-
-function TSizeSQLBuilderMySQL.ScriptSeedTable: String;
-begin
-  Result := '';
 end;
 
 function TSizeSQLBuilderMySQL.SelectAll: String;

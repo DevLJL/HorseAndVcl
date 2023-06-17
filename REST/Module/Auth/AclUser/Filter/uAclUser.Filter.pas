@@ -7,7 +7,7 @@ uses
 
 type
   IAclUserFilter = Interface(IFilter)
-    ['{9315E53A-D23D-4E71-B3EC-9DA3F65C8BDF}']
+    ['{15BEAE59-41D4-408F-89D1-EFD4F918E063}']
   End;
 
   TAclUserFilter = class(TFilter, IAclUserFilter)

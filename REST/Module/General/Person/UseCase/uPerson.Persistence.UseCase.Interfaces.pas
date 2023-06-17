@@ -12,7 +12,7 @@ uses
 
 type
   IPersonPersistenceUseCase = Interface
-    ['{923B36FC-13D6-4F26-A4A8-50D6238A09C8}']
+    ['{46F0B463-B2A7-4EC0-B927-0584F8C6A818}']
     function Delete(AId: Int64): Boolean;
     function DeleteByIdRange(AIds: String): Boolean;
     function Index(AFilterDTO: TPersonFilterDTO): IIndexResult; overload;

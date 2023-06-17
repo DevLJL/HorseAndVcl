@@ -133,12 +133,13 @@ type
     FHandleResult: TPersonShowDTO;
     FState: TEntityState;
     FEditPK: Int64;
+    FPhone1: String;
     procedure BeforeShow;
     procedure SetState(const Value: TEntityState);
     property  State: TEntityState read FState write SetState;
     property  EditPk: Int64 read FEditPk write FEditPk;
   public
-    class function Handle(AState: TEntityState; AEditPK: Int64 = 0): TPersonShowDTO;
+    class function Handle(AState: TEntityState; AEditPK: Int64 = 0; APhone1: String = ''): TPersonShowDTO;
   end;
 
 const
@@ -149,7 +150,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uNotificationView,
+  uToast.View,
   Quick.Threads,
   Vcl.Dialogs,
   uHandle.Exception,
@@ -187,7 +188,11 @@ begin
     begin
       FViewModel := TPersonViewModel.Make;
       case FState of
-        TEntityState.Store: FViewModel.Person.Append;
+        TEntityState.Store: Begin
+          FViewModel.Person.Append;
+          if not FPhone1.Trim.IsEmpty then
+            FViewModel.Person.FieldByName('phone_1').Text := FPhone1;
+        End;
         TEntityState.Update,
         TEntityState.View: Begin
           const LPersonShowDTO: SH<TPersonShowDTO> = TPersonService.Make.Show(FEditPK);
@@ -230,7 +235,7 @@ begin
     LockControl(pnlBackground);
 
     dtsPersonContacts.DataSet.Delete;
-    NotificationView.Execute(Trans.RecordDeleted, tneError);
+    ToastView.Execute(Trans.RecordDeleted, tneError);
   Finally
     UnLockControl(pnlBackground);
   End;
@@ -300,12 +305,12 @@ begin
             TAlertView.Handle(LSaved.Left);
 
           FViewModel.Person.Edit;
-          NotificationView.Execute(Trans.RecordValidationFailed, tneError);
+          ToastView.Execute(Trans.RecordValidationFailed, tneError);
           Exit;
         end;
 
         // Retornar registro inserido/atualizado
-        NotificationView.Execute(Trans.RecordSaved, tneSuccess);
+        ToastView.Execute(Trans.RecordSaved, tneSuccess);
         FHandleResult := LSaved.Right;
         ModalResult   := MrOK;
       finally
@@ -429,12 +434,13 @@ begin
   BeforeShow;
 end;
 
-class function TPersonInputView.Handle(AState: TEntityState; AEditPK: Int64): TPersonShowDTO;
+class function TPersonInputView.Handle(AState: TEntityState; AEditPK: Int64; APhone1: String): TPersonShowDTO;
 begin
   Result := nil;
   const LView: SH<TPersonInputView> = TPersonInputView.Create(nil);
-  LView.Value.EditPK := AEditPK;
-  LView.Value.State  := AState;
+  LView.Value.EditPK  := AEditPK;
+  LView.Value.FPhone1 := OnlyNumbers(APhone1);
+  LView.Value.State   := AState;
   if not (LView.Value.ShowModal = mrOK) then
     Exit;
 
@@ -462,7 +468,7 @@ begin
   LLegalEntityNumber := removeDots(dtsPerson.DataSet.FieldByName('legal_entity_number').AsString);
   if (Length(LLegalEntityNumber) <> 14) or (validateCpfCnpj(LLegalEntityNumber).Trim.IsEmpty) Then
   Begin
-    NotificationView.Execute('CNPJ informado é inválido!', tneError);
+    ToastView.Execute('CNPJ informado é inválido!', tneError);
     Exit;
   End;
 
@@ -495,7 +501,7 @@ begin
         // Exibir erro se ocorrer
         if not LLib.ResponseError.Trim.IsEmpty then
         begin
-          NotificationView.Execute(LLib.ResponseError, tneError);
+          ToastView.Execute(LLib.ResponseError, tneError);
           Exit;
         end;
 
@@ -543,7 +549,7 @@ begin
   LZipCode := removeDots(dtsPerson.DataSet.FieldByName('zipcode').AsString);
   if (Length(LZipCode) <> 8) Then
   begin
-    NotificationView.Execute('Cep deve conter 8 caracteres.', tneError);
+    ToastView.Execute('Cep deve conter 8 caracteres.', tneError);
     Exit;
   End;
 

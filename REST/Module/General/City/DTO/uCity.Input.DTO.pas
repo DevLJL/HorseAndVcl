@@ -74,7 +74,7 @@ begin
     raise Exception.Create('Nenhum JSON informado!');
 
   Result             := TCityInputDTO.FromJSON(AReq.Body);
-  Result.acl_user_id := StrInt(AReq.Session<TMyClaims>.Id);
+  Result.acl_user_id := AReq.Session<TMyClaims>.IdToInt64;
 end;
 {$ENDIF}
 

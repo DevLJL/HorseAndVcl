@@ -10,7 +10,7 @@ uses
 
 type
   IConsumptionRepository = interface(IBaseRepository)
-    ['{22AEE554-0317-47A0-8C46-3F3356AA851A}']
+    ['{A45706B2-D387-4130-9EAC-C8E38ABEC379}']
     function Show(AId: Int64): TConsumption;
     function DeleteByNumbers(AInitial, AFinal: SmallInt): IConsumptionRepository;
     function IndexWithSale(AFilter: IConsumptionSaleFilter): IZLMemTable;

@@ -12,7 +12,7 @@ uses
 
 type
   ICategoryService = Interface(IBaseService)
-    ['{1789AEC8-CBD9-4B5E-84EA-820617FC1CD4}']
+    ['{EEB8866C-A33C-4DC5-80A2-D210B38B1B3E}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TCategoryFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TCategoryShowDTO;

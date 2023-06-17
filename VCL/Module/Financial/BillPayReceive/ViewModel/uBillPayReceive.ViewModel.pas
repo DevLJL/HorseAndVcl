@@ -235,7 +235,7 @@ function TBillPayReceiveViewModel.FromShowDTO(AInput: TBillPayReceiveShowDTO): I
 begin
   Result := Self;
 
-  FBillPayReceive.UnsignEvents.FromJson(AInput.AsJSON);
+  FBillPayReceive.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

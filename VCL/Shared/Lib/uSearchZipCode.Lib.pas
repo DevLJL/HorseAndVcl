@@ -19,7 +19,7 @@ type
   end;
 
   ISearchZipcodeLib = interface
-    ['{85B40405-EF6B-4D6F-8D79-7A956EF21FFD}']
+    ['{3EA8173E-DFE5-4ECC-9E8F-FD1E316DB571}']
 
     function Execute: ISearchZipcodeLib;
     function ResponseData: TResponseData;

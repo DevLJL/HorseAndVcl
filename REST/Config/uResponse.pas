@@ -6,19 +6,21 @@ uses
   Horse.Response,
   XSuperObject,
   uAppRest.Types,
-  uTrans;
+  uTrans,
+  Data.DB;
 
 type
   IResponse = Interface
-    ['{E1281FF6-9B2C-41E5-AEC6-D14B00BA44C1}']
+    ['{E9B94D7C-1AFA-4255-B54A-1966D3572810}']
     function StatusCode(AValue: SmallInt): IResponse; overload;
     function StatusCode: SmallInt; overload;
 
     function &Message(AValue: String): IResponse; overload;
     function &Message: String; overload;
 
-    function Data(AValue: TObject): IResponse; overload;
+    function Data(AValue: TObject; AFreeObject: Boolean = True): IResponse; overload;
     function Data(AValue: ISuperObject): IResponse; overload;
+    function Data(AValue: TDataSet): IResponse; overload;
     function Data(AValue: String): IResponse; overload;
 
     function ContentType(AValue: String): IResponse; overload;
@@ -48,8 +50,9 @@ type
     function &Message(AValue: String): IResponse; overload;
     function &Message: String; overload;
 
-    function Data(AValue: TObject): IResponse; overload;
+    function Data(AValue: TObject; AFreeObject: Boolean = True): IResponse; overload;
     function Data(AValue: ISuperObject): IResponse; overload;
+    function Data(AValue: TDataSet): IResponse; overload;
     function Data(AValue: String): IResponse; overload;
 
     function ContentType(AValue: String): IResponse; overload;
@@ -70,7 +73,8 @@ uses
   System.SysUtils,
   System.Classes,
   uHlp,
-  System.JSON;
+  System.JSON,
+  DataSet.Serialize;
 
 function Response(ARes: THorseResponse): IResponse;
 begin
@@ -92,30 +96,12 @@ end;
 constructor TResponse.Create(ARes: THorseResponse);
 begin
   inherited Create;
-  FData       := SO;
-  FRes        := ARes;
+  FData := SO;
+  FRes  := ARes;
   ContentType('application/json');
   StatusCode(HTTP_OK);
   Error(False);
   &Message(SUCCESS_MESSAGE);
-end;
-
-function TResponse.Data(AValue: TObject): IResponse;
-begin
-  Result := Self;
-  case Assigned(AValue) of
-    True:  FData.O['data']    := AValue.AsJSONObject;
-    False: FData.Null['data'] := jNull;
-  end;
-end;
-
-function TResponse.Data(AValue: ISuperObject): IResponse;
-begin
-  Result := Self;
-  case Assigned(AValue) of
-    True:  FData.O['data']    := AValue;
-    False: FData.Null['data'] := jNull;
-  end;
 end;
 
 function TResponse.Error: Boolean;
@@ -159,7 +145,7 @@ begin
     &Message(OOPS_MESSAGE);
 
   Error(True);
-  Data(nil);
+  Data(EmptyStr);
   Send;
 end;
 
@@ -175,12 +161,49 @@ begin
   FData.I['code'] := FStatusCode;
 end;
 
+function TResponse.Data(AValue: TObject; AFreeObject: Boolean): IResponse;
+begin
+  Result := Self;
+
+  // Setar como Nulo quando objeto não informado
+  if not Assigned(AValue) then
+  begin
+    FData.Null['data'] := jNull;
+    Exit;
+  end;
+
+  // Serializar objeto para Json
+  FData.O['data'] := AValue.AsJSONObject;
+
+  // Liberar objeto enviado por argumento
+  if AFreeObject then
+    AValue.Free;
+end;
+
+function TResponse.Data(AValue: ISuperObject): IResponse;
+begin
+  Result := Self;
+  case Assigned(AValue) of
+    True:  FData.O['data']    := AValue;
+    False: FData.Null['data'] := jNull;
+  end;
+end;
+
 function TResponse.Data(AValue: String): IResponse;
 begin
   Result := Self;
   case AValue.Trim.IsEmpty of
     True:  FData.Null['data'] := jNull;
     False: FData.S['data']    := AValue;
+  end;
+end;
+
+function TResponse.Data(AValue: TDataSet): IResponse;
+begin
+  Result := Self;
+  case AValue.IsEmpty of
+    True:  FData.Null['data']          := jNull;
+    False: FData.O['data'].A['result'] := SO(AValue.ToJSONArrayString).AsArray;
   end;
 end;
 

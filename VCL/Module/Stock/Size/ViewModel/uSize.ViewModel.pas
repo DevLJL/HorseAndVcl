@@ -101,7 +101,7 @@ function TSizeViewModel.FromShowDTO(AInput: TSizeShowDTO): ISizeViewModel;
 begin
   Result := Self;
 
-  FSize.UnsignEvents.FromJson(AInput.AsJSON);
+  FSize.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

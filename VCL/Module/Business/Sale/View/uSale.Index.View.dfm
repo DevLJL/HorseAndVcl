@@ -687,6 +687,7 @@ inherited SaleIndexView: TSaleIndexView
     end
     object mniTicketPosPrinter: TMenuItem
       Caption = '    Ticket (POS Printer)'
+      OnClick = mniTicketPosPrinterClick
     end
     object mniSpaceOperation: TMenuItem
       Caption = '-'

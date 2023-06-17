@@ -152,7 +152,7 @@
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
         <Manifest_File>(None)</Manifest_File>
-        <DCC_UnitSearchPath>..\Vendor\SmartPointer\src;..\Vendor\DelphiJoseJwt\Source\Common;..\Vendor\DelphiJoseJwt\Source\JOSE;..\Vendor\Either\src;..\Vendor\QuickLib;..\Vendor\QuotedStr\src;..\Vendor\ZLConnection;..\Vendor\HorseRateLimit\src;..\Vendor\HorseUtilsClientIp\src;..\Vendor\DelphiRedisClient\sources;..\Vendor\Store\src;..\Vendor\HorseCompression\src;..\Vendor\HorseLogger\src;..\Vendor\HandleException\src;..\Vendor\HorseOctetStream\src;..\Vendor\HorseCors\src;..\Vendor\Jhonson\src;..\Vendor\HorseLoggerProviderConsole\src;..\Vendor\HorseETag\src;..\Vendor\GbSwagger\Source\Core;..\Vendor\GbSwagger\Source\Datasnap;..\Vendor\GbSwagger\Source\Horse;..\Vendor\GbSwagger\Source\Resources;..\Vendor\GbSwagger\Source\Validator;..\Vendor\DataSetSerialize\src;..\Vendor\Horse\src;..\Vendor\HorseJwt\src;..\Vendor\XSuperObject;..\Vendor\HorseLoggerProviderFile\src;..\Vendor\DataValidator\src\core;..\Vendor\DataValidator\src\sanitializators;..\Vendor\DataValidator\src\validators;..\Vendor\HorseUpload\src;..\Vendor\SendEmail\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\Vendor\SmartPointer\src;..\Vendor\DelphiJoseJwt\Source\Common;..\Vendor\DelphiJoseJwt\Source\JOSE;..\Vendor\Either\src;..\Vendor\QuickLib;..\Vendor\QuotedStr\src;..\Vendor\ZLConnection;..\Vendor\HorseRateLimit\src;..\Vendor\HorseUtilsClientIp\src;..\Vendor\DelphiRedisClient\sources;..\Vendor\Store\src;..\Vendor\HorseCompression\src;..\Vendor\HorseLogger\src;..\Vendor\HandleException\src;..\Vendor\HorseOctetStream\src;..\Vendor\HorseCors\src;..\Vendor\Jhonson\src;..\Vendor\HorseLoggerProviderConsole\src;..\Vendor\HorseETag\src;..\Vendor\GbSwagger\Source\Core;..\Vendor\GbSwagger\Source\Datasnap;..\Vendor\GbSwagger\Source\Horse;..\Vendor\GbSwagger\Source\Resources;..\Vendor\GbSwagger\Source\Validator;..\Vendor\DataSetSerialize\src;..\Vendor\Horse\src;..\Vendor\HorseJwt\src;..\Vendor\XSuperObject;..\Vendor\HorseLoggerProviderFile\src;..\Vendor\DataValidator\src\core;..\Vendor\DataValidator\src\sanitializators;..\Vendor\DataValidator\src\validators;..\Vendor\HorseUpload\src;..\Vendor\SendEmail\src;..\Vendor\HorseSocketIO\src;..\Vendor\GenericSocket\src;..\Vendor\HorseManipulateRequest\src;..\Vendor\PosPrinterLib\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
         <DCC_Define>APPREST;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
@@ -209,6 +209,48 @@
         <DCCReference Include="Config\uApplication.Exception.pas"/>
         <DCCReference Include="Shared\Exception\uEntityValidation.Exception.pas"/>
         <DCCReference Include="Shared\Resources\uTrans.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_06_08_00_CreateCityTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_06_08_10_CreateTenantTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_07_10_00_CreateStationTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_08_09_20_CreateAclRoleTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_08_09_55_CreateAclUserTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_10_11_14_CreateBrandTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_12_00_00_CreatePersonTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_12_00_01_CreatePersonContactTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_12_32_CreateUnitTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_13_46_CreateNcmTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_17_56_CreateCategoryTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_18_00_CreateSizeTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_18_19_CreateStorageLocationTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_18_26_CreateProductTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_21_41_CreateBankTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_21_57_CreateCostCenterTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_22_03_CreateBankAccountTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_22_30_CreateChartOfAccountTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_15_19_20_CreatePaymentTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_15_19_20_CreatePaymentTermTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_16_14_30_CreateSaleCheckTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_16_14_31_CreateSaleTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_16_14_32_CreateSaleItemTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_16_14_33_CreateSalePaymentTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_21_07_48_CreateBillPayReceiveTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_26_12_47_CreateConsumptionTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_03_06_13_01_CreateCashFlowTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_03_06_13_02_CreateCashFlowTransactionTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_05_12_00_25_CreateQueueEmailTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_05_12_00_26_CreateQueueEmailAttachmentTable.Migration.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_05_12_00_27_CreateQueueEmailContactTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_06_08_01_City.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_06_08_02_Tenant.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_07_10_01_Station.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_08_09_21_AclRole.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_08_09_56_AclUser.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_12_33_Unit.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_13_47_Ncm.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_18_01_Size.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_21_42_Bank.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_13_22_04_BankAccount.seeder.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_02_15_19_21_Payment.seeder.pas"/>
         <DCCReference Include="Module\Stock\Brand\Controller\uBrand.Controller.pas"/>
         <DCCReference Include="Module\Stock\Brand\Repository\uBrand.Repository.Interfaces.pas"/>
         <DCCReference Include="Module\Stock\Brand\Repository\uBrand.Repository.SQL.pas"/>
@@ -328,20 +370,6 @@
         <DCCReference Include="Module\Stock\Category\DTO\uCategory.Show.DTO.pas"/>
         <DCCReference Include="Module\Stock\Category\Controller\uCategory.Controller.pas"/>
         <DCCReference Include="Module\Stock\Category\DTO\uCategory.Filter.DTO.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_07_10_00_CreateStationTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_08_09_20_CreateAclRoleTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_08_09_55_CreateAclUserTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_10_11_14_CreateBrandTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_11_23_13_CreateCityTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_11_23_35_CreateCompanyTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_12_00_00_CreatePersonTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_12_00_01_CreatePersonContactTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_12_32_CreateUnitTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_13_46_CreateNcmTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_17_56_CreateCategoryTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_18_00_CreateSizeTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_18_19_CreateStorageLocationTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_18_26_CreateProductTable.Migration.pas"/>
         <DCCReference Include="Module\General\Person\UseCase\uPerson.Persistence.UseCase.pas"/>
         <DCCReference Include="Module\General\Person\Repository\uPerson.Repository.SQL.pas"/>
         <DCCReference Include="Module\General\Person\SQLBuilder\uPerson.SQLBuilder.MySQL.pas"/>
@@ -358,19 +386,19 @@
         <DCCReference Include="Module\General\Person\DTO\uPerson.Show.DTO.pas"/>
         <DCCReference Include="Module\General\Person\DTO\uPerson.Filter.DTO.pas"/>
         <DCCReference Include="Module\General\Person\Controller\uPerson.Controller.pas"/>
-        <DCCReference Include="Module\General\Company\UseCase\uCompany.Persistence.UseCase.pas"/>
-        <DCCReference Include="Module\General\Company\Domain\DomainService\uCompany.BeforeSave.pas"/>
-        <DCCReference Include="Module\General\Company\Mapper\uCompany.Mapper.pas"/>
-        <DCCReference Include="Module\General\Company\Domain\Entity\uCompany.pas"/>
-        <DCCReference Include="Module\General\Company\Repository\uCompany.Repository.SQL.pas"/>
-        <DCCReference Include="Module\General\Company\DTO\uCompany.Show.DTO.pas"/>
-        <DCCReference Include="Module\General\Company\SQLBuilder\uCompany.SQLBuilder.MySQL.pas"/>
-        <DCCReference Include="Module\General\Company\DTO\uCompany.Input.DTO.pas"/>
-        <DCCReference Include="Module\General\Company\Repository\uCompany.Repository.Interfaces.pas"/>
-        <DCCReference Include="Module\General\Company\SQLBuilder\uCompany.SQLBuilder.Interfaces.pas"/>
-        <DCCReference Include="Module\General\Company\Filter\uCompany.Filter.pas"/>
-        <DCCReference Include="Module\General\Company\Controller\uCompany.Controller.pas"/>
-        <DCCReference Include="Module\General\Company\DTO\uCompany.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\Tenant\UseCase\uTenant.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\Tenant\Domain\DomainService\uTenant.BeforeSave.pas"/>
+        <DCCReference Include="Module\General\Tenant\Mapper\uTenant.Mapper.pas"/>
+        <DCCReference Include="Module\General\Tenant\Domain\Entity\uTenant.pas"/>
+        <DCCReference Include="Module\General\Tenant\Repository\uTenant.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\Tenant\DTO\uTenant.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\Tenant\SQLBuilder\uTenant.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\Tenant\DTO\uTenant.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\Tenant\Repository\uTenant.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Tenant\SQLBuilder\uTenant.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Tenant\Filter\uTenant.Filter.pas"/>
+        <DCCReference Include="Module\General\Tenant\Controller\uTenant.Controller.pas"/>
+        <DCCReference Include="Module\General\Tenant\DTO\uTenant.Filter.DTO.pas"/>
         <DCCReference Include="Module\General\City\DTO\uCity.Input.DTO.pas"/>
         <DCCReference Include="Module\General\City\SQLBuilder\uCity.SQLBuilder.MySQL.pas"/>
         <DCCReference Include="Module\General\City\Domain\Entity\uCity.pas"/>
@@ -395,13 +423,6 @@
         <DCCReference Include="Module\General\Station\Repository\uStation.Repository.Interfaces.pas"/>
         <DCCReference Include="Module\General\Station\DTO\uStation.Filter.DTO.pas"/>
         <DCCReference Include="Module\General\City\SQLBuilder\uCity.SQLBuilder.Interfaces.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_08_09_21_AclRole.seeder.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_08_09_56_AclUser.seeder.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_11_23_14_City.seeder.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_11_23_35_Company.seeder.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_13_12_33_Unit.seeder.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_13_13_47_Ncm.seeder.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_13_18_01_Size.seeder.pas"/>
         <DCCReference Include="Config\Routes\uRouteApi.General.pas"/>
         <DCCReference Include="Module\Financial\Bank\SQLBuilder\uBank.SQLBuilder.MySQL.pas"/>
         <DCCReference Include="Module\Financial\Bank\DTO\uBank.Input.DTO.pas"/>
@@ -416,10 +437,6 @@
         <DCCReference Include="Module\Financial\Bank\DTO\uBank.Show.DTO.pas"/>
         <DCCReference Include="Module\Financial\Bank\Controller\uBank.Controller.pas"/>
         <DCCReference Include="Config\Routes\uRouteApi.Financial.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_21_41_CreateBankTable.Migration.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_13_21_42_Bank.seeder.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_22_03_CreateBankAccountTable.Migration.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_13_22_04_BankAccount.seeder.pas"/>
         <DCCReference Include="Module\Financial\BankAccount\SQLBuilder\uBankAccount.SQLBuilder.MySQL.pas"/>
         <DCCReference Include="Module\Financial\BankAccount\Repository\uBankAccount.Repository.SQL.pas"/>
         <DCCReference Include="Module\Financial\BankAccount\DTO\uBankAccount.Input.DTO.pas"/>
@@ -444,8 +461,6 @@
         <DCCReference Include="Module\Financial\CostCenter\Repository\uCostCenter.Repository.Interfaces.pas"/>
         <DCCReference Include="Module\Financial\CostCenter\DTO\uCostCenter.Filter.DTO.pas"/>
         <DCCReference Include="Module\Financial\CostCenter\DTO\uCostCenter.Show.DTO.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_21_57_CreateCostCenterTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_13_22_30_CreateChartOfAccountTable.Migration.pas"/>
         <DCCReference Include="Module\Financial\ChartOfAccount\Controller\uChartOfAccount.Controller.pas"/>
         <DCCReference Include="Module\Financial\ChartOfAccount\DTO\uChartOfAccount.Input.DTO.pas"/>
         <DCCReference Include="Module\Financial\ChartOfAccount\Domain\Entity\uChartOfAccount.pas"/>
@@ -459,9 +474,6 @@
         <DCCReference Include="Module\Financial\ChartOfAccount\DTO\uChartOfAccount.Show.DTO.pas"/>
         <DCCReference Include="Module\Financial\ChartOfAccount\DTO\uChartOfAccount.Filter.DTO.pas"/>
         <DCCReference Include="Module\General\Person\DTO\uPersonContact.Show.DTO.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_15_19_20_CreatePaymentTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_15_19_20_CreatePaymentTermTable.Migration.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_15_19_21_Payment.seeder.pas"/>
         <DCCReference Include="Module\Financial\Payment\SQLBuilder\uPayment.SQLBuilder.MySQL.pas"/>
         <DCCReference Include="Module\Financial\Payment\UseCase\uPayment.Persistence.UseCase.pas"/>
         <DCCReference Include="Module\Financial\Payment\DTO\uPaymentTerm.Input.DTO.pas"/>
@@ -496,9 +508,6 @@
         <DCCReference Include="Module\Business\Sale\Filter\uSale.Filter.pas"/>
         <DCCReference Include="Module\Business\Sale\DTO\uSale.Filter.DTO.pas"/>
         <DCCReference Include="Module\Business\Sale\Controller\uSale.Controller.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_16_14_31_CreateSaleTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_16_14_32_CreateSaleItemTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_16_14_33_CreateSalePaymentTable.Migration.pas"/>
         <DCCReference Include="Config\Routes\uRouteApi.Business.pas"/>
         <DCCReference Include="Module\Business\Sale\DTO\uSalePayment.Show.DTO.pas"/>
         <DCCReference Include="Module\Financial\BillPayReceive\SQLBuilder\uBillPayReceive.SQLBuilder.MySQL.pas"/>
@@ -514,8 +523,6 @@
         <DCCReference Include="Module\Financial\BillPayReceive\UseCase\uBillPayReceive.Persistence.UseCase.pas"/>
         <DCCReference Include="Module\Financial\BillPayReceive\Filter\uBillPayReceive.Filter.pas"/>
         <DCCReference Include="Module\Financial\BillPayReceive\DTO\uBillPayReceive.Filter.DTO.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_21_07_48_CreateBillPayReceiveTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_02_26_12_47_CreateConsumptionTable.Migration.pas"/>
         <DCCReference Include="Module\General\Consumption\Filter\uConsumptionSale.Filter.pas"/>
         <DCCReference Include="Module\General\Consumption\DTO\uConsumption.Input.DTO.pas"/>
         <DCCReference Include="Module\General\Consumption\Domain\Entity\uConsumption.pas"/>
@@ -529,8 +536,6 @@
         <DCCReference Include="Module\General\Consumption\DTO\uConsumption.Filter.DTO.pas"/>
         <DCCReference Include="Module\General\Consumption\DTO\uConsumption.Show.DTO.pas"/>
         <DCCReference Include="Module\General\Consumption\Controller\uConsumption.Controller.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_03_06_13_01_CreateCashFlowTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_03_06_13_02_CreateCashFlowTransactionTable.Migration.pas"/>
         <DCCReference Include="Module\Financial\CashFlow\Mapper\uCashFlow.Mapper.pas"/>
         <DCCReference Include="Module\Financial\CashFlow\Controller\uCashFlow.Controller.pas"/>
         <DCCReference Include="Module\Financial\CashFlow\DTO\uCashFlow.Input.DTO.pas"/>
@@ -546,22 +551,18 @@
         <DCCReference Include="Module\Financial\CashFlow\UseCase\uCashFlow.Persistence.UseCase.pas"/>
         <DCCReference Include="Module\Financial\CashFlow\Filter\uCashFlow.Filter.pas"/>
         <DCCReference Include="Module\Financial\CashFlow\DTO\uCashFlow.Filter.DTO.pas"/>
-        <DCCReference Include="Config\Seeders\u2023_02_07_10_01_Station.seeder.pas"/>
         <DCCReference Include="Module\Business\Sale\UseCase\uSale.GenerateBilling.UseCase.pas"/>
         <DCCReference Include="Module\Financial\CashFlow\Domain\Types\uCashFlowTransaction.Types.pas"/>
         <DCCReference Include="Module\Business\Sale\Domain\DomainService\uSale.GenerateBillReceivesBySale.pas"/>
-        <DCCReference Include="Module\Business\Sale\Facade\uSaleGenerateBillingRepositories.pas"/>
         <DCCReference Include="Module\Business\Sale\Domain\DomainService\uSale.GenerateCashFlowTransactionsBySale.pas"/>
         <DCCReference Include="Shared\Resources\uTrans.Sale.pas"/>
         <DCCReference Include="Shared\Resources\uTrans.Types.pas"/>
         <DCCReference Include="Module\Business\Sale\UseCase\uSale.PdfReport.UseCase.pas"/>
         <DCCReference Include="Shared\Report\uBase.Report.pas">
             <Form>BaseReport</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Module\Business\Sale\Report\uSale.Report.pas">
             <Form>SaleReport</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Shared\Util\uOutPutFileStream.pas"/>
         <DCCReference Include="Config\uResponse.pas"/>
@@ -578,7 +579,7 @@
         <DCCReference Include="Module\Stock\Ncm\UseCase\uNcm.Persistence.UseCase.Interfaces.pas"/>
         <DCCReference Include="Module\Financial\CostCenter\UseCase\uCostCenter.Persistence.UseCase.Interfaces.pas"/>
         <DCCReference Include="Module\General\Consumption\UseCase\uConsumption.Persistence.UseCase.Interfaces.pas"/>
-        <DCCReference Include="Module\General\Company\UseCase\uCompany.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\Tenant\UseCase\uTenant.Persistence.UseCase.Interfaces.pas"/>
         <DCCReference Include="Module\General\City\UseCase\uCity.Persistence.UseCase.Interfaces.pas"/>
         <DCCReference Include="Module\Financial\ChartOfAccount\UseCase\uChartOfAccount.Persistence.UseCase.Interfaces.pas"/>
         <DCCReference Include="Module\Stock\Category\UseCase\uCategory.Persistence.UseCase.Interfaces.pas"/>
@@ -601,7 +602,6 @@
         <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmail.Input.DTO.pas"/>
         <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmail.Filter.DTO.pas"/>
         <DCCReference Include="Module\General\QueueEmail\Domain\Types\uQueueEmail.Types.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_05_12_00_25_CreateQueueEmailTable.Migration.pas"/>
         <DCCReference Include="Config\TaskScheduler\uTaskScheduler.pas"/>
         <DCCReference Include="Config\TaskScheduler\Tasks\uAutomaticPingInConsole.Task.pas"/>
         <DCCReference Include="Config\TaskScheduler\Tasks\uSendEmails.Task.pas"/>
@@ -612,11 +612,84 @@
         <DCCReference Include="Module\Business\Sale\UseCase\uSale.SendPdfReportByEmail.UseCase.pas"/>
         <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmailContact.Show.DTO.pas"/>
         <DCCReference Include="Module\General\QueueEmail\Domain\Entity\uQueueEmailContact.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_05_12_00_26_CreateQueueEmailAttachmentTable.Migration.pas"/>
-        <DCCReference Include="Config\Migrations\u2023_05_12_00_27_CreateQueueEmailContactTable.Migration.pas"/>
         <DCCReference Include="Module\General\QueueEmail\DTO\uQueueEmailContact.Input.DTO.pas"/>
         <DCCReference Include="Module\General\QueueEmail\Domain\Entity\uQueueEmail.pas"/>
         <DCCReference Include="Config\uCache.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\SQLBuilder\uPosPrinter.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Mapper\uPosPrinter.Mapper.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\UseCase\uPosPrinter.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\UseCase\uPosPrinter.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\SQLBuilder\uPosPrinter.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Repository\uPosPrinter.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Repository\uPosPrinter.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Filter\uPosPrinter.Filter.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\DTO\uPosPrinter.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\DTO\uPosPrinter.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\DTO\uPosPrinter.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Domain\Entity\uPosPrinter.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Controller\uPosPrinter.Controller.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_05_21_12_46_CreatePosPrinterTable.Migration.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Domain\Types\uPosPrinter.Types.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\UseCase\uPosPrinter.SendPrintTestToQueue.UseCase.pas"/>
+        <DCCReference Include="Config\TaskScheduler\Tasks\uPrintContentListAtPosPrinter.Task.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\UseCase\uPosPrinter.PrintContent.UseCase.pas"/>
+        <DCCReference Include="Module\General\PosPrinter\Domain\Entity\uPosPrinterContent.pas"/>
+        <DCCReference Include="Module\Business\Sale\UseCase\uSale.SendPrintTicketToQueue.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\Controller\uGlobalConfig.Controller.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\UseCase\uGlobalConfig.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\UseCase\uGlobalConfig.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\SQLBuilder\uGlobalConfig.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\SQLBuilder\uGlobalConfig.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\Mapper\uGlobalConfig.Mapper.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\Repository\uGlobalConfig.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\Repository\uGlobalConfig.Repository.SQL.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\Filter\uGlobalConfig.Filter.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\DTO\uGlobalConfig.Input.DTO.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\DTO\uGlobalConfig.Show.DTO.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\DTO\uGlobalConfig.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\GlobalConfig\Domain\Entity\uGlobalConfig.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_06_04_15_39_CreateGlobalConfigTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_06_04_15_57_GlobalConfig.Seeder.pas"/>
+        <DCCReference Include="Module\General\Consumption\DTO\uConsumptionSale.Filter.DTO.pas"/>
+        <DCCReference Include="Module\General\Consumption\Domain\Types\uConsumption.Types.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\Mapper\uPriceList.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\SQLBuilder\uPriceList.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\UseCase\uPriceList.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\UseCase\uPriceList.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\Repository\uPriceList.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\SQLBuilder\uPriceList.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\Repository\uPriceList.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\Filter\uPriceList.Filter.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\DTO\uPriceList.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\DTO\uPriceList.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\DTO\uPriceList.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\Domain\Entity\uPriceList.pas"/>
+        <DCCReference Include="Module\Stock\PriceList\Controller\uPriceList.Controller.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_06_11_10_17_CreatePriceListTable.Migration.pas"/>
+        <DCCReference Include="Config\Seeders\u2023_06_11_10_22_PriceList.Seeder.pas"/>
+        <DCCReference Include="Module\Stock\Product\DTO\uProductPriceList.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Product\DTO\uProductPriceList.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Product\Domain\Entity\uProductPriceList.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_02_13_18_27_CreateProductPriceListTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Controller\uAdditional.Controller.pas"/>
+        <DCCReference Include="Module\Stock\Additional\UseCase\uAdditional.Persistence.UseCase.pas"/>
+        <DCCReference Include="Module\Stock\Additional\UseCase\uAdditional.Persistence.UseCase.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Additional\SQLBuilder\uAdditional.SQLBuilder.MySQL.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Repository\uAdditional.Repository.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Repository\uAdditional.Repository.SQL.pas"/>
+        <DCCReference Include="Module\Stock\Additional\SQLBuilder\uAdditional.SQLBuilder.Interfaces.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Filter\uAdditional.Filter.pas"/>
+        <DCCReference Include="Module\Stock\Additional\DTO\uAdditional.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Mapper\uAdditional.Mapper.pas"/>
+        <DCCReference Include="Module\Stock\Additional\DTO\uAdditional.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Additional\DTO\uAdditional.Filter.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Domain\Entity\uAdditional.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_06_11_22_54_CreateAdditionalTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Domain\Types\uAdditional.Types.pas"/>
+        <DCCReference Include="Config\Migrations\u2023_06_13_22_54_CreateAdditionalProductTable.Migration.pas"/>
+        <DCCReference Include="Module\Stock\Additional\DTO\uAdditionalProduct.Input.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Additional\DTO\uAdditionalProduct.Show.DTO.pas"/>
+        <DCCReference Include="Module\Stock\Additional\Domain\Entity\uAdditionalProduct.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

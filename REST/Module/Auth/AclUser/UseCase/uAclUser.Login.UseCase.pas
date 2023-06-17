@@ -8,7 +8,7 @@ uses
 
 type
   IAclUserLoginUseCase = Interface
-    ['{F43E4E7F-1782-49BA-AFE6-254DDAFB697B}']
+    ['{D1F37F46-2310-421E-BFF4-E87F435684EF}']
     function Execute(ALogin, ALoginPassword: String): TAclUser;
   End;
 

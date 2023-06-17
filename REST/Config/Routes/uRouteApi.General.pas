@@ -13,9 +13,11 @@ type
 implementation
 
 uses
+  uGlobalConfig.Controller,
+  uPosPrinter.Controller,
   uQueueEmail.Controller,
   uCity.Controller,
-  uCompany.Controller,
+  uTenant.Controller,
   uPerson.Controller,
   uConsumption.Controller,
   uStation.Controller,
@@ -27,9 +29,11 @@ class procedure TRouteApiGeneral.Registry;
 begin
   With THorseGBSwaggerRegister do
   begin
+    RegisterPath(TGlobalConfigController);
+    RegisterPath(TPosPrinterController);
     RegisterPath(TQueueEmailController);
     RegisterPath(TCityController);
-    RegisterPath(TCompanyController);
+    RegisterPath(TTenantController);
     RegisterPath(TPersonController);
     RegisterPath(TConsumptionController);
     RegisterPath(TStationController);

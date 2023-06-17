@@ -8,7 +8,7 @@ uses
 
 type
   IUnitRepository = interface(IBaseRepository)
-    ['{449D8855-F377-4BCB-842E-93D3F9AFA6FB}']
+    ['{CE543FFF-185B-4B33-AC5F-A46A4A8E955F}']
     function Show(AId: Int64): TUnit;
   end;
 

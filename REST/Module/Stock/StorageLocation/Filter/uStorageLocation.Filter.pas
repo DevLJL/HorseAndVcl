@@ -7,7 +7,7 @@ uses
 
 type
   IStorageLocationFilter = Interface(IFilter)
-    ['{3280A23B-E4FF-446E-8F0F-E1572F74043E}']
+    ['{28DDBD01-9433-4928-A789-B6A7CF1C8C7B}']
   End;
 
   TStorageLocationFilter = class(TFilter, IStorageLocationFilter)

@@ -8,7 +8,7 @@ uses
 
 type
   ISizeRepository = interface(IBaseRepository)
-    ['{D5C6C274-8D0F-4764-89FF-28890B2C0855}']
+    ['{6195B320-A2FA-4077-9F75-B1D388889B69}']
     function Show(AId: Int64): TSize;
   end;
 

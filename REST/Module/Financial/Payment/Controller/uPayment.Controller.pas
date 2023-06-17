@@ -77,7 +77,9 @@ uses
   System.SysUtils,
   uTrans,
   uCache,
-  XSuperObject;
+  XSuperObject,
+  uMyClaims,
+  uEither;
 
 const
   LCACHE_MS_TO_EXPIRE     = 3600000; {Expira em 60 minutos}
@@ -95,6 +97,7 @@ end;
 procedure TPaymentController.Delete;
 begin
   const LID = StrInt(FReq.Params['id']);
+  
   FPersistence.Delete(LID);
   Response(FRes).StatusCode(HTTP_NO_CONTENT);
 
@@ -117,11 +120,11 @@ begin
   end;
 
   // Obter FilterDTO
-  const LInput: SH<TPaymentFilterDTO> = TPaymentFilterDTO.FromReq(FReq);
-  SwaggerValidator.Validate(LInput);
+  const LFilter: SH<TPaymentFilterDTO> = TPaymentFilterDTO.FromReq(FReq);
+  SwaggerValidator.Validate(LFilter);
 
   // Efetuar Listagem
-  const LIndexResult = FPersistence.Index(LInput);
+  const LIndexResult = FPersistence.Index(LFilter);
   Response(FRes).Data(LIndexResult.ToSuperObject);
 
   // Armazenar Cache
@@ -133,13 +136,11 @@ procedure TPaymentController.Show;
 begin
   // Obter ID
   const LID = StrInt(FReq.Params['id']);
-
-  // Procurar por ID
-  const LOutput: SH<TPaymentShowDTO> = FPersistence.Show(LID);
+  const LOutput = FPersistence.Show(LID);
 
   // Retorno
-  case Assigned(LOutput.Value) of
-    True:  Response(FRes).Data(LOutput.Value);
+  case Assigned(LOutput) of
+    True:  Response(FRes).Data(LOutput);
     False: Response(FRes).StatusCode(HTTP_NOT_FOUND);
   end;
 end;
@@ -151,7 +152,7 @@ begin
   SwaggerValidator.Validate(LInput);
 
   // Inserir
-  const LUseCaseResult = FPersistence.StoreAndShow(LInput);
+  const LUseCaseResult: Either<String, TPaymentShowDTO> = FPersistence.StoreAndShow(LInput);
   if not LUseCaseResult.Match then
   begin
     Response(FRes).Error(True).Message(LUseCaseResult.Left);
@@ -159,7 +160,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TPaymentShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput).StatusCode(HTTP_CREATED);
 
   // Limpar Cache
@@ -189,7 +190,7 @@ begin
   end;
 
   // Retorno
-  const LOutput: SH<TPaymentShowDTO> = LUseCaseResult.Right;
+  const LOutput = LUseCaseResult.Right;
   Response(FRes).Data(LOutput);
 
   // Limpar Cache

@@ -110,7 +110,7 @@ function TNcmViewModel.FromShowDTO(AInput: TNcmShowDTO): INcmViewModel;
 begin
   Result := Self;
 
-  FNcm.UnsignEvents.FromJson(AInput.AsJSON);
+  FNcm.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

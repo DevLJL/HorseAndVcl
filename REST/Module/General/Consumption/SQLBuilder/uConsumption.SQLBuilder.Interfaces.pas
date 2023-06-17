@@ -9,9 +9,8 @@ uses
 
 type
   IConsumptionSQLBuilder = interface(IBaseSQLBuilder)
-    ['{2C354AB3-1D34-42BE-A627-016D7F4716DF}']
+    ['{84386E9A-60B2-4897-B041-5371C1238E95}']
 
-    function ScriptSeedTable: String;
     function SelectAll: String;
     function SelectAllWithFilter(AFilter: IFilter): TOutPutSelectAlLFilter;
     function DeleteByNumbers(AInitial, AFinal: SmallInt): String;

@@ -12,7 +12,7 @@ uses
 
 type
   IBankAccountService = Interface(IBaseService)
-    ['{32133C5C-1CE2-4221-8FBC-5C0B01DD0E0C}']
+    ['{0AB178F1-7646-4AF4-8CE7-ABF8474798E0}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TBankAccountFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TBankAccountShowDTO;

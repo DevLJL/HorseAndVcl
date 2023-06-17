@@ -12,7 +12,7 @@ uses
 
 type
   IUnitService = Interface(IBaseService)
-    ['{E2413092-1EFD-4EA5-A90C-994A66FAF6E7}']
+    ['{975F0CA2-B5F5-4AFC-94F2-62A21B638B21}']
     function Delete(AId: Int64): Boolean;
     function Index(AFilter: TUnitFilterDTO = nil): Either<String, IIndexResult>;
     function Show(AId: Int64): TUnitShowDTO;

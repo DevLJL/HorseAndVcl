@@ -8,16 +8,28 @@ uses
   uZLConnection.Types;
 
 type
+  {$SCOPEDENUMS ON}
+  TPdvTicketOption = (NoPrint, Print, Optional);
   TENV_VCL = class(TIniFile)
   private
+    // SETS
     procedure SetBaseURI(const Value: String);
     procedure SetLanguage(const Value: String);
     procedure SetLimitPerPage(const Value: Int64);
     procedure SetStationId(const Value: Int64);
-    function  GetBaseURI: String;
-    function  GetLanguage: String;
-    function  GetLimitPerPage: Int64;
-    function  GetStationId: Int64;
+    procedure SetPosPrinterIdDefault(const Value: Int64);
+    procedure SetPosPrinterURI(const Value: String);
+    procedure SetPdvTicketOption(const Value: TPdvTicketOption);
+    procedure SetPdvTicketCopies(const Value: SmallInt);
+    // GETS
+    function GetBaseURI: String;
+    function GetLanguage: String;
+    function GetLimitPerPage: Int64;
+    function GetStationId: Int64;
+    function GetPosPrinterIdDefault: Int64;
+    function GetPosPrinterURI: String;
+    function GetPdvTicketOption: TPdvTicketOption;
+    function GetPdvTicketCopies: SmallInt;
   public
     class function EnvName: String;
     procedure CreateFileIfNotExists;
@@ -26,6 +38,10 @@ type
     property  Language: String read GetLanguage write SetLanguage;
     property  LimitPerPage: Int64 read GetLimitPerPage write SetLimitPerPage;
     property  StationId: Int64 read GetStationId write SetStationId;
+    property  PosPrinterIdDefault: Int64 read GetPosPrinterIdDefault write SetPosPrinterIdDefault;
+    property  PosPrinterURI: String read GetPosPrinterURI write SetPosPrinterURI;
+    property  PdvTicketOption: TPdvTicketOption read GetPdvTicketOption write SetPdvTicketOption;
+    property  PdvTicketCopies: SmallInt read GetPdvTicketCopies write SetPdvTicketCopies;
   end;
 
 var
@@ -46,6 +62,10 @@ begin
   begin
     SetBaseURI('http://localhost:9123/api/v1');
     SetLanguage('PT-BR');
+    SetLimitPerPage(150);
+    SetStationId(1);
+    SetPosPrinterIdDefault(1);
+    SetPdvTicketOption(TPdvTicketOption.NoPrint);
   end;
 end;
 
@@ -68,14 +88,36 @@ begin
   Result := ReadInt64(SECTION_PREFIX+'GENERAL','LIMIT_PER_PAGE', 50);
 end;
 
+function TENV_VCL.GetPosPrinterURI: String;
+begin
+  Result := ReadString(SECTION_PREFIX+'GENERAL','POS_PRINTER_URI', '');
+  if Result.Trim.IsEmpty then
+    Result := GetBaseURI;
+end;
+
 function TENV_VCL.GetStationId: Int64;
 begin
-  Result := ReadInt64(SECTION_PREFIX+'GENERAL','STATION_ID', 50);
+  Result := ReadInt64(SECTION_PREFIX+'GENERAL','STATION_ID', 1);
 end;
 
 function TENV_VCL.GetBaseURI: String;
 begin
   Result := ReadString(SECTION_PREFIX+'GENERAL','BASE_URI','');
+end;
+
+function TENV_VCL.GetPdvTicketCopies: SmallInt;
+begin
+  Result := ReadInteger(SECTION_PREFIX+'GENERAL','PDV_TICKET_COPIES',1);
+end;
+
+function TENV_VCL.GetPdvTicketOption: TPdvTicketOption;
+begin
+  Result := TPdvTicketOption(ReadInteger(SECTION_PREFIX+'GENERAL','PDV_TICKET_OPTION',0));
+end;
+
+function TENV_VCL.GetPosPrinterIdDefault: Int64;
+begin
+  Result := ReadInteger(SECTION_PREFIX+'GENERAL','POS_PRINTER_ID_DEFAULT',0);
 end;
 
 procedure TENV_VCL.SetLanguage(const Value: String);
@@ -88,6 +130,11 @@ begin
   WriteInt64(SECTION_PREFIX+'GENERAL','LIMIT_PER_PAGE',Value);
 end;
 
+procedure TENV_VCL.SetPosPrinterURI(const Value: String);
+begin
+  WriteString(SECTION_PREFIX+'GENERAL','POS_PRINTER_URI',Value);
+end;
+
 procedure TENV_VCL.SetStationId(const Value: Int64);
 begin
   WriteInt64(SECTION_PREFIX+'GENERAL','STATION_ID',Value);
@@ -96,6 +143,21 @@ end;
 procedure TENV_VCL.SetBaseURI(const Value: String);
 begin
   WriteString(SECTION_PREFIX+'GENERAL','BASE_URI',Value);
+end;
+
+procedure TENV_VCL.SetPdvTicketCopies(const Value: SmallInt);
+begin
+  WriteInteger(SECTION_PREFIX+'GENERAL','PDV_TICKET_COPIES',Value);
+end;
+
+procedure TENV_VCL.SetPdvTicketOption(const Value: TPdvTicketOption);
+begin
+  WriteInteger(SECTION_PREFIX+'GENERAL','PDV_TICKET_OPTION',Ord(Value));
+end;
+
+procedure TENV_VCL.SetPosPrinterIdDefault(const Value: Int64);
+begin
+  WriteInteger(SECTION_PREFIX+'GENERAL','POS_PRINTER_ID_DEFAULT',Value);
 end;
 
 initialization

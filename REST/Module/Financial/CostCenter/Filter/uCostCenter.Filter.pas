@@ -7,7 +7,7 @@ uses
 
 type
   ICostCenterFilter = Interface(IFilter)
-    ['{6DFD1CFC-3798-4C59-8AE4-A71390E89CF3}']
+    ['{30A69FC6-7823-4249-804E-A694077E16F1}']
   End;
 
   TCostCenterFilter = class(TFilter, ICostCenterFilter)

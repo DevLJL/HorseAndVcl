@@ -8,7 +8,7 @@ uses
 
 type
   ISalePdfReportUseCase = Interface
-    ['{B21B8410-A27F-4232-B671-AEF87914325E}']
+    ['{761E2080-9E8A-4801-8ABB-E8CB2140F062}']
     function Execute(AId: Int64): IOutPutFileStream;
   End;
 

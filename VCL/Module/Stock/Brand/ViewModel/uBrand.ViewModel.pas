@@ -101,7 +101,7 @@ function TBrandViewModel.FromShowDTO(AInput: TBrandShowDTO): IBrandViewModel;
 begin
   Result := Self;
 
-  FBrand.UnsignEvents.FromJson(AInput.AsJSON);
+  FBrand.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

@@ -10,7 +10,7 @@ uses
 
 type
   ICostCenterViewModel = Interface(IBaseViewModel)
-    ['{7AB49534-A5F6-43ED-B1F2-1B6EB242425F}']
+    ['{BB384CFF-0449-470B-AF9B-609CA7B4A7D5}']
     function  FromShowDTO(AInput: TCostCenterShowDTO): ICostCenterViewModel;
     function  ToInputDTO: TCostCenterInputDTO;
     function  EmptyDataSets: ICostCenterViewModel;

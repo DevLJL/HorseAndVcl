@@ -4,7 +4,8 @@ interface
 
 uses
   uBase.Entity,
-  uAclRole;
+  uAclRole,
+  System.SysUtils;
 
 type
   TAclUser = class(TBaseEntity)
@@ -19,6 +20,7 @@ type
     Flast_expiration: TDateTime;
     Fseller_id: Int64;
     Facl_role: TAclRole;
+    Fseller_name: String;
   public
     constructor Create;
     destructor Destroy; override;
@@ -30,6 +32,7 @@ type
     property acl_role_id: Int64 read Facl_role_id write Facl_role_id;
     property is_superuser: SmallInt read Fis_superuser write Fis_superuser;
     property seller_id: Int64 read Fseller_id write Fseller_id;
+    property seller_name: String read Fseller_name write Fseller_name;
     property last_token: string read Flast_token write Flast_token;
     property last_expiration: TDateTime read Flast_expiration write Flast_expiration;
     property acl_role: TAclRole read Facl_role write Facl_role;

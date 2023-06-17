@@ -46,7 +46,7 @@ begin
   FConsumption := TMemTableFactory.Make
     .AddField('id',                       ftLargeint)
     .AddField('number',                   ftSmallint)
-    .AddField('flg_active',                ftSmallint)
+    .AddField('flg_active',               ftSmallint)
     .AddField('created_at',               ftDateTime)
     .AddField('updated_at',               ftDateTime)
     .AddField('created_by_acl_user_id',   ftLargeint)
@@ -103,7 +103,7 @@ function TConsumptionViewModel.FromShowDTO(AInput: TConsumptionShowDTO): IConsum
 begin
   Result := Self;
 
-  FConsumption.UnsignEvents.FromJson(AInput.AsJSON);
+  FConsumption.EmptyDataSet.UnsignEvents.FromJson(AInput.AsJSON);
   SetEvents;
 end;
 

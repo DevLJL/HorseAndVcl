@@ -16,7 +16,7 @@ type
   end;
 
   ISaleRepository = interface(IBaseRepository)
-    ['{8F4C18F5-1A37-4FE4-A89A-D95854B41CB7}']
+    ['{ACA70BF9-A68D-4830-B55C-4C6C3FDB934B}']
     function Show(AId: Int64): TSale;
     function DataForReport(ASaleId: Int64): TDataForReportOutput;
     function ChangeStatus(ASaleId: Int64; AStatus: TSaleStatus): Boolean;

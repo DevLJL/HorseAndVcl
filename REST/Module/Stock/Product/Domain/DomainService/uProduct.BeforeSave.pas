@@ -8,7 +8,7 @@ uses
 
 type
   IProductBeforeSave = Interface
-    ['{0EB17DE3-DF7E-43BE-8774-8D98879AF631}']
+    ['{1160EFDF-798D-4B61-A1D0-8078D4B61DAD}']
     function Execute: IProductBeforeSave;
   end;
 

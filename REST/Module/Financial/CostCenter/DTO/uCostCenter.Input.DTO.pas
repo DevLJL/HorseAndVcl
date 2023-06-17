@@ -50,7 +50,7 @@ begin
     raise Exception.Create('Nenhum JSON informado!');
 
   Result             := TCostCenterInputDTO.FromJSON(AReq.Body);
-  Result.acl_user_id := StrInt(AReq.Session<TMyClaims>.Id);
+  Result.acl_user_id := AReq.Session<TMyClaims>.IdToInt64;
 end;
 {$ENDIF}
 

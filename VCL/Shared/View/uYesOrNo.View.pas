@@ -91,7 +91,7 @@ end;
 
 procedure TYesOrNoView.FormShow(Sender: TObject);
 begin
-  createTransparentBackground(Self);
+  CreateDarkBackground(Self);
 end;
 
 end.
