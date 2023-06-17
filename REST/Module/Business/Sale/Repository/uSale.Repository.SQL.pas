@@ -57,6 +57,7 @@ end;
 
 function TSaleRepositorySQL.ChangeStatus(ASaleId: Int64; AStatus: TSaleStatus): Boolean;
 begin
+  // Precisa refatorar, esse código precisa estar em SQLBuilder e ser chamado aqui
   FConn.MakeQry.ExecSQL(Format('update sale set sale.status = %s where sale.id = %s', [
     Ord(AStatus).ToString,
     ASaleId.ToString
